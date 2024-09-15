@@ -40,7 +40,11 @@ function TestRow({ test, index, date }) {
             <MdChevronLeft />
           </div>
           <span className="text-dark_text/60">•</span>
-          <span className="text-text ">
+          <span
+            className="text-text "
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content={"سعر الوحدة : " + test.price}
+          >
             التكلفة: {numberWithCommas(test.price * test.units)} ل.س
           </span>
         </div>

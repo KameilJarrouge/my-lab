@@ -84,7 +84,11 @@ function TestTemplateCard({
             </span>
             <MdChevronLeft />
           </div>
-          <span className="text-text ">
+          <span
+            className="text-text "
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content={"سعر الوحدة : " + unitPrice}
+          >
             التكلفة: {numberWithCommas(unitPrice * test.test.units)} ل.س
           </span>
         </div>
