@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./data.db"
+}
+
+model Settings {
+  id        Int     @id @default(autoincrement())
+  unitPrice Decimal
+  units     String
+  location  String?
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  password String
+}
+
+model Patient {
+  id        Int      @id @default(autoincrement())
+  name      String
+  age       Int?
+  sex       String?
+  notes     String?
+  createdAt DateTime @default(now())
+  visits    Visit[]
+}
+
+model Doctor {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  Visit     Visit[]
+}
+
+model Visit {
+  id        Int         @id @default(autoincrement())
+  date      DateTime    @default(now())
+  tests     VisitTest[]
+  Patient   Patient?    @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId Int?
+  doctor    Doctor      @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  doctorId  Int
+}
+
+model VisitTest {
+  id       Int     @id @default(autoincrement())
+  units    Decimal
+  price    Decimal
+  template String // JSON (with values)
+  Visit    Visit?  @relation(fields: [visitId], references: [id], onDelete: Cascade)
+  visitId  Int?
+  Test     Test?   @relation(fields: [testId], references: [id], onDelete: Cascade)
+  testId   Int?
+}
+
+model Test {
+  id             Int          @id @default(autoincrement())
+  name           String
+  units          Decimal
+  category       TestCategory @relation(fields: [testCategoryId], references: [id], onDelete: Cascade)
+  testCategoryId Int
+  template       String // JSON 
+  visits         VisitTest[]
+}
+
+model TestCategory {
+  id   Int    @id @default(autoincrement())
+  name String
+  Test Test[]
+}
