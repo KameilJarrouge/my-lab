@@ -36,7 +36,7 @@ export async function getVisits(
 ) {
   let conditions = {};
   if (Number(byId) !== -1) {
-    if (!isByTest) {
+    if (!(isByTest === "true")) {
       conditions["tests"] = {
         some: {
           Test: { testCategoryId: Number(byId) },
