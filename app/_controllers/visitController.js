@@ -120,3 +120,23 @@ export async function deleteVisit(id) {
   await prisma.visit.delete({ where: { id: id } });
   return successReturn();
 }
+
+export async function getTodaysVisits() {
+  const result = await prisma.visit.findMany({
+    where: {
+      date: {
+        lte: moment(new Date()).endOf("day").toDate(),
+        gte: moment(new Date()).startOf("day").toDate(),
+      },
+    },
+    include: {
+      _count: {
+        select: { tests: true },
+      },
+      Patient: true,
+      doctor: true,
+    },
+  });
+
+  return successReturn(result);
+}

@@ -1,3 +1,4 @@
+import moment from "moment";
 import { successReturn } from "../_lib/controllerReturnGenerator";
 import prisma from "../_lib/prisma";
 
@@ -57,4 +58,23 @@ export async function getLastVisitTest(testId, patientId, dateInQuestion) {
     orderBy: { Visit: { date: "desc" } },
   });
   return successReturn(result);
+}
+
+export async function getTodaysEarnings() {
+  const result = await prisma.visitTest.findMany({
+    where: {
+      Visit: {
+        date: {
+          lte: moment(new Date()).endOf("day").toDate(),
+          gte: moment(new Date()).startOf("day").toDate(),
+        },
+      },
+    },
+  });
+
+  const totalEarnings = result.reduce((acc, record) => {
+    return acc + record.units * record.price;
+  }, 0);
+
+  return successReturn(totalEarnings);
 }

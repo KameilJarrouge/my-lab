@@ -14,10 +14,12 @@ function ViewResultsModal({ test, isOpen, setIsOpen, date }) {
       uniqueName={"view-result-" + test.id}
     >
       <div className="w-full max-h-[90vh] overflow-y-auto flex flex-col items-center gap-4 py-2 px-4 relative">
-        <Title>{test.Test.name}</Title>
-        <div className="absolute right-[1rem] top-[0.5rem]">
-          {moment(date).format("yyyy-MM-DD")}
+        <div className="w-full flex justify-between">
+          <span className="w-[10ch]">{moment(date).format("yyyy-MM-DD")}</span>
+          <Title>{test.Test.name}</Title>
+          <span className="w-[10ch]"></span>
         </div>
+        <div className="absolute right-[1rem] top-[0.5rem]"></div>
         {template.type === "manual" ? (
           <div>
             <ManualTemplateResult template={template} />
