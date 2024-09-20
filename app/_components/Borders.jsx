@@ -23,7 +23,7 @@ function Borders() {
           </g>
           <g>
             <path
-              d="M 600 150 L 600 0"
+              d="M 600 115 L 600 0"
               fill="none"
               stroke="#000000"
               strokeMiterlimit="10"
@@ -33,7 +33,7 @@ function Borders() {
           </g>
           <g>
             <path
-              d="M 0 150 L 600 150"
+              d="M 0 115 L 600 115"
               fill="none"
               stroke="#000000"
               strokeMiterlimit="10"
@@ -43,7 +43,7 @@ function Borders() {
           </g>
           <g>
             <path
-              d="M 0 150 L 0 100"
+              d="M 0 115 L 0 80"
               fill="none"
               stroke="#000000"
               strokeMiterlimit="10"
@@ -53,7 +53,7 @@ function Borders() {
           </g>
           <g>
             <path
-              d="M 0 100 L 400 100"
+              d="M 0 80 L 400 80"
               fill="none"
               stroke="#000000"
               strokeMiterlimit="10"

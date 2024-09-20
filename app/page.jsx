@@ -35,7 +35,6 @@ export default function Home() {
       console.error("Something went wrong while fetching today's visits");
       return;
     }
-    console.log(result.data.result);
     setTodayVisits(result.data.result);
   };
 

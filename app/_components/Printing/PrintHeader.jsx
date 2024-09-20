@@ -9,10 +9,10 @@ function PrintHeader({
   date = new Date(),
 }) {
   return (
-    <div className="h-[73mm]  w-full relative">
+    <header className="h-[60mm]  w-[200mm] absolute  top-[5mm] left-[5mm] z-50 bg-white">
       <img
         src="/SCLA_BASHAR.png"
-        className="absolute left-[5mm] top-0 w-[60mm] h-fit z-10 rounded-full bg-white"
+        className="absolute left-[5mm] top-0 w-[50mm] h-fit z-10 rounded-full bg-white"
       />
 
       <div className="w-full h-full">
@@ -26,21 +26,19 @@ function PrintHeader({
             {" "}
             مـخبـر الدكتور بشــار جـروج
           </span>
-          <span className="text-3xl px-[46mm] pt-[2mm] font-bold text-light_primary">
+          <span className="text-3xl px-[46mm]  font-bold text-light_primary">
             للتحاليــل الطبيــة
           </span>
-          <span className="text-xl px-[5mm] text-black pt-[5mm]">
+          <span className="text-xl px-[5mm] text-black ">
             دكتور في الطب البشري - اخصائي في التشخيص المخبري
           </span>
-          <span className="text-lg px-[4mm] text-black pt-[3mm]">
-            {location}
-          </span>
-          <div className="w-full flex items-center justify-between border-b border-b-black mt-1 pb-1 pt-1">
+          <span className="text-lg px-[4mm] text-black ">{location}</span>
+          <div className="w-full flex items-center justify-between border-b border-b-black  pb-1 ">
             <div className="flex items-center gap-2 w-1/3 justify-start">
               <span className="font-semibold">الاسم :</span>
               <span>
                 {" "}
-                السيد {(patientSex !== "male" ? "ة" : "") + patientName}
+                السيد{(patientSex !== "male" ? "ة " : " ") + patientName}
               </span>
             </div>
             <div className="flex items-center gap-2 w-1/3 justify-center">
@@ -58,7 +56,7 @@ function PrintHeader({
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 }
 

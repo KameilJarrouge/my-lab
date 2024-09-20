@@ -7,6 +7,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      display: [
+        "group-hover",
+        "group-focus",
+        "table-header-group",
+        "table-row-group",
+      ],
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -52,6 +58,16 @@ module.exports = {
         text: "#CCCCCC",
         light_text: "#ffffff",
         dark_text: "#B2B2B2",
+      },
+    },
+    variants: {
+      extend: {
+        display: ["print"],
+        position: ["print"],
+        top: ["print"],
+        width: ["print"],
+        backgroundColor: ["print"],
+        zIndex: ["print"],
       },
     },
   },

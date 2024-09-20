@@ -56,18 +56,3 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
-
-@media print {
-  .print-header {
-    @apply block fixed top-0 w-full bg-white text-center border-b border-black;
-  }
-
-  .print-content {
-    @apply mt-24; /* Adjust based on header height */
-    page-break-before: always;
-  }
-
-  @page {
-    margin: 20mm;
-  }
-}

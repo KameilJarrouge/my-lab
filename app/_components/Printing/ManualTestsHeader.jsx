@@ -1,10 +1,13 @@
 import React from "react";
 
-function TestsHeader({ categoryName = "Test", children }) {
+function ManualTestsHeader({ categoryName = "Test", id }) {
   return (
-    <div className="flex flex-col gap-6 w-full items-center">
+    <div
+      className="flex flex-col  w-full items-center pt-[4mm] "
+      id={"manual-test-header-" + id}
+    >
       {/* Category Title */}
-      <span className="w-fit min-w-[50%] border-b text-center font-bold text-lg shadow shadow-black">
+      <span className="w-fit min-w-[50%] border-b text-center font-bold text-lg shadow shadow-black mb-[0.5rem]">
         {categoryName}
       </span>
 
@@ -30,11 +33,9 @@ function TestsHeader({ categoryName = "Test", children }) {
             Last Test
           </span>
         </div>
-        {/* Test Rows */}
-        <div className="flex flex-col gap-2">{children}</div>
       </div>
     </div>
   );
 }
 
-export default TestsHeader;
+export default ManualTestsHeader;

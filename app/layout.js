@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="ar" dir="rtl">
       <body
         className={
-          "bg-primary text-text w-[100vw] h-[100vh] overflow-y-visible overflow-x-hidden "
+          "bg-primary text-text w-[100vw] h-[100vh] overflow-y-visible overflow-x-hidden"
         }
         id="body"
       >

@@ -23,6 +23,27 @@ export async function getVisit(id) {
   });
   return successReturn(result);
 }
+export async function getVisitForPrinting(id) {
+  const result = await prisma.visit.findUnique({
+    where: {
+      id: id,
+    },
+    include: {
+      doctor: true,
+      Patient: true,
+      tests: {
+        include: {
+          Test: {
+            include: {
+              category: true,
+            },
+          },
+        },
+      },
+    },
+  });
+  return successReturn(result);
+}
 
 export async function getVisits(
   patientId,
