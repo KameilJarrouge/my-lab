@@ -7,14 +7,14 @@ import PrintHeader from "@/app/_components/Printing/PrintHeader";
 import StaticTemplatePrint from "@/app/_components/Printing/StaticTemplatePrint";
 import StaticTestHeader from "@/app/_components/Printing/StaticTestHeader";
 import api from "@/app/_lib/api";
+import moment from "moment";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 function PrintPage({ params }) {
-  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(true);
-  const [visit, setVisit] = useState({});
+  const [visit, setVisit] = useState();
   const [testsGroupedByCategory, setTestsGroupedByCategory] = useState([]);
   const [pages, setPages] = useState([]);
   const [isCalculating, setIsCalculating] = useState(true);
@@ -226,6 +226,13 @@ function PrintPage({ params }) {
   useEffect(() => {
     getVisit();
   }, []);
+
+  useEffect(() => {
+    if (visit)
+      document.title = `${moment(visit.date).format("yyyy-MM-DD")} _ ${
+        visit.Patient.name
+      }`;
+  }, [visit]);
 
   useEffect(() => {
     if (testsGroupedByCategory.length !== 0) {
