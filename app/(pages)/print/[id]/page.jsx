@@ -1,11 +1,11 @@
 "use client";
+import LoadingComponent from "@/app/_components/LoadingComponent";
 import ManualTemplatePrint from "@/app/_components/Printing/ManualTemplatePrint";
 import ManualTestsHeader from "@/app/_components/Printing/ManualTestsHeader";
 import Page from "@/app/_components/Printing/Page";
 import PrintHeader from "@/app/_components/Printing/PrintHeader";
 import StaticTemplatePrint from "@/app/_components/Printing/StaticTemplatePrint";
 import StaticTestHeader from "@/app/_components/Printing/StaticTestHeader";
-import { categoriesWithTests } from "@/app/_controllers/testCategoryController";
 import api from "@/app/_lib/api";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -21,7 +21,6 @@ function PrintPage({ params }) {
   const getVisit = async () => {
     setIsLoading(true);
     const result = await api.get(`/visits/${params.id}/for-printing`);
-    setIsLoading(false);
     if (!result.data.success) {
       toast.error("Check the Console!");
       console.error("Something went wrong while fetching visit for printing");
@@ -68,15 +67,39 @@ function PrintPage({ params }) {
     ];
 
     // TODO: sort the categorizedTestsArray by the position value in the visit-test template
-    // categorizedTestsArray = [
-    //   categorizedTestsArray[0],
-    //   categorizedTestsArray[2],
-    //   categorizedTestsArray[3],
-    //   categorizedTestsArray[1],
-    // ];
-    console.log(categorizedTestsArray);
+    let shouldSort = false;
+    if (categorizedTestsArray.length !== 0) {
+      if (Array.isArray(categorizedTestsArray[0].visitTest)) {
+        if (
+          categorizedTestsArray[0].visitTest[0].template.hasOwnProperty(
+            "position"
+          )
+        ) {
+          shouldSort = true;
+        }
+      } else {
+        if (
+          categorizedTestsArray[0].visitTest.template.hasOwnProperty("position")
+        ) {
+          shouldSort = true;
+        }
+      }
+    }
+    if (shouldSort) {
+      categorizedTestsArray.sort((a, b) => {
+        let aValue = Array.isArray(a.visitTest)
+          ? a.visitTest[0].template.position
+          : a.visitTest.template.position;
+        let bValue = Array.isArray(b.visitTest)
+          ? b.visitTest[0].template.position
+          : b.visitTest.template.position;
+        return bValue - aValue;
+      });
+    }
+
     setTestsGroupedByCategory(categorizedTestsArray);
     setVisit(result.data.result);
+    setIsLoading(false);
   };
 
   const sectioning = () => {
@@ -84,6 +107,7 @@ function PrintPage({ params }) {
     let visitTestsLeft = [...testsGroupedByCategory];
     let indexCount = 0;
     let readingIndex = 0;
+    setIsLoading(true);
 
     while (visitTestsLeft.length !== 0) {
       const firstGroupedTest = visitTestsLeft.shift();
@@ -190,11 +214,12 @@ function PrintPage({ params }) {
         }
       }
       if (!firstGroupedTest.hasOwnProperty("readingIndex")) {
-        console.log("incrementing reading index");
         readingIndex++;
       }
     }
     setIsCalculating(false);
+    setIsLoading(false);
+
     return pages;
   };
 
@@ -205,13 +230,11 @@ function PrintPage({ params }) {
   useEffect(() => {
     if (testsGroupedByCategory.length !== 0) {
       const pages = sectioning();
-      console.log(pages);
       setPages(pages);
     }
   }, testsGroupedByCategory);
 
   const pxTomm = function (elementId) {
-    console.log(elementId);
     return (
       document.getElementById(elementId).getBoundingClientRect().height /
       (document.getElementById("my_mm").getBoundingClientRect().height / 100)
@@ -223,6 +246,11 @@ function PrintPage({ params }) {
       id="main-print-div"
       className=" w-[210mm] h-fit text-black flex flex-col items-center relative"
     >
+      {isLoading && (
+        <div className="w-full h-[100vh] absolute top-0 left-0 z-50">
+          <LoadingComponent loading={isLoading} />
+        </div>
+      )}
       <div
         id="my_mm"
         className="h-[100mm] w-[1px] invisible absolute top-0 left-0"
