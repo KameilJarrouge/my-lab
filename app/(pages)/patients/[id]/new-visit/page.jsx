@@ -4,7 +4,7 @@ import TestTemplateCard from "@/app/_components/Cards/TestTemplateCard";
 import AutoCompleteInput from "@/app/_components/Inputs/AutoCompleteInput";
 import LoadingComponent from "@/app/_components/LoadingComponent";
 import NewTestMenu from "@/app/_components/Menus/NewTestMenu";
-import PreviewPrint from "@/app/_components/Modals/PreviewPrint";
+// import PreviewPrint from "@/app/_components/Modals/PreviewPrint";
 import ManualTemplateInput from "@/app/_components/TemplateInputs/ManualTemplateInput";
 import StaticTemplateInput from "@/app/_components/TemplateInputs/StaticTemplateInput";
 import api from "@/app/_lib/api";
@@ -25,7 +25,9 @@ function NewVisit({ params }) {
   const [tests, setTests] = useState([]);
   const [unitPrice, setUnitPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  // const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [location, setLocation] = useState();
+  const [uniqueNumbering, setUniqueNumbering] = useState(0);
   const router = useRouter();
 
   const getUnitPrice = async () => {
@@ -40,6 +42,7 @@ function NewVisit({ params }) {
       );
       return;
     }
+    setLocation(result.data.result.location);
     setUnitPrice(result.data.result.unitPrice);
   };
 
@@ -103,6 +106,9 @@ function NewVisit({ params }) {
 
     // Prep tests data for creating visitTests
     const visitTestsData = tests.map((testItem) => {
+      if (!testItem.test.template.hasOwnProperty("position")) {
+        testItem.test.template.position = Infinity;
+      }
       return {
         units: testItem.test.units,
         price: unitPrice,
@@ -125,7 +131,7 @@ function NewVisit({ params }) {
     }
 
     toast("تم إضافة زيارة جديدة");
-    router.push(`/patients/${params.id}`);
+    router.push(`/visits/${newVisitResult.data.result.id}/update`);
   };
 
   const addTest = (newTest) => {
@@ -193,13 +199,17 @@ function NewVisit({ params }) {
       className="w-full h-full 
       flex flex-col gap-4"
     >
-      <PreviewPrint
-        isOpen={isPreviewOpen}
-        setIsOpen={setIsPreviewOpen}
-        tests={tests}
-        patient={patient}
-        date={createdAt}
-      />
+      {/* {isPreviewOpen && (
+        <PreviewPrint
+          isOpen={isPreviewOpen}
+          setIsOpen={setIsPreviewOpen}
+          tests={tests}
+          patient={patient}
+          date={createdAt}
+          location={location}
+          doctor={doctor}
+        />
+      )} */}
       {isLoading && (
         <div className="w-full h-full absolute top-0 left-0 z-50">
           <LoadingComponent loading={isLoading} />
@@ -249,15 +259,20 @@ function NewVisit({ params }) {
           </span>
         </div>
         <div className="flex gap-2 items-center">
-          <AuthButton
-            title="معاينة الطباعة"
+          {/* <AuthButton
+            title="إعدادات الطباعة"
             onClick={() => setIsPreviewOpen(true)}
-          />
+          /> */}
           <AuthButton title="حفظ الزيارة" onClick={submitVisit} />
         </div>
       </div>
       {/* New Test */}
-      <NewTestMenu setIsLoading={setIsLoading} setNewTest={addTest} />
+      <NewTestMenu
+        setIsLoading={setIsLoading}
+        setNewTest={addTest}
+        setUniqueNumbering={setUniqueNumbering}
+        uniqueNumbering={uniqueNumbering}
+      />
 
       {/* Tests */}
       <div className="w-full h-fit flex flex-col items-center gap-3 px-3 pb-2  overflow-y-auto overflow-x-hidden">

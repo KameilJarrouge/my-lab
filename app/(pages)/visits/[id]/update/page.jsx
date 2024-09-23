@@ -4,7 +4,6 @@ import TestTemplateCardUpdate from "@/app/_components/Cards/TestTemplateCardUpda
 import AutoCompleteInput from "@/app/_components/Inputs/AutoCompleteInput";
 import LoadingComponent from "@/app/_components/LoadingComponent";
 import ConfirmModal from "@/app/_components/Modals/ConfirmModal";
-import PreviewPrint from "@/app/_components/Modals/PreviewPrint";
 import ManualTemplateInputUpdate from "@/app/_components/TemplateInputs/ManualTemplateInputUpdate";
 import StaticTemplateInputUpdate from "@/app/_components/TemplateInputs/StaticTemplateInputUpdate";
 import api from "@/app/_lib/api";
@@ -25,7 +24,6 @@ function UpdateVisit({ params }) {
   const [tests, setTests] = useState([]);
   const [unitPrice, setUnitPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [confirmIsOpen, setConfirmIsOpen] = useState(false);
 
   const router = useRouter();
@@ -179,13 +177,7 @@ function UpdateVisit({ params }) {
         message={`هل أنت متأكد من حذف هذه الزيارة؟ لا يمكن التراجع عن هذه العملية!`}
         confirmButtonLabel="حذف"
       />
-      <PreviewPrint
-        isOpen={isPreviewOpen}
-        setIsOpen={setIsPreviewOpen}
-        tests={tests}
-        patient={patient}
-        date={createdAt}
-      />
+
       {isLoading && (
         <div className="w-full h-full absolute top-0 left-0 z-50">
           <LoadingComponent loading={isLoading} />
@@ -244,6 +236,7 @@ function UpdateVisit({ params }) {
             className="text-text hover:text-green-400"
             data-tooltip-id="my-tooltip"
             data-tooltip-content="طباعة"
+            onClick={() => window.open(`/print/${params.id}`, "_blank")}
           >
             <MdPrint className="w-[1.3rem] h-fit" />
           </button>

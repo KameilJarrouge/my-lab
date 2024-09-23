@@ -5,7 +5,12 @@ import AutoCompleteSelect from "../Inputs/AutoCompleteSelection";
 import AuthButton from "../Buttons/AuthButton";
 import { toast } from "react-toastify";
 
-function NewTestMenu({ setIsLoading, setNewTest }) {
+function NewTestMenu({
+  setIsLoading,
+  setNewTest,
+  uniqueNumbering,
+  setUniqueNumbering,
+}) {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState();
   const [test, setTest] = useState();
@@ -36,14 +41,16 @@ function NewTestMenu({ setIsLoading, setNewTest }) {
   const addNewTest = () => {
     if (category !== undefined && test !== undefined) {
       const newTest = {
+        id: uniqueNumbering,
         category: { id: category.id, name: category.name },
         test: {
           id: test.id,
           name: test.name,
           units: test.units,
-          template: JSON.parse(test.template),
+          template: { ...JSON.parse(test.template), position: Infinity },
         },
       };
+      setUniqueNumbering((value) => ++value);
       setNewTest(newTest);
       setCategory();
       setTest();

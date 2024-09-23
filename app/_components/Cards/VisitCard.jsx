@@ -1,6 +1,6 @@
 "use client";
 import React, { useMemo, useState } from "react";
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { MdChevronLeft, MdChevronRight, MdPrint } from "react-icons/md";
 import AuthButton from "../Buttons/AuthButton";
 import Link from "next/link";
 import moment from "moment";
@@ -47,6 +47,12 @@ function VisitCard({ visit }) {
           <Link href={`/visits/${visit.id}/update`}>
             <AuthButton title="تعديل الزيارة" />
           </Link>
+          <button
+            onClick={() => window.open(`/print/${visit.id}`, "_blank")}
+            className="text-text hover:text-green-400"
+          >
+            <MdPrint className="w-[1.3rem] h-fit" />
+          </button>
           <button
             className=" group"
             onClick={() =>

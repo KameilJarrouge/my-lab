@@ -2,14 +2,15 @@ import React from "react";
 import Borders from "../Borders";
 import moment from "moment";
 function PrintHeader({
-  location = "مصياف - شارع الوراقة - مقابل صيدلية منال الناعمة - هاتف 7719944",
-  patientName = "سعيد ساعود",
-  patientSex = "male",
-  doctorsName = "كميل جروج",
-  date = new Date(),
+  location = "Location",
+  patientName,
+  patientSex,
+  doctorsName,
+  isDoctorShown,
+  date,
 }) {
   return (
-    <header className="h-[60mm]  w-[200mm] absolute  top-[5mm] left-[5mm] z-50 bg-white">
+    <header className="h-[60mm]  w-[200mm] absolute  top-[5mm] left-[5mm] z-[1000] bg-white">
       <img
         src="/SCLA_BASHAR.png"
         className="absolute left-[5mm] top-0 w-[50mm] h-fit z-10 rounded-full bg-white"
@@ -38,11 +39,11 @@ function PrintHeader({
               <span className="font-semibold">الاسم :</span>
               <span>
                 {" "}
-                السيد{(patientSex !== "male" ? "ة " : " ") + patientName}
+                السيد{(patientSex !== "ذكر" ? "ة " : " ") + patientName}
               </span>
             </div>
             <div className="flex items-center gap-2 w-1/3 justify-center">
-              {doctorsName !== "" && (
+              {isDoctorShown && (
                 <>
                   <span className="font-semibold">الدكتور :</span>
                   <span>{doctorsName}</span>

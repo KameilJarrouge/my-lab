@@ -2,7 +2,7 @@ import React from "react";
 import UrinalysisTemplatePrint from "./PresetTemplates/UrinalysisTemplatePrint";
 import HematologyCoagulationTemplatePrint from "./PresetTemplates/HematologyCoagulationTemplatePrint";
 
-function StaticTemplatePrint({ id, visitTest }) {
+function StaticTemplatePrint({ id, template }) {
   return (
     <div
       className="flex flex-col gap-6 w-full items-center pt-[2mm]"
@@ -11,12 +11,12 @@ function StaticTemplatePrint({ id, visitTest }) {
       {
         {
           "تحليل البول Urinalysis": (
-            <UrinalysisTemplatePrint template={visitTest.template} />
+            <UrinalysisTemplatePrint template={template} />
           ),
           "Hematology - Coagulation": (
-            <HematologyCoagulationTemplatePrint template={visitTest.template} />
+            <HematologyCoagulationTemplatePrint template={template} />
           ),
-        }[visitTest.template.staticTemplate]
+        }[template.staticTemplate]
       }
     </div>
   );

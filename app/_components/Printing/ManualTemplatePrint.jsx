@@ -1,7 +1,18 @@
 import moment from "moment";
 import React from "react";
 
-function ManualTemplatePrint({ id, catId, visitTest }) {
+function ManualTemplatePrint({
+  id,
+  catId,
+  testName,
+  resultValue,
+  min,
+  max,
+  referenceRange,
+  unit,
+  lastTestResult,
+  lastTestDate,
+}) {
   return (
     <div
       id={"manual-template-print-cat-" + catId + "-test-" + id}
@@ -9,32 +20,29 @@ function ManualTemplatePrint({ id, catId, visitTest }) {
       dir="ltr"
     >
       <span className="text-wrap text-start col-span-3 font-semibold">
-        {visitTest.Test.name}
+        {testName}
       </span>
       <span className="text-center col-span-2 shadow-sm shadow-black self-start">
-        {Number(visitTest.template.result.value) +
-          (Number(visitTest.template.result.value) > visitTest.template.data.min
-            ? Number(visitTest.template.result.value) <
-              visitTest.template.data.max
+        {Number(resultValue) +
+          (Number(resultValue) > min
+            ? Number(resultValue) < max
               ? ""
               : " H"
             : " L")}
       </span>
       <div className="flex flex-col gap-1 items-center col-span-3">
-        {visitTest.template.data.referenceRange
+        {referenceRange
           .split("\n")
           .filter((line) => line !== "")
           .map((line, index) => (
             <span key={index}>{line}</span>
           ))}
       </div>
-      <span className="col-span-2 text-center">
-        {visitTest.template.data.unit}
-      </span>
+      <span className="col-span-2 text-center">{unit}</span>
       <div className="col-span-2 flex gap-1  justify-center" dir="ltr">
-        <span>{visitTest.lastTestResult || "-"}</span>
+        <span>{lastTestResult || "-"}</span>
         <span className="text-sm">
-          ({moment(visitTest.lastTestDate || new Date()).format("yyyy-MM-DD")})
+          ({moment(lastTestDate || new Date()).format("yyyy-MM-DD")})
         </span>{" "}
       </div>
     </div>
