@@ -73,6 +73,7 @@ function UpdatePatientPage({ params }) {
           submit={handleUpdatePatient}
           values={patient}
           onDelete={handleOnDelete}
+          goToPatientPage={() => router.push(`/patients/${params.id}`)}
         />
       </div>
     </div>
