@@ -66,6 +66,7 @@ function AutoCompleteSelect({
             .map((option, index, arr) => (
               <button
                 onClick={() => {
+                  console.log(option[optionsValueKey]);
                   setState(optionsValueKey ? option[optionsValueKey] : option);
                   setInputValue(
                     optionsNameKey ? option[optionsNameKey] : option

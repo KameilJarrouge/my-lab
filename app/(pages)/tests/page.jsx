@@ -2,6 +2,7 @@
 import AuthButton from "@/app/_components/Buttons/AuthButton";
 import PatientCard from "@/app/_components/Cards/PatientCard";
 import TestCard from "@/app/_components/Cards/TestCard";
+import AutoCompleteSelect from "@/app/_components/Inputs/AutoCompleteSelection";
 import DropMenu from "@/app/_components/Inputs/DropMenu";
 import NumberInput from "@/app/_components/Inputs/NumberInput";
 import TextInput from "@/app/_components/Inputs/TextInput";
@@ -11,13 +12,13 @@ import Pagination from "@/app/_components/Pagination";
 import api from "@/app/_lib/api";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { MdSearch } from "react-icons/md";
+import { MdClear, MdSearch } from "react-icons/md";
 import { toast } from "react-toastify";
 
 function TestsPage() {
   const [tests, setTests] = useState([]);
   const [nameSearchKey, setNameSearchKey] = useState("");
-  const [categorySearchKey, setCategorySearchKey] = useState("الجميع");
+  const [categorySearchKey, setCategorySearchKey] = useState(undefined);
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -27,12 +28,7 @@ function TestsPage() {
     setIsLoading(true);
     const result = await api.get(
       `/tests?name=${nameSearchKey}&categoryId=${
-        categorySearchKey === "الجميع"
-          ? "الجميع"
-          : categories.filter(
-              (category) =>
-                category.name.toLowerCase() === categorySearchKey.toLowerCase()
-            )[0].id
+        !categorySearchKey ? "الجميع" : categorySearchKey.id
       }&page=${page}`
     );
     setIsLoading(false);
@@ -75,14 +71,14 @@ function TestsPage() {
       {/* Subheader */}
       <div className="w-full h-[4rem] flex justify-between items-center bg-dark_primary p-2 shadow shadow-black">
         {/* Search Fields */}
-        <div className=" flex items-center gap-4">
+        <div className=" flex items-center gap-4 w-fit">
           <TextInput
             title={"اسم التحليل"}
             state={nameSearchKey}
             setState={setNameSearchKey}
           />
-          <div className="flex items-center border border-light_primary rounded">
-            <DropMenu
+          <div className="flex items-center w-full ">
+            {/* <DropMenu
               uniqueName="category-name"
               title="التصنيف"
               state={categorySearchKey}
@@ -91,6 +87,17 @@ function TestsPage() {
                 "الجميع",
                 ...categories.map((category) => category.name),
               ]}
+            /> */}
+            <AutoCompleteSelect
+              options={categories}
+              state={categorySearchKey}
+              setState={setCategorySearchKey}
+              optionsNameKey={"name"}
+              // optionsValueKey={"name"}
+              title={"التصنيف"}
+              id="category-test-search"
+              withClear
+              onClear={() => setCategorySearchKey(undefined)}
             />
           </div>
 
