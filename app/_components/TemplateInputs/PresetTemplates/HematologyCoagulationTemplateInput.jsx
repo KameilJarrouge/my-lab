@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import TextInput from "../../Inputs/TextInput";
 import { MdChevronRight } from "react-icons/md";
 import AuthButton from "../../Buttons/AuthButton";
@@ -14,6 +14,8 @@ function HematologyCoagulationTemplateInput({
   lastTest,
   saveButtonTitle = "حفظ",
 }) {
+  const [shouldWarn, setShouldWarn] = useState(false);
+
   return (
     <div className="flex flex-col gap-1 w-full h-fit p-2 " dir="ltr">
       <RowA
@@ -25,6 +27,7 @@ function HematologyCoagulationTemplateInput({
         row={0}
         state={result}
         setState={setResult}
+        shouldWarn={shouldWarn}
       />
       <RowB
         lastTest={lastTest}
@@ -36,6 +39,7 @@ function HematologyCoagulationTemplateInput({
         row={1}
         state={result}
         setState={setResult}
+        shouldWarn={shouldWarn}
       />
       <RowB
         lastTest={lastTest}
@@ -47,6 +51,7 @@ function HematologyCoagulationTemplateInput({
         row={3}
         state={result}
         setState={setResult}
+        shouldWarn={shouldWarn}
       />
       <RowB
         lastTest={lastTest}
@@ -58,6 +63,7 @@ function HematologyCoagulationTemplateInput({
         row={5}
         state={result}
         setState={setResult}
+        shouldWarn={shouldWarn}
       />
       <RowB
         lastTest={lastTest}
@@ -69,6 +75,7 @@ function HematologyCoagulationTemplateInput({
         row={7}
         state={result}
         setState={setResult}
+        shouldWarn={shouldWarn}
       />
       <RowB
         lastTest={lastTest}
@@ -80,12 +87,14 @@ function HematologyCoagulationTemplateInput({
         row={9}
         state={result}
         setState={setResult}
+        shouldWarn={shouldWarn}
       />
       <RowC
         lastTest={lastTest}
         row={11}
         state={result}
         setState={setResult}
+        shouldWarn={shouldWarn}
         englishName={"Erythrocytes"}
         arabicName={"الحمر"}
         measureUnit1={"x10⁶ / mm³"}
@@ -97,6 +106,7 @@ function HematologyCoagulationTemplateInput({
         row={12}
         state={result}
         setState={setResult}
+        shouldWarn={shouldWarn}
         englishName={"Hemoglobin"}
         arabicName={"الخضاب"}
         measureUnit1={"g/dl"}
@@ -108,6 +118,7 @@ function HematologyCoagulationTemplateInput({
         row={13}
         state={result}
         setState={setResult}
+        shouldWarn={shouldWarn}
         englishName={"Hematocrite"}
         arabicName={"الرسابة"}
         measureUnit1={"%"}
@@ -119,6 +130,7 @@ function HematologyCoagulationTemplateInput({
         row={14}
         state={result}
         setState={setResult}
+        shouldWarn={shouldWarn}
         englishName={"MCHC"}
         measureUnit1={"%"}
         range={"32 - 36"}
@@ -129,6 +141,7 @@ function HematologyCoagulationTemplateInput({
         row={15}
         state={result}
         setState={setResult}
+        shouldWarn={shouldWarn}
         englishName={"MCV"}
         measureUnit1={"fl"}
         range={"78 - 94"}
@@ -139,6 +152,7 @@ function HematologyCoagulationTemplateInput({
         row={16}
         state={result}
         setState={setResult}
+        shouldWarn={shouldWarn}
         englishName={"MCH"}
         measureUnit1={"pg"}
         range={"27 - 31"}
@@ -149,6 +163,7 @@ function HematologyCoagulationTemplateInput({
         row={17}
         state={result}
         setState={setResult}
+        shouldWarn={shouldWarn}
         englishName={"Platelets"}
         measureUnit1={"x10³ / mm³"}
         range={"150 - 450"}
@@ -157,9 +172,20 @@ function HematologyCoagulationTemplateInput({
       <div className="w-full flex justify-center items-center gap-4">
         <AuthButton
           title={`${isDirty ? "*" : ""} ${saveButtonTitle}`}
-          onClick={handleSave}
+          onClick={() => {
+            setShouldWarn(true);
+            handleSave();
+          }}
         />
-        {isDirty && <AuthButton title="استعادة" onClick={handleRestore} />}
+        {isDirty && (
+          <AuthButton
+            title="استعادة"
+            onClick={() => {
+              handleRestore();
+              setShouldWarn(false);
+            }}
+          />
+        )}
       </div>
     </div>
   );
@@ -174,9 +200,14 @@ function RowA({
   setState,
   row,
   lastTest,
+  shouldWarn,
 }) {
   return (
-    <div className="grid grid-cols-5 gap-4 w-full h-fit p-2 items-center hover:text-white border-y border-y-transparent hover:border-y-dark_text/70 ">
+    <div
+      className={`grid grid-cols-5 gap-4 w-full h-fit p-2 items-center hover:text-white border-y border-y-transparent hover:border-y-dark_text/70 border-b ${
+        shouldWarn && !state[row] ? "border-b-warning" : "border-transparent"
+      } `}
+    >
       <div className="flex justify-between items-center">
         {/* Name */}
         <span>{englishName}</span>
@@ -226,9 +257,16 @@ function RowB({
   setState,
   row,
   lastTest,
+  shouldWarn,
 }) {
   return (
-    <div className="grid grid-cols-5 gap-4 w-full h-fit p-2 items-center hover:text-white border-y border-y-transparent hover:border-y-dark_text/70 ">
+    <div
+      className={`grid grid-cols-5 gap-4 w-full h-fit p-2 items-center hover:text-white border-y border-y-transparent hover:border-y-dark_text/70 border-b ${
+        shouldWarn && (!state[row] || !state[row + 1])
+          ? "border-b-warning"
+          : "border-transparent"
+      } `}
+    >
       <div className="flex  justify-between items-center">
         {/* Name */}
         <span className=" pl-4">{englishName}</span>
@@ -280,9 +318,14 @@ function RowC({
   setState,
   row,
   lastTest,
+  shouldWarn,
 }) {
   return (
-    <div className="grid grid-cols-5 gap-4 w-full h-fit p-2 items-center hover:text-white border-y border-y-transparent hover:border-y-dark_text/70 ">
+    <div
+      className={`grid grid-cols-5 gap-4 w-full h-fit p-2 items-center hover:text-white border-y border-y-transparent hover:border-y-dark_text/70 border-b ${
+        shouldWarn && !state[row] ? "border-b-warning" : "border-transparent"
+      }`}
+    >
       <div className="flex  justify-between items-center">
         {/* Name */}
         <span className="">{englishName}</span>
