@@ -2,6 +2,7 @@ import { getLastVisitTest } from "@/app/_controllers/visitTestController";
 import { errorResponse, successResponse } from "@/app/_lib/responseGenerator";
 
 import { NextRequest } from "next/server";
+export const revalidate = 0;
 
 /**
  *

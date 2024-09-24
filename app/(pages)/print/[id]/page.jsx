@@ -306,7 +306,10 @@ function PrintPage({ params }) {
                     ? testGroupedByCategory.visitTest[0].Test.category.name
                     : testGroupedByCategory.visitTest.Test.category.name;
                   return (
-                    <div className="flex w-full justify-between items-center">
+                    <div
+                      key={index}
+                      className="flex w-full justify-between items-center"
+                    >
                       <button
                         className={`w-[50%] flex items-center gap-2 border-b  ${
                           testGroupedByCategory.indicatorIndex ===
@@ -377,7 +380,7 @@ function PrintPage({ params }) {
       <div className="w-[210mm] h-fit flex flex-col items-center self-center gap-4 print:gap-0 ">
         {pages.length !== 0 &&
           pages.map((page, index) => (
-            <Page pageNumber={index + 1}>
+            <Page key={index} pageNumber={index + 1}>
               <PrintHeader
                 isDoctorShown={isDoctorShown === "إظهار الدكتور"}
                 date={visit?.date}
@@ -392,6 +395,7 @@ function PrintPage({ params }) {
                     if (Array.isArray(groupedVisitTest.visitTest)) {
                       return (
                         <div
+                          key={catIndex}
                           className={` ${
                             groupedVisitTest.indicatorIndex ===
                               categoryIndicator && " bg-gray-200"
@@ -432,6 +436,7 @@ function PrintPage({ params }) {
                     } else {
                       return (
                         <div
+                          key={catIndex}
                           className={` ${
                             groupedVisitTest.indicatorIndex ===
                               categoryIndicator && " bg-gray-200"

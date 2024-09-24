@@ -1,6 +1,7 @@
 import { uniqueName } from "@/app/_controllers/patientController";
 import { NextRequest } from "next/server";
 import { errorResponse, successResponse } from "@/app/_lib/responseGenerator";
+export const revalidate = 0;
 
 /**
  *

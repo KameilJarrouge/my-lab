@@ -2,6 +2,8 @@ import { NextRequest } from "next/server";
 
 import { setUnits } from "@/app/_controllers/settingsController";
 import { errorResponse, successResponse } from "@/app/_lib/responseGenerator";
+export const revalidate = 0;
+
 /**
  *
  * @param {NextRequest} request

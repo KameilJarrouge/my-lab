@@ -1,6 +1,7 @@
 import { getDoctor } from "@/app/_controllers/doctorController";
 import { errorResponse, successResponse } from "@/app/_lib/responseGenerator";
 import { NextRequest } from "next/server";
+export const revalidate = 0;
 
 /**
  *

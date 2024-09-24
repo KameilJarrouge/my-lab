@@ -1,6 +1,7 @@
 import { getTest } from "@/app/_controllers/testController";
 import { errorResponse, successResponse } from "@/app/_lib/responseGenerator";
 import { NextRequest } from "next/server";
+export const revalidate = 0;
 
 /**
  *

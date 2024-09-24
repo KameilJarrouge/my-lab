@@ -4,6 +4,8 @@ import {
   successResponse,
 } from "../../../../../_lib/responseGenerator";
 import { updateDoctor } from "@/app/_controllers/doctorController";
+export const revalidate = 0;
+
 /**
  *
  * @param {NextRequest} request

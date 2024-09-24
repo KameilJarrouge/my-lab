@@ -4,6 +4,8 @@ import {
   successResponse,
 } from "../../../../../_lib/responseGenerator";
 import { deleteTestCategory } from "@/app/_controllers/testCategoryController";
+export const revalidate = 0;
+
 /**
  *
  * @param {NextRequest} request

@@ -4,7 +4,6 @@ import TestTemplateCard from "@/app/_components/Cards/TestTemplateCard";
 import AutoCompleteInput from "@/app/_components/Inputs/AutoCompleteInput";
 import LoadingComponent from "@/app/_components/LoadingComponent";
 import NewTestMenu from "@/app/_components/Menus/NewTestMenu";
-// import PreviewPrint from "@/app/_components/Modals/PreviewPrint";
 import ManualTemplateInput from "@/app/_components/TemplateInputs/ManualTemplateInput";
 import StaticTemplateInput from "@/app/_components/TemplateInputs/StaticTemplateInput";
 import api from "@/app/_lib/api";
@@ -16,6 +15,11 @@ import DateTimePicker from "react-datetime-picker";
 import { MdClear } from "react-icons/md";
 import { toast } from "react-toastify";
 
+const fieldsCount = {
+  "تحليل البول Urinalysis": 20,
+  "Hematology - Coagulation": 18,
+};
+
 function NewVisit({ params }) {
   const [patient, setPatient] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -25,8 +29,6 @@ function NewVisit({ params }) {
   const [tests, setTests] = useState([]);
   const [unitPrice, setUnitPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
-  // const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const [location, setLocation] = useState();
   const [uniqueNumbering, setUniqueNumbering] = useState(0);
   const router = useRouter();
 
@@ -42,7 +44,6 @@ function NewVisit({ params }) {
       );
       return;
     }
-    setLocation(result.data.result.location);
     setUnitPrice(result.data.result.unitPrice);
   };
 
@@ -61,6 +62,28 @@ function NewVisit({ params }) {
     if (!createdAt) {
       toast.error("يرجى اختيار تاريخ الزيارة");
       return;
+    }
+
+    for (let i = 0; i < tests.length; i++) {
+      const element = tests[i];
+      if (element.test.template.type === "static") {
+        if (
+          !element.test.template.hasOwnProperty("result") ||
+          Object.keys(element.test.template.result).length !==
+            fieldsCount[element.test.template.staticTemplate]
+        ) {
+          toast.error("يرجى تعبئة حقول كل التحاليل");
+          return;
+        }
+      } else {
+        if (
+          !element.test.template.hasOwnProperty("result") ||
+          element.test.template.result.value === ""
+        ) {
+          toast.error("يرجى تعبئة حقول كل التحاليل");
+          return;
+        }
+      }
     }
 
     setIsLoading(true);
@@ -199,17 +222,6 @@ function NewVisit({ params }) {
       className="w-full h-full 
       flex flex-col gap-4"
     >
-      {/* {isPreviewOpen && (
-        <PreviewPrint
-          isOpen={isPreviewOpen}
-          setIsOpen={setIsPreviewOpen}
-          tests={tests}
-          patient={patient}
-          date={createdAt}
-          location={location}
-          doctor={doctor}
-        />
-      )} */}
       {isLoading && (
         <div className="w-full h-full absolute top-0 left-0 z-50">
           <LoadingComponent loading={isLoading} />
