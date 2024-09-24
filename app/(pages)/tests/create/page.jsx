@@ -85,9 +85,14 @@ function CreateTestPage() {
       toast.error("يرجى أدخال تصنيف للتحليل");
       return;
     }
-
     if (templateType === "قالب يدوي") {
-      if (isNaN(Number(template.min)) || isNaN(Number(template.max))) {
+      console.log(template);
+      if (
+        template.min.trim() === "" ||
+        isNaN(Number(template.min)) ||
+        template.max.trim() === "" ||
+        isNaN(Number(template.max))
+      ) {
         toast.error("يرجى ادخال أرقام في خانتي القيمة الأدنى والقيمة الأعلى");
         return;
       }
@@ -97,6 +102,7 @@ function CreateTestPage() {
         return;
       }
     }
+    return;
 
     setIsLoading(true);
     const isNameUnique = await api.post("/tests/unique-name", {
