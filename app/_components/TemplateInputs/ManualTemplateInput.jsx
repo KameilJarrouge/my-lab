@@ -58,11 +58,11 @@ function ManualTemplateInput({ test, updateTemplate, lastTest }) {
             />
           </div>
           <span>
-            {Number(test.test.template.data.min) > Number(result)
-              ? "L"
-              : Number(test.test.template.data.max) < Number(result)
-              ? "H"
-              : ""}
+            {Number(test.test.template.data.min) <= Number(result)
+              ? Number(test.test.template.data.max) >= Number(result)
+                ? ""
+                : "H"
+              : "L"}
           </span>
         </div>
         <span className="w-full text-center flex flex-col gap-2" dir="ltr">

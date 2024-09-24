@@ -24,8 +24,8 @@ function ManualTemplatePrint({
       </span>
       <span className="text-center col-span-2 shadow-sm shadow-black self-start">
         {Number(resultValue) +
-          (Number(resultValue) > min
-            ? Number(resultValue) < max
+          (Number(resultValue) >= Number(min)
+            ? Number(resultValue) <= Number(max)
               ? ""
               : " H"
             : " L")}

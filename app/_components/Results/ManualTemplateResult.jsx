@@ -25,11 +25,11 @@ function ManualTemplateResult({ template, lastTest }) {
             <span>{template.result.value}</span>
           </div>
           <span>
-            {Number(template.data.min) > Number(template.result.value)
-              ? "L"
-              : Number(template.data.max) < Number(template.result.value)
-              ? "H"
-              : ""}
+            {Number(template.data.min) <= Number(template.result.value)
+              ? Number(template.data.max) >= Number(template.result.value)
+                ? ""
+                : "H"
+              : "L"}
           </span>
         </div>
         <span className="w-full text-center flex flex-col gap-2" dir="ltr">

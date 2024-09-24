@@ -77,11 +77,11 @@ function ManualTemplateInputUpdate({
             />
           </div>
           <span>
-            {Number(visitTest.template.data.min) > Number(result)
-              ? "L"
-              : Number(visitTest.template.data.max) < Number(result)
-              ? "H"
-              : ""}
+            {Number(visitTest.template.data.min) <= Number(result)
+              ? Number(visitTest.template.data.max) >= Number(result)
+                ? ""
+                : "H"
+              : "L"}
           </span>
         </div>
         <span className="w-full text-center flex flex-col gap-2" dir="ltr">
