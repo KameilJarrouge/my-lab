@@ -7,7 +7,7 @@ function TodayVisits({ visits }) {
   return (
     <>
       <Title>زيارات اليوم</Title>
-      <div className="w-full h-full px-4 overflow-y-auto overflow-x-hidden flex flex-col gap-4">
+      <div className="w-full h-full px-4 overflow-y-auto overflow-x-hidden pb-1 flex flex-col gap-4">
         {visits.map((visit, index) => (
           <TodayVisitCard visit={visit} key={index} />
         ))}
