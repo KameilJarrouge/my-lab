@@ -86,7 +86,6 @@ function CreateTestPage() {
       return;
     }
     if (templateType === "قالب يدوي") {
-      console.log(template);
       if (
         template.min.trim() === "" ||
         isNaN(Number(template.min)) ||

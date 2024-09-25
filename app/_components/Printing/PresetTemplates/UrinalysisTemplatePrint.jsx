@@ -88,7 +88,12 @@ function UrinalysisTemplatePrint({ template }) {
         </span>
         <div className="w-full flex justify-between items-start ">
           <div className="flex flex-col  w-[30%]">
-            <Item4 state={template.result} row={19} englishName={"Bacteria"} />
+            <Item4
+              state={template.result}
+              row={19}
+              englishName={"Bacteria"}
+              arabicName={"البكتيريا"}
+            />
           </div>
           <div className="flex flex-col  w-[30%] h-full">
             <Item4

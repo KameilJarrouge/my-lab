@@ -48,14 +48,39 @@ function PrintPage({ params }) {
       return;
     }
 
+    // getting last tests
+    let testsWithLastTest = result.data.result.tests;
+    let requestLoad = testsWithLastTest.map((test) => ({
+      testId: test.Test.id,
+      patientId: result.data.result.patientId,
+      dateInQuestion: result.data.result.date,
+      visitId: params.id,
+      visitTestId: test.id,
+    }));
+    const lastTestsResult = await api.post(
+      `/visit-tests/multiple-last-visit-test`,
+      requestLoad
+    );
+    if (!lastTestsResult.data.success) {
+      toast.error("Check the Console !");
+      console.error(
+        "Something went wrong while fetching last visit-test for printing"
+      );
+      return;
+    }
+    testsWithLastTest = testsWithLastTest.map((test, index) => ({
+      ...test,
+      lastVisitTest: lastTestsResult.data.result[test.id],
+    }));
+
     // will hold the final categorized visit-tests
     let categorizedTestsArray = [];
 
     // temporary hold for the visit-tests that share a category, will be appended to the previous array after categorizing
     let needToBeGrouped = {};
     let categoryIndex = -1;
-    for (let i = 0; i < result.data.result.tests.length; i++) {
-      let element = result.data.result.tests[i];
+    for (let i = 0; i < testsWithLastTest.length; i++) {
+      let element = testsWithLastTest[i];
       // parse the JSON template in the visit-test
       element.template = JSON.parse(element.template);
 
@@ -324,6 +349,10 @@ function PrintPage({ params }) {
                             testGroupedByCategory.indicatorIndex
                           )
                         }
+                        onContextMenu={(e) => {
+                          e.preventDefault();
+                          setCategoryIndicator(undefined);
+                        }}
                       >
                         <span className="">{"(" + (index + 1) + ")"}</span>
                         <span
@@ -394,7 +423,6 @@ function PrintPage({ params }) {
               <div className="mt-[60mm]">
                 {page.content.length !== 0 &&
                   page.content.map((groupedVisitTest, catIndex) => {
-                    console.log(groupedVisitTest.indicatorIndex);
                     if (Array.isArray(groupedVisitTest.visitTest)) {
                       return (
                         <div
@@ -427,8 +455,13 @@ function PrintPage({ params }) {
                                     visitTest.template.data.referenceRange
                                   }
                                   unit={visitTest.template.data.unit}
-                                  lastTestDate={undefined}
-                                  lastTestResult={undefined}
+                                  lastTestDate={
+                                    visitTest.lastVisitTest.Visit.date
+                                  }
+                                  lastTestResult={
+                                    visitTest.lastVisitTest.template.result
+                                      .value
+                                  }
                                 />
                               );
                               // }
@@ -456,6 +489,14 @@ function PrintPage({ params }) {
                             key={catIndex}
                             id={catIndex}
                             template={groupedVisitTest.visitTest.template}
+                            lastTestDate={
+                              groupedVisitTest.visitTest.lastVisitTest.Visit
+                                .date
+                            }
+                            lastTestResult={
+                              groupedVisitTest.visitTest.lastVisitTest.template
+                                .result
+                            }
                           />
                         </div>
                       );
@@ -501,8 +542,10 @@ function PrintPage({ params }) {
                               visitTest.template.data.referenceRange
                             }
                             unit={visitTest.template.data.unit}
-                            lastTestDate={undefined}
-                            lastTestResult={undefined}
+                            lastTestDate={visitTest.lastVisitTest.Visit.date}
+                            lastTestResult={
+                              visitTest.lastVisitTest.template.result.value
+                            }
                           />
                         );
                         // }
@@ -523,6 +566,13 @@ function PrintPage({ params }) {
                         key={catIndex}
                         id={catIndex}
                         template={groupedVisitTest.visitTest.template}
+                        lastTestDate={
+                          groupedVisitTest.visitTest.lastVisitTest.Visit.date
+                        }
+                        lastTestResult={
+                          groupedVisitTest.visitTest.lastVisitTest.template
+                            .result
+                        }
                       />
                     </>
                   );

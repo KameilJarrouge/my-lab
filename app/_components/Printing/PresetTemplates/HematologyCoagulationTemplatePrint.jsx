@@ -1,11 +1,12 @@
 "use client";
 import React from "react";
-import TextInput from "../../Inputs/TextInput";
-import { MdChevronRight } from "react-icons/md";
-import AuthButton from "../../Buttons/AuthButton";
 import moment from "moment";
 
-function HematologyCoagulationTemplatePrint({ template }) {
+function HematologyCoagulationTemplatePrint({
+  template,
+  lastTestResult,
+  lastTestDate,
+}) {
   return (
     <div
       className="flex flex-col w-full h-fit gap-2 relative  border-b border-dashed border-gray-400 pb-1 "
@@ -18,6 +19,8 @@ function HematologyCoagulationTemplatePrint({ template }) {
         range={"4500 - 10200"}
         row={0}
         state={template.result}
+        lastTestDate={lastTestDate}
+        lastTestResult={lastTestResult}
       />
       <RowB
         englishName={"Neutrophils"}
@@ -27,6 +30,8 @@ function HematologyCoagulationTemplatePrint({ template }) {
         measureUnit2={"/mm³"}
         row={1}
         state={template.result}
+        lastTestDate={lastTestDate}
+        lastTestResult={lastTestResult}
       />
       <RowB
         englishName={"Lymphocytes"}
@@ -36,6 +41,8 @@ function HematologyCoagulationTemplatePrint({ template }) {
         measureUnit2={"/mm³"}
         row={3}
         state={template.result}
+        lastTestDate={lastTestDate}
+        lastTestResult={lastTestResult}
       />
       <RowB
         englishName={"Monocytes"}
@@ -45,6 +52,8 @@ function HematologyCoagulationTemplatePrint({ template }) {
         measureUnit2={"/mm³"}
         row={5}
         state={template.result}
+        lastTestDate={lastTestDate}
+        lastTestResult={lastTestResult}
       />
       <RowB
         englishName={"Eosinophils"}
@@ -54,6 +63,8 @@ function HematologyCoagulationTemplatePrint({ template }) {
         measureUnit2={"/mm³"}
         row={7}
         state={template.result}
+        lastTestDate={lastTestDate}
+        lastTestResult={lastTestResult}
       />
       <RowB
         englishName={"Basophils"}
@@ -63,37 +74,47 @@ function HematologyCoagulationTemplatePrint({ template }) {
         measureUnit2={"/mm³"}
         row={9}
         state={template.result}
+        lastTestDate={lastTestDate}
+        lastTestResult={lastTestResult}
       />
       <RowC
         row={11}
         state={template.result}
+        lastTestDate={lastTestDate}
+        lastTestResult={lastTestResult}
         englishName={"Erythrocytes"}
         arabicName={"الحمر"}
         measureUnit1={"x10⁶ / mm³"}
-        range={"Men: 4.5 - 6.5 Women: 4 - 4.5"}
+        range={"Men: 4.5-6.5 Women: 4-4.5"}
         measureUnit2={"x10⁶ / mm³"}
       />
       <RowC
         row={12}
         state={template.result}
+        lastTestDate={lastTestDate}
+        lastTestResult={lastTestResult}
         englishName={"Hemoglobin"}
         arabicName={"الخضاب"}
         measureUnit1={"g/dl"}
-        range={`Men: 13 - 18  Women: 12 - 16`}
+        range={`Men: 13-18  Women: 12-16`}
         measureUnit2={"g/dl"}
       />
       <RowC
         row={13}
         state={template.result}
+        lastTestDate={lastTestDate}
+        lastTestResult={lastTestResult}
         englishName={"Hematocrite"}
         arabicName={"الرسابة"}
         measureUnit1={"%"}
-        range={"Men: 40 - 54 Women: 35 - 47"}
+        range={"Men: 40-54 Women: 35-47"}
         measureUnit2={"%"}
       />
       <RowC
         row={14}
         state={template.result}
+        lastTestDate={lastTestDate}
+        lastTestResult={lastTestResult}
         englishName={"MCHC"}
         measureUnit1={"%"}
         range={"32 - 36"}
@@ -102,6 +123,8 @@ function HematologyCoagulationTemplatePrint({ template }) {
       <RowC
         row={15}
         state={template.result}
+        lastTestDate={lastTestDate}
+        lastTestResult={lastTestResult}
         englishName={"MCV"}
         measureUnit1={"fl"}
         range={"78 - 94"}
@@ -110,6 +133,8 @@ function HematologyCoagulationTemplatePrint({ template }) {
       <RowC
         row={16}
         state={template.result}
+        lastTestDate={lastTestDate}
+        lastTestResult={lastTestResult}
         englishName={"MCH"}
         measureUnit1={"pg"}
         range={"27 - 31"}
@@ -118,6 +143,8 @@ function HematologyCoagulationTemplatePrint({ template }) {
       <RowC
         row={17}
         state={template.result}
+        lastTestDate={lastTestDate}
+        lastTestResult={lastTestResult}
         englishName={"Platelets"}
         measureUnit1={"x10³ / mm³"}
         range={"150 - 450"}
@@ -133,7 +160,8 @@ function RowA({
   measureUnit1,
   range,
   state,
-
+  lastTestDate,
+  lastTestResult,
   row,
 }) {
   return (
@@ -161,14 +189,14 @@ function RowA({
         القيم المطلقة
       </span>
       <div className="flex  justify-center items-center col-span-2">
-        <div className="flex flex-col  items-center justify-center text-sm absolute right-[1.9rem] -top-[2.5rem]">
+        <div className="flex flex-col  items-center justify-center text-sm absolute w-[80px] right-[1.4rem] -top-[2.5rem]">
           <span>Last Test</span>
           <span className="">
-            {true ? moment(new Date()).format("yyyy-MM-DD") : "-"}
+            {lastTestDate ? moment(lastTestDate).format("yyyy-MM-DD") : "-"}
           </span>
         </div>
         <span className=" w-[10ch] shadow-sm shadow-black text-black text-center bg-white  h-fit">
-          {true ? "1300" : "-"}
+          {lastTestDate ? lastTestResult[row] : "-"}
         </span>
       </div>
     </div>
@@ -181,7 +209,9 @@ function RowB({
   range,
   measureUnit2,
   state,
+  lastTestResult,
 
+  lastTestDate,
   row,
 }) {
   return (
@@ -201,7 +231,7 @@ function RowB({
         </span>
         <span className="w-[16ch]">{measureUnit1}</span>
       </div>
-      <div className="text-start flex flex-col  col-span-2">
+      <div className="text-start flex flex-col   col-span-2">
         {/* Range */}
         {range.map((singleRange, index) => (
           <span key={index}>{singleRange}</span>
@@ -219,7 +249,7 @@ function RowB({
       </div>
       <div className="flex  justify-center items-center col-span-2">
         <span className=" w-[10ch] shadow-sm shadow-black text-black text-center bg-white  h-fit">
-          {true ? "1300" : "-"}
+          {lastTestDate ? lastTestResult[row] : "-"}
         </span>
       </div>
     </div>
@@ -232,7 +262,8 @@ function RowC({
   measureUnit1,
   measureUnit2,
   state,
-
+  lastTestResult,
+  lastTestDate,
   row,
 }) {
   return (
@@ -258,7 +289,7 @@ function RowC({
       </div>
       <div className="flex  justify-center items-center col-span-2">
         <span className=" w-[10ch] shadow-sm shadow-black text-black text-center bg-white  h-fit">
-          {true ? "1300" : "-"}
+          {lastTestDate ? lastTestResult[row] : "-"}
         </span>
       </div>
     </div>

@@ -39,11 +39,20 @@ function ManualTemplatePrint({
           ))}
       </div>
       <span className="col-span-2 text-center">{unit}</span>
-      <div className="col-span-2 flex gap-1  justify-center" dir="ltr">
-        <span>{lastTestResult || "-"}</span>
-        <span className="text-sm">
-          ({moment(lastTestDate || new Date()).format("yyyy-MM-DD")})
-        </span>{" "}
+      <div
+        className="col-span-2 flex gap-1  justify-center flex-wrap-reverse"
+        dir="ltr"
+      >
+        {lastTestDate ? (
+          <>
+            <span>{lastTestResult}</span>
+            <span className="text-sm">
+              ({moment(lastTestDate).format("yyyy-MM-DD")})
+            </span>{" "}
+          </>
+        ) : (
+          <span>{"-"}</span>
+        )}
       </div>
     </div>
   );

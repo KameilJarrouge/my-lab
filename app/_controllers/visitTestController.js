@@ -45,11 +45,18 @@ export async function deleteVisitTest(id) {
   return successReturn();
 }
 
-export async function getLastVisitTest(testId, patientId, dateInQuestion) {
+export async function getLastVisitTest(
+  testId,
+  patientId,
+  dateInQuestion,
+  visitId
+) {
   const result = await prisma.visitTest.findFirst({
     where: {
       testId: testId,
       Visit: {
+        id: { not: visitId },
+
         patientId: patientId,
         date: { lt: dateInQuestion },
       },
@@ -58,6 +65,33 @@ export async function getLastVisitTest(testId, patientId, dateInQuestion) {
     orderBy: { Visit: { date: "desc" } },
   });
   return successReturn(result);
+}
+
+export async function getMultipleLastVisitTest(data) {
+  const result = await prisma.$transaction(
+    data.map((params) =>
+      prisma.visitTest.findFirst({
+        where: {
+          testId: params.testId,
+          Visit: {
+            id: { not: data.visitId },
+            patientId: params.patientId,
+            date: { lt: new Date(params.dateInQuestion) },
+          },
+        },
+        include: { Visit: true },
+        orderBy: { Visit: { date: "desc" } },
+      })
+    )
+  );
+
+  let returned = {};
+  for (let i = 0; i < result.length; i++) {
+    let element = result[i];
+    element.template = JSON.parse(element.template);
+    returned[data[i].visitTestId] = element;
+  }
+  return successReturn(returned);
 }
 
 export async function getTodaysEarnings() {

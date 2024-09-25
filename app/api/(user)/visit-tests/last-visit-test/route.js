@@ -13,7 +13,8 @@ export async function GET(request) {
   let result = await getLastVisitTest(
     Number(request.nextUrl.searchParams.get("testId")),
     Number(request.nextUrl.searchParams.get("patientId")),
-    new Date(request.nextUrl.searchParams.get("dateInQuestion"))
+    new Date(request.nextUrl.searchParams.get("dateInQuestion")),
+    Number(request.nextUrl.searchParams.get("visitId"))
   );
   if (!result.success) {
     return errorResponse(result.errorCode);

@@ -75,7 +75,6 @@ function PatientVisitsPage({ patientId, isLoading, setIsLoading }) {
       );
       return;
     }
-    // console.log(result.data.result);
     setDoctors(result.data.result);
   };
 
@@ -98,7 +97,6 @@ function PatientVisitsPage({ patientId, isLoading, setIsLoading }) {
       );
       return;
     }
-    // console.log(result.data.result);
     setVisits(result.data.result.visits);
     setCount(result.data.result.count);
   };

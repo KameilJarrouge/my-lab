@@ -31,7 +31,6 @@ function SettingsPage() {
       console.error("Something went wrong while fetching settings");
       return;
     }
-    console.log(result.data.result);
     setId(result.data.result.id);
     if (whatToSet === "all" || whatToSet === "unitPrice")
       setUnitPrice(result.data.result.unitPrice);
