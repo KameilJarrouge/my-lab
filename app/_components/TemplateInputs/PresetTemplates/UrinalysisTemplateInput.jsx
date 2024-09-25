@@ -14,9 +14,80 @@ function UrinalysisTemplateInput({
 }) {
   const [shouldWarn, setShouldWarn] = useState(false);
   return (
-    <div className="flex flex-col items-end gap-4 w-full h-full px-2 ">
-      <span className="border-b border-text w-fit">تحليل البول URINALYSIS</span>
+    <div
+      className="flex flex-col items-start gap-4 w-full h-full px-2 "
+      dir="ltr"
+    >
+      <span className="border-b border-text w-fit ">
+        تحليل البول URINALYSIS
+      </span>
       <div className="flex justify-between items-start  w-full">
+        <div className="flex flex-col gap-4 w-[30%] h-full">
+          <Item1
+            shouldWarn={shouldWarn}
+            arabicName={"اللون"}
+            options={["Yellow", "Red"]}
+            englishName={"Color"}
+            state={result}
+            setState={setResult}
+            row={0}
+          />
+          <Item1
+            shouldWarn={shouldWarn}
+            arabicName={"المظهر"}
+            options={["Clear"]}
+            englishName={"Appearance"}
+            state={result}
+            setState={setResult}
+            row={1}
+          />
+          <Item2
+            shouldWarn={shouldWarn}
+            arabicName={"النقل النوعي"}
+            englishName={"Specific Gravity"}
+            state={result}
+            setState={setResult}
+            row={2}
+          />
+          <Item2
+            shouldWarn={shouldWarn}
+            arabicName={"الحموضىة"}
+            englishName={"pH"}
+            state={result}
+            setState={setResult}
+            row={3}
+          />
+        </div>
+
+        <div className="flex flex-col gap-4 w-[30%]">
+          <Item1
+            shouldWarn={shouldWarn}
+            arabicName={"الغلوكوز"}
+            options={["Pos.", "Normal", "Neg."]}
+            englishName={"Glucose"}
+            state={result}
+            setState={setResult}
+            row={4}
+          />
+          <Item1
+            shouldWarn={shouldWarn}
+            arabicName={"البروتين"}
+            options={["Pos.", "Normal", "Neg."]}
+            englishName={"Protein"}
+            state={result}
+            setState={setResult}
+            row={5}
+          />
+          <Item1
+            shouldWarn={shouldWarn}
+            arabicName={"الخضاب"}
+            options={["Pos.", "Normal", "Neg."]}
+            englishName={"Hemoglobin"}
+            state={result}
+            setState={setResult}
+            row={6}
+          />
+        </div>
         <div className="flex flex-col gap-4 w-[30%]">
           <Item1
             shouldWarn={shouldWarn}
@@ -55,71 +126,6 @@ function UrinalysisTemplateInput({
             row={10}
           />
         </div>
-        <div className="flex flex-col gap-4 w-[30%]">
-          <Item1
-            shouldWarn={shouldWarn}
-            arabicName={"الغلوكوز"}
-            options={["Pos.", "Normal", "Neg."]}
-            englishName={"Glucose"}
-            state={result}
-            setState={setResult}
-            row={4}
-          />
-          <Item1
-            shouldWarn={shouldWarn}
-            arabicName={"البروتين"}
-            options={["Pos.", "Normal", "Neg."]}
-            englishName={"Protein"}
-            state={result}
-            setState={setResult}
-            row={5}
-          />
-          <Item1
-            shouldWarn={shouldWarn}
-            arabicName={"الخضاب"}
-            options={["Pos.", "Normal", "Neg."]}
-            englishName={"Hemoglobin"}
-            state={result}
-            setState={setResult}
-            row={6}
-          />
-        </div>
-        <div className="flex flex-col gap-4 w-[30%] h-full">
-          <Item1
-            shouldWarn={shouldWarn}
-            arabicName={"اللون"}
-            options={["Yellow", "Red"]}
-            englishName={"Color"}
-            state={result}
-            setState={setResult}
-            row={0}
-          />
-          <Item1
-            shouldWarn={shouldWarn}
-            arabicName={"المظهر"}
-            options={["Clear"]}
-            englishName={"Appearance"}
-            state={result}
-            setState={setResult}
-            row={1}
-          />
-          <Item2
-            shouldWarn={shouldWarn}
-            arabicName={"النقل النوعي"}
-            englishName={"Specific Gravity"}
-            state={result}
-            setState={setResult}
-            row={2}
-          />
-          <Item2
-            shouldWarn={shouldWarn}
-            arabicName={"الحموضىة"}
-            englishName={"pH"}
-            state={result}
-            setState={setResult}
-            row={3}
-          />
-        </div>
       </div>
       <div className="flex flex-col items-center w-full gap-4">
         <span className="border-b border-text w-fit">
@@ -127,12 +133,37 @@ function UrinalysisTemplateInput({
         </span>
         <div className="w-full flex justify-between items-start ">
           <div className="flex flex-col gap-4 w-[30%]">
-            <Item4
+            <Item3
               shouldWarn={shouldWarn}
               state={result}
               setState={setResult}
-              row={19}
-              englishName={"Bacteria"}
+              row={11}
+              arabicName={"الكريات البيض"}
+              englishName={"Leucocytes"}
+            />
+            <Item3
+              shouldWarn={shouldWarn}
+              state={result}
+              setState={setResult}
+              row={12}
+              arabicName={"الكريات الحمر"}
+              englishName={"Erythrocytes"}
+            />
+            <Item3
+              shouldWarn={shouldWarn}
+              state={result}
+              setState={setResult}
+              row={13}
+              arabicName={"الخلايا الظهارية"}
+              englishName={"Epithelial Cells"}
+            />
+            <Item3
+              shouldWarn={shouldWarn}
+              state={result}
+              setState={setResult}
+              row={14}
+              arabicName={"الاسطوانات"}
+              englishName={"Cylinders"}
             />
           </div>
           <div className="flex flex-col gap-4 w-[30%] h-full">
@@ -169,38 +200,14 @@ function UrinalysisTemplateInput({
               englishName={"Phosphate"}
             />
           </div>
+
           <div className="flex flex-col gap-4 w-[30%]">
-            <Item3
+            <Item4
               shouldWarn={shouldWarn}
               state={result}
               setState={setResult}
-              row={11}
-              arabicName={"الكريات البيض"}
-              englishName={"Leucocytes"}
-            />
-            <Item3
-              shouldWarn={shouldWarn}
-              state={result}
-              setState={setResult}
-              row={12}
-              arabicName={"الكريات الحمر"}
-              englishName={"Erythrocytes"}
-            />
-            <Item3
-              shouldWarn={shouldWarn}
-              state={result}
-              setState={setResult}
-              row={13}
-              arabicName={"الخلايا الظهارية"}
-              englishName={"Epithelial Cells"}
-            />
-            <Item3
-              shouldWarn={shouldWarn}
-              state={result}
-              setState={setResult}
-              row={14}
-              arabicName={"الاسطوانات"}
-              englishName={"Cylinders"}
+              row={19}
+              englishName={"Bacteria"}
             />
           </div>
         </div>
@@ -243,6 +250,10 @@ function Item1({
         shouldWarn && !state[row] ? "border-b-warning" : "border-transparent"
       }`}
     >
+      <div className="flex flex-col gap-2 text-left">
+        <span>{arabicName}</span>
+        <span>{englishName}</span>
+      </div>
       <span className="w-[20ch] h-fit " dir="ltr">
         <DropMenu
           uniqueName={row}
@@ -251,10 +262,6 @@ function Item1({
           setState={(value) => setState(row, value, false)}
         />
       </span>
-      <div className="flex flex-col gap-2 text-left">
-        <span>{arabicName}</span>
-        <span>{englishName}</span>
-      </div>
     </div>
   );
 }
@@ -265,6 +272,10 @@ function Item2({ arabicName, englishName, state, setState, row, shouldWarn }) {
         shouldWarn && !state[row] ? "border-b-warning" : "border-transparent"
       }`}
     >
+      <div className="flex flex-col gap-2 text-left">
+        <span>{arabicName}</span>
+        <span>{englishName}</span>
+      </div>
       <span className="w-[20ch] h-fit " dir="ltr">
         <TextInput
           title={"Result"}
@@ -274,10 +285,6 @@ function Item2({ arabicName, englishName, state, setState, row, shouldWarn }) {
           withHoveringTitle={false}
         />
       </span>
-      <div className="flex flex-col gap-2 text-left">
-        <span>{arabicName}</span>
-        <span>{englishName}</span>
-      </div>
     </div>
   );
 }
@@ -288,6 +295,10 @@ function Item3({ arabicName, englishName, state, setState, row, shouldWarn }) {
         shouldWarn && !state[row] ? "border-b-warning" : "border-transparent"
       }`}
     >
+      <div className="flex flex-col gap-2 text-left">
+        <span>{arabicName}</span>
+        <span>{englishName}</span>
+      </div>
       <div className="w-[20ch] h-fit flex items-center gap-2 " dir="ltr">
         <TextInput
           title={"Result"}
@@ -297,10 +308,6 @@ function Item3({ arabicName, englishName, state, setState, row, shouldWarn }) {
           withHoveringTitle={false}
         />
         <span>/field</span>
-      </div>
-      <div className="flex flex-col gap-2 text-left">
-        <span>{arabicName}</span>
-        <span>{englishName}</span>
       </div>
     </div>
   );
@@ -312,6 +319,10 @@ function Item4({ arabicName, englishName, state, setState, row, shouldWarn }) {
         shouldWarn && !state[row] ? "border-b-warning" : "border-transparent"
       }`}
     >
+      <div className="flex flex-col gap-2 text-left">
+        <span>{arabicName}</span>
+        <span>{englishName}</span>
+      </div>
       <div className="w-[20ch] h-fit flex items-center gap-2 " dir="ltr">
         <span>(</span>
         <TextInput
@@ -322,10 +333,6 @@ function Item4({ arabicName, englishName, state, setState, row, shouldWarn }) {
           withHoveringTitle={false}
         />
         <span>)</span>
-      </div>
-      <div className="flex flex-col gap-2 text-left">
-        <span>{arabicName}</span>
-        <span>{englishName}</span>
       </div>
     </div>
   );
