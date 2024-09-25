@@ -185,12 +185,14 @@ function PrintPage({ params }) {
                   ? firstGroupedTest.readingIndex
                   : readingIndex,
                 spliced: true,
+                indicatorIndex: firstGroupedTest.indicatorIndex,
               });
               pages[pages.length - 1].height -=
                 manualTestHeight - currentHeight;
               pages[pages.length - 1].content.push({
                 type: firstGroupedTest.type,
                 visitTest: safeTests,
+                indicatorIndex: firstGroupedTest.indicatorIndex,
               });
             }
             break;
@@ -311,7 +313,7 @@ function PrintPage({ params }) {
                       className="flex w-full justify-between items-center"
                     >
                       <button
-                        className={`w-[50%] flex items-center gap-2 border-b  ${
+                        className={`w-[calc(100%-3.4rem)] flex items-center gap-2 border-b  ${
                           testGroupedByCategory.indicatorIndex ===
                           categoryIndicator
                             ? "border-b-light_text/70"
@@ -325,14 +327,14 @@ function PrintPage({ params }) {
                       >
                         <span className="">{"(" + (index + 1) + ")"}</span>
                         <span
-                          className="truncate font-semibold"
+                          className="truncate font-semibold w-full text-start"
                           data-tooltip-id="my-tooltip"
                           data-tooltip-content={groupName}
                         >
                           {groupName}
                         </span>
                       </button>
-                      <div className="flex items-center gap-4 w-fit">
+                      <div className="flex items-center gap-4 w-[3rem]">
                         {/* <span>
                           عدد التحاليل :
                           {Array.isArray(testGroupedByCategory.visitTest)
@@ -341,19 +343,19 @@ function PrintPage({ params }) {
                         </span> */}
                         <button onClick={() => reorderGroups(index, -1)}>
                           <MdChevronLeft
-                            className={`rotate-90 w-[1.5rem] h-fit bg-light_primary ${
+                            className={`rotate-90 w-[1.5rem] h-fit   ${
                               index === 0
-                                ? "text-dark_text cursor-not-allowed"
-                                : "text-text hover:text-light_text"
+                                ? "text-dark_text cursor-not-allowed bg-light_primary/50 opacity-50"
+                                : "text-text hover:text-light_text bg-light_primary "
                             }`}
                           />
                         </button>
                         <button onClick={() => reorderGroups(index, 1)}>
                           <MdChevronLeft
-                            className={`-rotate-90 w-[1.5rem] h-fit bg-light_primary ${
+                            className={`-rotate-90 w-[1.5rem] h-fit   ${
                               index === testsGroupedByCategory.length - 1
-                                ? "text-dark_text cursor-not-allowed"
-                                : "text-text hover:text-light_text"
+                                ? "text-dark_text cursor-not-allowed bg-light_primary/50 opacity-50"
+                                : "text-text hover:text-light_text bg-light_primary "
                             }`}
                           />
                         </button>
@@ -392,6 +394,7 @@ function PrintPage({ params }) {
               <div className="mt-[60mm]">
                 {page.content.length !== 0 &&
                   page.content.map((groupedVisitTest, catIndex) => {
+                    console.log(groupedVisitTest.indicatorIndex);
                     if (Array.isArray(groupedVisitTest.visitTest)) {
                       return (
                         <div
