@@ -88,7 +88,9 @@ export async function getMultipleLastVisitTest(data) {
   let returned = {};
   for (let i = 0; i < result.length; i++) {
     let element = result[i];
-    element.template = JSON.parse(element.template);
+    if (element) {
+      element.template = JSON.parse(element.template);
+    }
     returned[data[i].visitTestId] = element;
   }
   return successReturn(returned);

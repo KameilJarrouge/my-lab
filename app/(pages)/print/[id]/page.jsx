@@ -456,11 +456,12 @@ function PrintPage({ params }) {
                                   }
                                   unit={visitTest.template.data.unit}
                                   lastTestDate={
-                                    visitTest.lastVisitTest.Visit.date
+                                    visitTest.lastVisitTest?.Visit.date ||
+                                    undefined
                                   }
                                   lastTestResult={
-                                    visitTest.lastVisitTest.template.result
-                                      .value
+                                    visitTest.lastVisitTest?.template.result
+                                      .value || undefined
                                   }
                                 />
                               );
@@ -490,12 +491,12 @@ function PrintPage({ params }) {
                             id={catIndex}
                             template={groupedVisitTest.visitTest.template}
                             lastTestDate={
-                              groupedVisitTest.visitTest.lastVisitTest.Visit
-                                .date
+                              groupedVisitTest.visitTest.lastVisitTest?.Visit
+                                .date || undefined
                             }
                             lastTestResult={
-                              groupedVisitTest.visitTest.lastVisitTest.template
-                                .result
+                              groupedVisitTest.visitTest.lastVisitTest?.template
+                                .result || undefined
                             }
                           />
                         </div>
@@ -542,9 +543,12 @@ function PrintPage({ params }) {
                               visitTest.template.data.referenceRange
                             }
                             unit={visitTest.template.data.unit}
-                            lastTestDate={visitTest.lastVisitTest.Visit.date}
+                            lastTestDate={
+                              visitTest.lastVisitTest?.Visit.date || undefined
+                            }
                             lastTestResult={
-                              visitTest.lastVisitTest.template.result.value
+                              visitTest.lastVisitTest?.template.result.value ||
+                              undefined
                             }
                           />
                         );
@@ -567,11 +571,12 @@ function PrintPage({ params }) {
                         id={catIndex}
                         template={groupedVisitTest.visitTest.template}
                         lastTestDate={
-                          groupedVisitTest.visitTest.lastVisitTest.Visit.date
+                          groupedVisitTest.visitTest.lastVisitTest?.Visit
+                            .date || undefined
                         }
                         lastTestResult={
-                          groupedVisitTest.visitTest.lastVisitTest.template
-                            .result
+                          groupedVisitTest.visitTest.lastVisitTest?.template
+                            .result || undefined
                         }
                       />
                     </>
