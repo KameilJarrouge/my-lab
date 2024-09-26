@@ -12,7 +12,8 @@ import Title from "@/app/_components/Title";
 import api from "@/app/_lib/api";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { MdChevronLeft } from "react-icons/md";
+import { IoMdDocument } from "react-icons/io";
+import { MdChevronLeft, MdInsertPageBreak, MdPages } from "react-icons/md";
 import { toast } from "react-toastify";
 
 function PrintPage({ params }) {
@@ -255,6 +256,13 @@ function PrintPage({ params }) {
       if (!firstGroupedTest.hasOwnProperty("readingIndex")) {
         readingIndex++;
       }
+      // the user broke the page after this category
+      if (!firstGroupedTest.spliced && firstGroupedTest.breaksPage) {
+        pages.push({
+          height: 217,
+          content: [],
+        });
+      }
     }
 
     setIsLoading(false);
@@ -303,6 +311,12 @@ function PrintPage({ params }) {
     setTestsGroupedByCategory([...originalArray]);
   };
 
+  const setBreaksPage = (index, value) => {
+    let originalArray = testsGroupedByCategory;
+    originalArray[index].breaksPage = value;
+    setTestsGroupedByCategory([...originalArray]);
+  };
+
   return (
     <div
       id="main-print-div"
@@ -317,7 +331,7 @@ function PrintPage({ params }) {
             <Title>إعدادات الطباعة</Title>
             {/* All of the categorized visitTest will be here */}
 
-            <div className="flex flex-col w-full h-full items-center overflow-y-auto overflow-x-hidden gap-6 text-white px-4">
+            <div className="flex flex-col w-full h-full items-center overflow-y-auto overflow-x-hidden gap-4 text-white px-4">
               <div className="flex gap-4 w-[40ch]  " dir="rtl">
                 <ToggleInput
                   selectedValue={isDoctorShown}
@@ -326,72 +340,108 @@ function PrintPage({ params }) {
                   value2="إخفاء الدكتور"
                 />
               </div>
-              {testsGroupedByCategory.length !== 0 &&
-                testsGroupedByCategory.map((testGroupedByCategory, index) => {
-                  if (!testGroupedByCategory) return;
-                  let groupName = Array.isArray(testGroupedByCategory.visitTest)
-                    ? testGroupedByCategory.visitTest[0].Test.category.name
-                    : testGroupedByCategory.visitTest.Test.category.name;
-                  return (
-                    <div
-                      key={index}
-                      className="flex w-full justify-between items-center"
-                    >
-                      <button
-                        className={`w-[calc(100%-3.4rem)] flex items-center gap-2 border-b  ${
-                          testGroupedByCategory.indicatorIndex ===
-                          categoryIndicator
-                            ? "border-b-light_text/70"
-                            : "border-b-transparent"
-                        }`}
-                        onClick={() =>
-                          setCategoryIndicator(
-                            testGroupedByCategory.indicatorIndex
-                          )
-                        }
-                        onContextMenu={(e) => {
-                          e.preventDefault();
-                          setCategoryIndicator(undefined);
-                        }}
-                      >
-                        <span className="">{"(" + (index + 1) + ")"}</span>
-                        <span
-                          className="truncate font-semibold w-full text-start"
-                          data-tooltip-id="my-tooltip"
-                          data-tooltip-content={groupName}
+              <div className="flex flex-col gap-1 w-full">
+                {testsGroupedByCategory.length !== 0 &&
+                  testsGroupedByCategory.map((testGroupedByCategory, index) => {
+                    if (!testGroupedByCategory) return;
+                    let groupName = Array.isArray(
+                      testGroupedByCategory.visitTest
+                    )
+                      ? testGroupedByCategory.visitTest[0].Test.category.name
+                      : testGroupedByCategory.visitTest.Test.category.name;
+                    return (
+                      <div className="w-full flex flex-col gap-1 items-center">
+                        <div
+                          key={index}
+                          className="flex w-full justify-between items-center"
                         >
-                          {groupName}
-                        </span>
-                      </button>
-                      <div className="flex items-center gap-4 w-[3rem]">
-                        {/* <span>
+                          <button
+                            className={`w-[calc(100%-3.4rem)] flex items-center gap-2 border-b  ${
+                              testGroupedByCategory.indicatorIndex ===
+                              categoryIndicator
+                                ? "border-b-light_text/70"
+                                : "border-b-transparent"
+                            }`}
+                            onClick={() =>
+                              setCategoryIndicator(
+                                testGroupedByCategory.indicatorIndex
+                              )
+                            }
+                            onContextMenu={(e) => {
+                              e.preventDefault();
+                              setCategoryIndicator(undefined);
+                            }}
+                          >
+                            <span className="">{"(" + (index + 1) + ")"}</span>
+                            <span
+                              className="truncate font-semibold w-full text-start"
+                              data-tooltip-id="my-tooltip"
+                              data-tooltip-content={groupName}
+                            >
+                              {groupName}
+                            </span>
+                          </button>
+                          <div className="flex items-center gap-4 w-[3rem]">
+                            {/* <span>
                           عدد التحاليل :
                           {Array.isArray(testGroupedByCategory.visitTest)
                             ? testGroupedByCategory.visitTest.length
                             : 1}
                         </span> */}
-                        <button onClick={() => reorderGroups(index, -1)}>
-                          <MdChevronLeft
-                            className={`rotate-90 w-[1.5rem] h-fit   ${
-                              index === 0
-                                ? "text-dark_text cursor-not-allowed bg-light_primary/50 opacity-50"
-                                : "text-text hover:text-light_text bg-light_primary "
-                            }`}
-                          />
-                        </button>
-                        <button onClick={() => reorderGroups(index, 1)}>
-                          <MdChevronLeft
-                            className={`-rotate-90 w-[1.5rem] h-fit   ${
-                              index === testsGroupedByCategory.length - 1
-                                ? "text-dark_text cursor-not-allowed bg-light_primary/50 opacity-50"
-                                : "text-text hover:text-light_text bg-light_primary "
-                            }`}
-                          />
-                        </button>
+                            <button onClick={() => reorderGroups(index, -1)}>
+                              <MdChevronLeft
+                                className={`rotate-90 w-[1.5rem] h-fit   ${
+                                  index === 0
+                                    ? "text-dark_text cursor-not-allowed bg-light_primary/50 opacity-50"
+                                    : "text-text hover:text-light_text bg-light_primary "
+                                }`}
+                              />
+                            </button>
+                            <button onClick={() => reorderGroups(index, 1)}>
+                              <MdChevronLeft
+                                className={`-rotate-90 w-[1.5rem] h-fit   ${
+                                  index === testsGroupedByCategory.length - 1
+                                    ? "text-dark_text cursor-not-allowed bg-light_primary/50 opacity-50"
+                                    : "text-text hover:text-light_text bg-light_primary "
+                                }`}
+                              />
+                            </button>
+                          </div>
+                        </div>
+                        {index !== testsGroupedByCategory.length - 1 && (
+                          <div className="flex w-full items-center justify-center gap-2">
+                            <div
+                              className={`w-[calc(50%-0.65rem)] h-[2px] bg-yellow-400/50 ${
+                                !testGroupedByCategory.breaksPage && "hidden"
+                              }`}
+                            ></div>
+                            <button
+                              onClick={() =>
+                                setBreaksPage(
+                                  index,
+                                  !!!testGroupedByCategory.breaksPage
+                                )
+                              }
+                            >
+                              <MdInsertPageBreak
+                                className={`w-[1.3rem] h-fit ${
+                                  testGroupedByCategory.breaksPage
+                                    ? "text-yellow-400 hover:text-yellow-600"
+                                    : "hover:text-light_text text-text"
+                                }`}
+                              />
+                            </button>
+                            <div
+                              className={`w-[calc(50%-0.65rem)] h-[2px] bg-yellow-400/50 ${
+                                !testGroupedByCategory.breaksPage && "hidden"
+                              }`}
+                            ></div>
+                          </div>
+                        )}
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+              </div>
             </div>
             <AuthButton onClick={() => window.print()} title="طباعة" />
           </div>
@@ -426,6 +476,11 @@ function PrintPage({ params }) {
                     if (Array.isArray(groupedVisitTest.visitTest)) {
                       return (
                         <div
+                          onClick={() =>
+                            setCategoryIndicator(
+                              groupedVisitTest.indicatorIndex
+                            )
+                          }
                           key={catIndex}
                           className={` ${
                             groupedVisitTest.indicatorIndex ===
@@ -473,6 +528,11 @@ function PrintPage({ params }) {
                     } else {
                       return (
                         <div
+                          onClick={() =>
+                            setCategoryIndicator(
+                              groupedVisitTest.indicatorIndex
+                            )
+                          }
                           key={catIndex}
                           className={` ${
                             groupedVisitTest.indicatorIndex ===
