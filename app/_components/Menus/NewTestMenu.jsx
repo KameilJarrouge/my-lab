@@ -11,38 +11,33 @@ function NewTestMenu({
   uniqueNumbering,
   setUniqueNumbering,
 }) {
-  const [categories, setCategories] = useState([]);
-  const [category, setCategory] = useState();
+  const [tests, setTests] = useState([]);
   const [test, setTest] = useState();
-  const getCategories = async () => {
+  const getTestsWithCats = async () => {
     setIsLoading(true);
-    const result = await api.get("/categories/categories-with-tests");
+    const result = await api.get("/tests/list-with-cats");
     setIsLoading(false);
 
     if (!result.data.success) {
       toast.error("Check The Console!");
       console.error(
-        "Something went wrong while fetching categories-with-tests in NewTestMenu"
+        "Something went wrong while fetching list-with-cats in NewTestMenu"
       );
       return;
     }
 
-    setCategories(result.data.result);
+    setTests(result.data.result);
   };
 
   useEffect(() => {
-    getCategories();
+    getTestsWithCats();
   }, []);
 
-  useEffect(() => {
-    setTest(undefined);
-  }, [category]);
-
   const addNewTest = () => {
-    if (category !== undefined && test !== undefined) {
+    if (test !== undefined) {
       const newTest = {
         id: uniqueNumbering,
-        category: { id: category.id, name: category.name },
+        category: { id: test.category.id, name: test.category.name },
         test: {
           id: test.id,
           name: test.name,
@@ -52,10 +47,9 @@ function NewTestMenu({
       };
       setUniqueNumbering((value) => ++value);
       setNewTest(newTest);
-      setCategory();
       setTest();
     } else {
-      toast.error("يرجى اختيار تصنيف وتحليل");
+      toast.error("يرجى اختيار تحليل");
     }
   };
 
@@ -65,24 +59,24 @@ function NewTestMenu({
     flex items-center gap-4 justify-center"
     >
       <div className="w-fit p-4 flex  gap-4 rounded shadow shadow-black bg-dark_primary">
-        <AutoCompleteSelect
+        {/* <AutoCompleteSelect
           options={categories}
           state={category}
           setState={setCategory}
           optionsNameKey={"name"}
           title={"التصنيف"}
           id="category"
+        /> */}
+        {/* {category && ( */}
+        <AutoCompleteSelect
+          options={tests}
+          state={test}
+          setState={setTest}
+          optionsNameKey={"name"}
+          title={"التحليل"}
+          id="test"
         />
-        {category && (
-          <AutoCompleteSelect
-            options={category.Test}
-            state={test}
-            setState={setTest}
-            optionsNameKey={"name"}
-            title={"التحليل"}
-            id="test"
-          />
-        )}
+        {/* )} */}
 
         <div className="w-fit min-h-fit  flex items-center justify-center gap-4">
           <AuthButton title="إضافة التحليل" onClick={addNewTest} />

@@ -29,6 +29,13 @@ export async function listTests() {
   return successReturn(result);
 }
 
+export async function listTestsWithCategories() {
+  const result = await prisma.test.findMany({
+    include: { category: true },
+  });
+  return successReturn(result);
+}
+
 export async function getTest(id) {
   const result = await prisma.test.findUnique({ where: { id: id } });
   return successReturn(result);
