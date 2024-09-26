@@ -3,7 +3,6 @@ import UrinalysisTemplatePrint from "./PresetTemplates/UrinalysisTemplatePrint";
 import HematologyCoagulationTemplatePrint from "./PresetTemplates/HematologyCoagulationTemplatePrint";
 
 function StaticTemplatePrint({ id, template, lastTestResult, lastTestDate }) {
-  console.log(lastTestDate, lastTestResult);
   return (
     <div
       className="flex flex-col gap-6 w-full items-center pt-[2mm]"

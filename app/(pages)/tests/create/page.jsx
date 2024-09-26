@@ -101,7 +101,6 @@ function CreateTestPage() {
         return;
       }
     }
-    return;
 
     setIsLoading(true);
     const isNameUnique = await api.post("/tests/unique-name", {
@@ -134,9 +133,14 @@ function CreateTestPage() {
     }
 
     if (isNameUnique.data.result !== null) {
-      // there is a testy with similar name
+      // there is a test with similar name
       setIsLoading(false);
-      setData({ name, units, category, templateForSubmit });
+      setData({
+        name: name,
+        units: units,
+        category: category,
+        templateForSubmit: templateForSubmit,
+      });
       setIsTestExistModalOpen(true);
       return;
     } else {
