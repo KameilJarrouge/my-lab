@@ -20,6 +20,13 @@ model Settings {
   location  String?
 }
 
+model Arbitrary {
+  id                      Int     @id @default(autoincrement())
+  CS_ANTIMICROBIAL_AGENTS String? // json array
+  CS_Specimen             String?
+  CS_Growth_Of            String?
+}
+
 model User {
   id       Int    @id @default(autoincrement())
   password String
