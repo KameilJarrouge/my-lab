@@ -29,7 +29,7 @@ function ManualTemplate({
 
   return (
     <div className="flex flex-col gap-6 w-full">
-      <div className="w-[30ch]">
+      <div className="w-[30ch]" dir="ltr">
         <RichAutoCompleteInput
           options={measureUnits}
           state={state.unit}

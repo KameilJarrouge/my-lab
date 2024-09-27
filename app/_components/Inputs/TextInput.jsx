@@ -17,7 +17,7 @@ function TextInput({
 }) {
   const [hidden, setHidden] = useState(true);
   const handleChange = (e) => {
-    setState(e.target.value);
+    setState(e.target.value, e);
   };
   return (
     <div className="w-full h-fit flex flex-col">

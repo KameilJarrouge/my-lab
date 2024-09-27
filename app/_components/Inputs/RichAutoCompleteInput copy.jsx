@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import raise from "superscript-text";
 import { MdOutlineSuperscript } from "react-icons/md";
 import AutoCompleteInput from "./AutoCompleteInput";
+import raise from "@/app/_lib/raise";
 
 function RichAutoCompleteInput({
   state,
@@ -19,14 +19,20 @@ function RichAutoCompleteInput({
         id={`rich-text-${uniqueName}`}
         title={title}
         state={state}
-        setState={(newValue) => {
-          const difference = newValue.length - state.length;
-          if (isRaised && difference > 0) {
-            // handle raising new characters
+        setState={(newValue, e) => {
+          if (isRaised && newValue.length >= (state?.length || 0)) {
+            const indexOfNewChar = e.target.selectionStart - 1;
             setState(
-              newValue.substring(0, newValue.length - difference) +
-                raise(newValue.substring(newValue.length - difference))
+              newValue.substring(0, indexOfNewChar) +
+                raise(newValue[indexOfNewChar]) +
+                newValue.substring(indexOfNewChar + 1)
             );
+            setTimeout(() => {
+              e.target.setSelectionRange(
+                indexOfNewChar + 1,
+                indexOfNewChar + 1
+              );
+            }, 0);
           } else {
             setState(newValue);
           }
