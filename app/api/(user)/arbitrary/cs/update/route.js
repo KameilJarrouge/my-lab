@@ -13,6 +13,7 @@ export const revalidate = 0;
  */
 export async function PUT(request, { params }) {
   const body = await request.json();
+  console.log("body", body);
   let result = await updateCSArbitrary(
     body.id,
     body.antimicrobialAgents,

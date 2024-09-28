@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { FiMinus } from "react-icons/fi";
 import AuthButton from "../../Buttons/AuthButton";
+import AAManipulateModal from "../../Modals/AAManipulateModal";
 
 function CultureAndSensitivity() {
   const [isPositive, setIsPositive] = useState(true);
@@ -12,6 +13,13 @@ function CultureAndSensitivity() {
       className="flex flex-col gap-6 w-full h-full px-2 overflow-y-auto overflow-x-hidden"
       dir="ltr"
     >
+      {isAAModalOpen && (
+        <AAManipulateModal
+          isOpen={isAAModalOpen}
+          setIsOpen={setIsAAModalOpen}
+          uniqueName={"settings-page"}
+        />
+      )}
       <div className="flex flex-col gap-4 ">
         {/* header */}
         <div className="w-full flex justify-between items-center">
@@ -37,7 +45,10 @@ function CultureAndSensitivity() {
             </div>
           </div>
           <div dir="rtl" className="w-fit flex items-center justify-center">
-            <AuthButton title="قائمة ال Antimicrobial Agents" />
+            <AuthButton
+              onClick={() => setIsAAModalOpen(true)}
+              title="قائمة ال Antimicrobial Agents"
+            />
           </div>
         </div>
         {!isPositive ? (
@@ -117,25 +128,6 @@ function CultureAndSensitivity() {
                     ?
                   </td>
                 </tr>
-                {/* {CultureAndSensitivityRows.map((row, index) => (
-                  <tr key={index}>
-                    <td className="border  border-light_primary text-start">
-                      {row.agent}
-                    </td>
-                    <td className="border  border-light_primary text-center">
-                      {row.result}
-                    </td>
-                    <td className="border  border-light_primary text-center">
-                      {row.r}
-                    </td>
-                    <td className="border  border-light_primary text-center">
-                      {row.s}
-                    </td>
-                    <td className="border  border-light_primary text-start break-words">
-                      {row.commercialNames}
-                    </td>
-                  </tr>
-                ))} */}
               </tbody>
             </table>
 

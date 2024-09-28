@@ -3,6 +3,7 @@ import AuthButton from "@/app/_components/Buttons/AuthButton";
 import RichTextInput from "@/app/_components/Inputs/RichTextInput";
 import TextInput from "@/app/_components/Inputs/TextInput";
 import LoadingComponent from "@/app/_components/LoadingComponent";
+import AAManipulateModal from "@/app/_components/Modals/AAManipulateModal";
 import Title from "@/app/_components/Title";
 import api from "@/app/_lib/api";
 import React, { useEffect, useState } from "react";
@@ -115,6 +116,13 @@ function SettingsPage() {
           <LoadingComponent loading={isLoading} />
         </div>
       )}
+      {isAAModalOpen && (
+        <AAManipulateModal
+          isOpen={isAAModalOpen}
+          setIsOpen={setIsAAModalOpen}
+          uniqueName={"settings-page"}
+        />
+      )}
       <div className="w-1/3 flex gap-2">
         <div className="w-full p-2 bg-dark_primary h-[30rem] shadow shadow-black rounded flex flex-col gap-8 items-center">
           <Title> وحدات القياس</Title>
@@ -198,7 +206,10 @@ function SettingsPage() {
           </div>
         </div>
         <div dir="rtl" className="w-fit flex items-center justify-center">
-          <AuthButton title="قائمة ال Antimicrobial Agents" />
+          <AuthButton
+            onClick={() => setIsAAModalOpen(true)}
+            title="قائمة ال Antimicrobial Agents"
+          />
         </div>
       </div>
     </div>

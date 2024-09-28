@@ -124,21 +124,39 @@ export async function getCSArbitrary() {
   return successReturn(result);
 }
 
+export async function getCSAntimicrobialAgents() {
+  let result = await prisma.arbitrary.findFirst({
+    select: {
+      id: true,
+      CS_ANTIMICROBIAL_AGENTS: true,
+    },
+  });
+  if (!result) return successReturn(await createArbitrary());
+
+  return successReturn(result);
+}
+
 export async function updateCSArbitrary(
   id,
   antimicrobialAgents,
   growthOf,
   specimen
 ) {
+  console.log("first", antimicrobialAgents !== undefined);
   await prisma.arbitrary.update({
     where: {
       id: id,
     },
-    CS_ANTIMICROBIAL_AGENTS: antimicrobialAgents
-      ? JSON.stringify(antimicrobialAgents)
-      : undefined,
-    CS_Growth_Of: growthOf ? JSON.stringify(growthOf) : undefined,
-    CS_Specimen: specimen ? JSON.stringify(specimen) : undefined,
+    data: {
+      CS_ANTIMICROBIAL_AGENTS:
+        antimicrobialAgents !== undefined
+          ? JSON.stringify(antimicrobialAgents)
+          : undefined,
+      CS_Growth_Of:
+        growthOf !== undefined ? JSON.stringify(growthOf) : undefined,
+      CS_Specimen:
+        specimen !== undefined ? JSON.stringify(specimen) : undefined,
+    },
   });
   return successReturn();
 }
