@@ -16,6 +16,7 @@ function SettingsPage() {
   const [newUnit, setNewUnit] = useState("");
   const [location, setLocation] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [isAAModalOpen, setIsAAModalOpen] = useState(false);
 
   const refocusAddUnitField = () => {
     const element = document.getElementById("rich-text-units");
@@ -158,7 +159,11 @@ function SettingsPage() {
           <div className="flex gap-4 items-center w-fit">
             <span className="min-w-[12ch]">{"سعر الوحدة :"}</span>
             <div className="w-[50ch]">
-              <TextInput state={unitPrice} setState={setUnitPrice} />
+              <TextInput
+                state={unitPrice}
+                setState={setUnitPrice}
+                withHoveringTitle={false}
+              />
             </div>
           </div>
           <div className="w-fit  flex justify-end gap-4">
@@ -174,7 +179,11 @@ function SettingsPage() {
           <div className="flex gap-4 items-center w-fit">
             <span className="min-w-[12ch]">{"الموقع :"}</span>
             <div className="w-[50ch] h-fit">
-              <TextInput state={location} setState={setLocation} />
+              <TextInput
+                state={location}
+                setState={setLocation}
+                withHoveringTitle={false}
+              />
             </div>
           </div>
           <div className="w-fit  flex justify-end gap-4">
@@ -184,6 +193,9 @@ function SettingsPage() {
             />
             <AuthButton title="تعديل" onClick={handleUpdateLocation} />
           </div>
+        </div>
+        <div dir="rtl" className="w-fit flex items-center justify-center">
+          <AuthButton title="قائمة ال Antimicrobial Agents" />
         </div>
       </div>
     </div>
