@@ -59,7 +59,7 @@ function TestTemplateCard({
         {/* Information */}
         <div className="flex items-center  gap-4">
           <span
-            className="w-[20ch] truncate  pr-4 "
+            className="max-w-[40ch] min-w-[20ch] w-fit truncate  pr-4 "
             data-tooltip-id="my-tooltip"
             data-tooltip-content={"التصنيف : " + test.category.name}
           >
