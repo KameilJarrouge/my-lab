@@ -119,7 +119,10 @@ function SettingsPage() {
         <div className="w-full p-2 bg-dark_primary h-[30rem] shadow shadow-black rounded flex flex-col gap-8 items-center">
           <Title> وحدات القياس</Title>
           <div className="flex flex-col gap-6 w-full ">
-            <div className="flex gap-4 w-full items-center justify-center ">
+            <div
+              className="flex gap-4 w-full items-center justify-center "
+              dir="ltr"
+            >
               <div className="max-w-[20ch]">
                 <RichTextInput
                   id="units"
