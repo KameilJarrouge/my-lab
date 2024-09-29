@@ -100,43 +100,43 @@ function ManipulateAAForm({ shouldFetch }) {
       </div>
       {/* list of AA */}
       <div className="overflow-y-auto h-[60vh]">
-        <table className=" border-collapse w-full  ">
+        <table className=" border-collapse w-fit  ">
           {/* table */}
           <thead className="bg-primary sticky -top-1">
             <tr>
               <th
                 rowSpan={2}
-                className="border  border-light_primary text-center min-w-[5%] "
-              >
-                {/* <MdDelete /> */}
-              </th>
-              <th
-                rowSpan={2}
-                className="border  border-light_primary text-center min-w-[20%]"
+                className="border  border-light_primary text-center w-[30ch]"
               >
                 ANTIMICROBIAL AGENTS
               </th>
               <th
                 colSpan={3}
-                className="border  border-light_primary text-center min-w-[35%]"
+                className="border  border-light_primary text-center w-[30ch]"
               >
                 Zone Diameter (mm)
               </th>
               <th
                 rowSpan={2}
-                className="border  border-light_primary text-center min-w-[45%]"
+                className="border  border-light_primary text-center w-[40ch]"
               >
                 COMMERCIAL NAMES
               </th>
+              <th
+                rowSpan={2}
+                className="border  border-light_primary text-center w-[1rem] "
+              >
+                {/* <MdDelete /> */}
+              </th>
             </tr>
             <tr>
-              <th className="border  border-light_primary text-center">
+              <th className="border  border-light_primary text-center w-[10ch]">
                 Results(mm)
               </th>
-              <th className="border  border-light_primary text-center">
+              <th className="border  border-light_primary text-center w-[10ch]">
                 R(Below)
               </th>
-              <th className="border  border-light_primary text-center">
+              <th className="border  border-light_primary text-center w-[10ch]">
                 S(Over)
               </th>
             </tr>
@@ -149,14 +149,6 @@ function ManipulateAAForm({ shouldFetch }) {
                 )
                 .map((row, index) => (
                   <tr key={index}>
-                    <td className="border  border-light_primary px-1">
-                      <button
-                        onClick={() => removeAA(index)}
-                        className="text-text hover:text-red-400 flex justify-center items-center"
-                      >
-                        <MdDelete />
-                      </button>
-                    </td>
                     <td
                       className={`border  text-start  ${
                         row.agent === ""
@@ -211,6 +203,14 @@ function ManipulateAAForm({ shouldFetch }) {
                           updateAA(index, "commercialNames", value)
                         }
                       />
+                    </td>
+                    <td className="border  border-light_primary px-1">
+                      <button
+                        onClick={() => removeAA(index)}
+                        className="text-text hover:text-red-400 flex justify-center items-center"
+                      >
+                        <MdDelete />
+                      </button>
                     </td>
                   </tr>
                 ))}
