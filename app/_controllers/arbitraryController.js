@@ -7,24 +7,28 @@ const CultureAndSensitivityRows = [
     r: 13,
     s: 16,
     commercialNames: "TIENAM (MSD), PRIMAXIN (MSD).",
+    result: 0,
   },
   {
     agent: "Cefotaxime",
     r: 14,
     s: 23,
     commercialNames: "Claphoram, CLAFORAN (Roussel).",
+    result: 0,
   },
   {
     agent: "Cefadroxil",
     r: 14,
     s: 18,
     commercialNames: "Duricef, CEDROX (Hikma), ULTRACEF (Bristol).",
+    result: 0,
   },
   {
     agent: "Clindamycine",
     r: 14,
     s: 17,
     commercialNames: "Lindocine, Clindacine, DALACIN C (Upjohn).",
+    result: 0,
   },
 
   {
@@ -32,6 +36,7 @@ const CultureAndSensitivityRows = [
     r: 13,
     s: 16,
     commercialNames: "Kanamycin, KANTREX (Bristol).",
+    result: 0,
   },
 
   {
@@ -39,6 +44,7 @@ const CultureAndSensitivityRows = [
     r: 12,
     s: 17,
     commercialNames: "Peflacin, Sinasin, PEFLACINE (Bellon Roger).",
+    result: 0,
   },
 
   {
@@ -46,6 +52,7 @@ const CultureAndSensitivityRows = [
     r: 12,
     s: 16,
     commercialNames: "Unicycline, Doxymas, VIBRAMYCIN (Pfizer).",
+    result: 0,
   },
 
   {
@@ -53,6 +60,7 @@ const CultureAndSensitivityRows = [
     r: 12,
     s: 16,
     commercialNames: "Oflocet, FLOXIN (Ortho McNeil).",
+    result: 0,
   },
 
   {
@@ -60,6 +68,7 @@ const CultureAndSensitivityRows = [
     r: 15,
     s: 21,
     commercialNames: "Ciproflex, Sipro, CIPROBAY (Bayer).",
+    result: 0,
   },
 
   {
@@ -67,6 +76,7 @@ const CultureAndSensitivityRows = [
     r: 17,
     s: 21,
     commercialNames: "Oraluxe, VANTIN (Upjohn).",
+    result: 0,
   },
 
   {
@@ -74,6 +84,7 @@ const CultureAndSensitivityRows = [
     r: 14,
     s: 18,
     commercialNames: "Velosef, Cephradex, CEFRASOL (Radium farma).",
+    result: 0,
   },
 
   {
@@ -81,6 +92,7 @@ const CultureAndSensitivityRows = [
     r: 14,
     s: 17,
     commercialNames: "Amikacin, Minocin, AMIKIN (Bristol).",
+    result: 0,
   },
 
   {
@@ -88,6 +100,7 @@ const CultureAndSensitivityRows = [
     r: 13,
     s: 21,
     commercialNames: "Rociflex, ROCEPHIN (Roche).",
+    result: 0,
   },
 
   {
@@ -95,6 +108,7 @@ const CultureAndSensitivityRows = [
     r: 13,
     s: 20,
     commercialNames: "Ogmentine, AUGMENTINE (Beecham).",
+    result: 0,
   },
 ];
 
@@ -114,7 +128,6 @@ export async function getCSArbitrary() {
   let result = await prisma.arbitrary.findFirst({
     select: {
       id: true,
-      CS_ANTIMICROBIAL_AGENTS: true,
       CS_Growth_Of: true,
       CS_Specimen: true,
     },
@@ -142,7 +155,6 @@ export async function updateCSArbitrary(
   growthOf,
   specimen
 ) {
-  console.log("first", antimicrobialAgents !== undefined);
   await prisma.arbitrary.update({
     where: {
       id: id,
@@ -159,4 +171,27 @@ export async function updateCSArbitrary(
     },
   });
   return successReturn();
+}
+
+export async function appendCSArbitrary(specimen, growthOf) {
+  let result = await getCSArbitrary();
+  let specimens = JSON.parse(result.returned.CS_Specimen);
+  let growthOfs = JSON.parse(result.returned.CS_Growth_Of);
+  if (!specimens.includes(specimen)) {
+    specimens.push(specimen);
+  } else {
+    specimens = undefined;
+  }
+  if (!growthOfs.includes(growthOf)) {
+    growthOfs.push(growthOf);
+  } else {
+    growthOfs = undefined;
+  }
+
+  return await updateCSArbitrary(
+    result.returned.id,
+    undefined,
+    growthOfs,
+    specimens
+  );
 }

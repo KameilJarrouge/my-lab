@@ -5,7 +5,7 @@ import { FiMinus } from "react-icons/fi";
 import AuthButton from "../../Buttons/AuthButton";
 import AAManipulateModal from "../../Modals/AAManipulateModal";
 
-function CultureAndSensitivity() {
+function CultureAndSensitivityTemplate() {
   const [isPositive, setIsPositive] = useState(true);
   const [isAAModalOpen, setIsAAModalOpen] = useState(false);
   return (
@@ -153,4 +153,4 @@ function CultureAndSensitivity() {
   );
 }
 
-export default CultureAndSensitivity;
+export default CultureAndSensitivityTemplate;

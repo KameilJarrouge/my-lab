@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import UrinalysisTemplateInput from "./PresetTemplates/UrinalysisTemplateInput";
 import HematologyCoagulationTemplateInput from "./PresetTemplates/HematologyCoagulationTemplateInput";
 import { toast } from "react-toastify";
+import CultureAndSensitivityTemplateInput from "./PresetTemplates/CultureAndSensitivityTemplateInput";
+import api from "@/app/_lib/api";
 
 function StaticTemplateInput({ test, updateTemplate, lastTest }) {
   const [result, setResult] = useState(test.test.template.result || {});
@@ -12,29 +14,65 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
     if (test.test.template.hasOwnProperty("result")) {
       setResult(test.test.template.result);
     } else {
-      setResult({});
+      if (test.test.template.staticTemplate === "Culture And Sensitivity") {
+        setResult({
+          selectedAA: [],
+          isPositive: true,
+          specimen: "",
+          growthOf: "",
+          coloniesCount: "",
+        });
+      } else {
+        setResult({});
+      }
     }
     setIsDirty(false);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     let shouldStop = false;
     switch (test.test.template.staticTemplate) {
       case "Hematology - Coagulation":
         if (Object.keys(result).length !== 18) {
-          toast.error("يرجى تعبئة جميع حقول التحليل");
           shouldStop = true;
         }
         break;
 
       case "تحليل البول Urinalysis":
         if (Object.keys(result).length !== 20) {
-          toast.error("يرجى تعبئة جميع حقول التحليل");
           shouldStop = true;
         }
         break;
+      case "Culture And Sensitivity":
+        let shouldAppend = false;
+        if (result.isPositive) {
+          if (
+            result.specimen === "" ||
+            result.growthOf === "" ||
+            result.coloniesCount === ""
+          ) {
+            shouldStop = true;
+            break;
+          } else {
+            shouldAppend = true;
+          }
+
+          if (result.selectedAA.length === 0) {
+            toast.error("يرجى إدخال مضاد واحد على الأقل");
+            return;
+          }
+          // add arbitrary values to the db
+          await api.put(`/arbitrary/cs/append`, {
+            specimen: result.specimen,
+            growthOf: result.growthOf,
+          });
+        }
+        break;
     }
-    if (shouldStop) return;
+    if (shouldStop) {
+      toast.error("يرجى تعبئة جميع حقول التحليل");
+      return;
+    }
     const readyTest = test;
     readyTest.test.template.result = result;
     updateTemplate(readyTest);
@@ -48,11 +86,31 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
     tempResult[row] = value;
     setResult(tempResult);
   };
+
+  useEffect(() => {
+    if (
+      test.test.template.staticTemplate === "Culture And Sensitivity" &&
+      JSON.stringify(result) === "{}"
+    ) {
+      setResult({
+        selectedAA: [],
+        isPositive: true,
+        specimen: "",
+        growthOf: "",
+        coloniesCount: "",
+      });
+      setTimeout(() => {
+        setIsDirty(false);
+      }, 0);
+    }
+  }, []);
+
   useEffect(() => {
     if (
       JSON.stringify(result) !== JSON.stringify(test.test.template.result || {})
-    )
+    ) {
       setIsDirty(true);
+    }
   }, [result]);
 
   return (
@@ -76,6 +134,15 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
               result={result}
               setResult={handleUpdateState}
               lastTest={lastTest}
+            />
+          ),
+          "Culture And Sensitivity": (
+            <CultureAndSensitivityTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
             />
           ),
         }[test.test.template.staticTemplate]

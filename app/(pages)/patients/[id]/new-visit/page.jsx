@@ -67,13 +67,51 @@ function NewVisit({ params }) {
     for (let i = 0; i < tests.length; i++) {
       const element = tests[i];
       if (element.test.template.type === "static") {
-        if (
-          !element.test.template.hasOwnProperty("result") ||
-          Object.keys(element.test.template.result).length !==
-            fieldsCount[element.test.template.staticTemplate]
-        ) {
+        if (!element.test.template.hasOwnProperty("result")) {
           toast.error("يرجى تعبئة حقول كل التحاليل");
           return;
+        }
+
+        switch (element.test.template.staticTemplate) {
+          case "تحليل البول Urinalysis":
+            if (
+              Object.keys(element.test.template.result).length !==
+              fieldsCount[element.test.template.staticTemplate]
+            ) {
+              toast.error("يرجى تعبئة حقول كل التحاليل");
+              return;
+            }
+            break;
+          case "Hematology - Coagulation":
+            if (
+              Object.keys(element.test.template.result).length !==
+              fieldsCount[element.test.template.staticTemplate]
+            ) {
+              toast.error("يرجى تعبئة حقول كل التحاليل");
+              return;
+            }
+            break;
+
+          case "Culture And Sensitivity":
+            const result = element.test.template.result;
+            if (result.isPositive) {
+              if (
+                result.specimen === "" ||
+                result.growthOf === "" ||
+                result.coloniesCount === ""
+              ) {
+                toast.error("يرجى تعبئة حقول كل التحاليل");
+                return;
+              }
+              if (result.selectedAA.length === 0) {
+                toast.error("يرجى إدخال مضاد واحد على الأقل");
+                return;
+              }
+            }
+            break;
+          default:
+            toast.error("Not Implemented Yet");
+            return;
         }
       } else {
         if (

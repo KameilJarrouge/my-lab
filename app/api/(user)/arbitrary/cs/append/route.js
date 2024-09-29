@@ -3,7 +3,7 @@ import {
   errorResponse,
   successResponse,
 } from "../../../../../_lib/responseGenerator";
-import { updateCSArbitrary } from "@/app/_controllers/arbitraryController";
+import { appendCSArbitrary } from "@/app/_controllers/arbitraryController";
 export const revalidate = 0;
 
 /**
@@ -13,12 +13,7 @@ export const revalidate = 0;
  */
 export async function PUT(request, { params }) {
   const body = await request.json();
-  let result = await updateCSArbitrary(
-    body.id,
-    body.antimicrobialAgents,
-    body.growthOf,
-    body.specimen
-  );
+  let result = await appendCSArbitrary(body.specimen, body.growthOf);
   if (!result.success) {
     return errorResponse(result.errorCode);
   }
