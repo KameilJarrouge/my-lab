@@ -1,6 +1,7 @@
 import React from "react";
 import UrinalysisTemplatePrint from "./PresetTemplates/UrinalysisTemplatePrint";
 import HematologyCoagulationTemplatePrint from "./PresetTemplates/HematologyCoagulationTemplatePrint";
+import CultureAndSensitivityTemplatePrint from "./PresetTemplates/CultureAndSensitivityTemplatePrint";
 
 function StaticTemplatePrint({ id, template, lastTestResult, lastTestDate }) {
   return (
@@ -18,6 +19,12 @@ function StaticTemplatePrint({ id, template, lastTestResult, lastTestDate }) {
               template={template}
               lastTestDate={lastTestDate}
               lastTestResult={lastTestResult}
+            />
+          ),
+          "Culture And Sensitivity": (
+            <CultureAndSensitivityTemplatePrint
+              template={template}
+              catIndex={id}
             />
           ),
         }[template.staticTemplate]

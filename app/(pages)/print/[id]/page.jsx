@@ -1,6 +1,4 @@
 "use client";
-import AuthButton from "@/app/_components/Buttons/AuthButton";
-import ToggleInput from "@/app/_components/Inputs/ToggleInput";
 import LoadingComponent from "@/app/_components/LoadingComponent";
 import ManualTemplatePrint from "@/app/_components/Printing/ManualTemplatePrint";
 import ManualTestsHeader from "@/app/_components/Printing/ManualTestsHeader";
@@ -9,12 +7,9 @@ import PrintHeader from "@/app/_components/Printing/PrintHeader";
 import PrintSettings from "@/app/_components/Printing/PrintSettings";
 import StaticTemplatePrint from "@/app/_components/Printing/StaticTemplatePrint";
 import StaticTestHeader from "@/app/_components/Printing/StaticTestHeader";
-import Title from "@/app/_components/Title";
 import api from "@/app/_lib/api";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { IoMdDocument } from "react-icons/io";
-import { MdChevronLeft, MdInsertPageBreak, MdPages } from "react-icons/md";
 import { toast } from "react-toastify";
 
 function PrintPage({ params }) {
@@ -88,6 +83,14 @@ function PrintPage({ params }) {
 
       if (element.template.type === "static") {
         // static templates doesn't share category.
+        if (element.template.staticTemplate === "Culture And Sensitivity") {
+          // adding unique index for the CS AA rows to measure their height
+          element.template.result.selectedAA =
+            element.template.result.selectedAA.map((aa, index) => ({
+              ...aa,
+              aaIndex: `vt-${element.id}-aa-${index}`,
+            }));
+        }
         categoryIndex++;
         categorizedTestsArray.push({
           type: "static",
@@ -136,6 +139,7 @@ function PrintPage({ params }) {
     });
 
     setTestsGroupedByCategory(categorizedTestsArray);
+    console.log("categorizedTestsArray", categorizedTestsArray);
     setVisit(result.data.result);
     setIsLoading(false);
   };
@@ -144,11 +148,15 @@ function PrintPage({ params }) {
     let pages = [{ height: 217, content: [] }];
     let visitTestsLeft = [...testsGroupedByCategory];
     let indexCount = 0;
+    /**
+     * same as catIndex
+     */
     let readingIndex = 0;
     setIsLoading(true);
 
     while (visitTestsLeft.length !== 0) {
       const firstGroupedTest = visitTestsLeft.shift();
+      console.log("firstGroupedTest", firstGroupedTest);
 
       if (Array.isArray(firstGroupedTest.visitTest)) {
         // This means that the tests are manual
@@ -230,28 +238,189 @@ function PrintPage({ params }) {
         }
       } else {
         let staticTestHeight = 0;
-        staticTestHeight += pxTomm("static-test-header-" + readingIndex);
-        staticTestHeight += pxTomm("static-template-print-" + readingIndex);
-        // handle test has a larger height than A4
-        if (staticTestHeight > 217) {
-          toast.error("Check the console");
-          console.error(
-            "Error in sectioning function: static test doesn't fit in an A4 page",
-            firstGroupedTest
-          );
-          return;
-        }
+        let isDefault = false;
+        switch (firstGroupedTest.visitTest.template.staticTemplate) {
+          case "تحليل البول Urinalysis": {
+            staticTestHeight += pxTomm("static-test-header-" + readingIndex);
+            staticTestHeight += pxTomm("static-template-print-" + readingIndex);
+            // handle test has a larger height than A4
+            if (staticTestHeight > 217) {
+              toast.error("Check the console");
+              console.error(
+                "Error in sectioning function: static test doesn't fit in an A4 page",
+                firstGroupedTest
+              );
+              return;
+            }
 
-        if (staticTestHeight < pages[pages.length - 1].height) {
-          // append content (safe to add to this page)
-          pages[pages.length - 1].height -= staticTestHeight;
-          pages[pages.length - 1].content.push(firstGroupedTest);
-        } else {
-          // add to new page
-          pages.push({
-            height: 217 - staticTestHeight,
-            content: [firstGroupedTest],
-          });
+            if (staticTestHeight < pages[pages.length - 1].height) {
+              // append content (safe to add to this page)
+              pages[pages.length - 1].height -= staticTestHeight;
+              pages[pages.length - 1].content.push(firstGroupedTest);
+            } else {
+              // add to new page
+              pages.push({
+                height: 217 - staticTestHeight,
+                content: [firstGroupedTest],
+              });
+            }
+            break;
+          }
+
+          case "Culture And Sensitivity": {
+            if (!firstGroupedTest.visitTest.template.result.isPositive) {
+              isDefault = true;
+              break;
+            }
+            indexCount = 0;
+            let CSHeaderTestHeight = 0;
+
+            CSHeaderTestHeight =
+              CSHeaderTestHeight +
+              pxTomm(
+                "static-test-header-" +
+                  (firstGroupedTest.hasOwnProperty("readingIndex")
+                    ? firstGroupedTest.readingIndex
+                    : readingIndex)
+              ) +
+              pxTomm(
+                "CS-header-" +
+                  (firstGroupedTest.hasOwnProperty("readingIndex")
+                    ? firstGroupedTest.readingIndex
+                    : readingIndex)
+              ) +
+              pxTomm(
+                "CS-attributes-" +
+                  (firstGroupedTest.hasOwnProperty("readingIndex")
+                    ? firstGroupedTest.readingIndex
+                    : readingIndex)
+              ) +
+              pxTomm(
+                "CS-table-header-" +
+                  (firstGroupedTest.hasOwnProperty("readingIndex")
+                    ? firstGroupedTest.readingIndex
+                    : readingIndex)
+              ) +
+              pxTomm(
+                "CS-table-footer-" +
+                  (firstGroupedTest.hasOwnProperty("readingIndex")
+                    ? firstGroupedTest.readingIndex
+                    : readingIndex)
+              );
+            // the header doesn't fit
+            if (CSHeaderTestHeight > pages[pages.length - 1].height) {
+              pages.push({ height: 217, content: [] });
+            }
+
+            while (true) {
+              // finished this grouped test
+              if (indexCount === 19) {
+                console.log("lol");
+              }
+              if (
+                indexCount >
+                firstGroupedTest.visitTest.template.result.selectedAA.length - 1
+              ) {
+                if (indexCount !== 0) {
+                  pages[pages.length - 1].height -= CSHeaderTestHeight;
+                  pages[pages.length - 1].content.push({
+                    type: firstGroupedTest.type,
+                    visitTest: firstGroupedTest.visitTest,
+                    indicatorIndex: firstGroupedTest.indicatorIndex,
+                  });
+                }
+                break;
+              }
+
+              let nextAAHeight = pxTomm(
+                `vt-${firstGroupedTest.visitTest.id}-aa-${indexCount}`
+              );
+
+              CSHeaderTestHeight += nextAAHeight;
+
+              if (CSHeaderTestHeight > pages[pages.length - 1].height) {
+                // the current test can't be added to this page
+
+                if (indexCount === 0) {
+                  // Only the header can be put
+                  // create a new page
+                  pages.push({ height: 217, content: [] });
+                  // unshift the first grouped test (redo this in a new page)
+                  visitTestsLeft.unshift(firstGroupedTest);
+                } else {
+                  // add the remaining test in their own groupedTest
+                  let remainingAAInVisitTest = structuredClone(
+                    firstGroupedTest.visitTest
+                  );
+                  remainingAAInVisitTest.template.result.selectedAA =
+                    remainingAAInVisitTest.template.result.selectedAA.slice(
+                      indexCount
+                    );
+                  visitTestsLeft.unshift({
+                    type: firstGroupedTest.type,
+                    visitTest: remainingAAInVisitTest,
+                    readingIndex: firstGroupedTest.hasOwnProperty(
+                      "readingIndex"
+                    )
+                      ? firstGroupedTest.readingIndex
+                      : readingIndex,
+                    spliced: true,
+                    indicatorIndex: firstGroupedTest.indicatorIndex,
+                  });
+                  pages[pages.length - 1].height -=
+                    CSHeaderTestHeight - nextAAHeight;
+
+                  let safeToPutAAInVisitTest = structuredClone(
+                    firstGroupedTest.visitTest
+                  );
+                  safeToPutAAInVisitTest.template.result.selectedAA =
+                    safeToPutAAInVisitTest.template.result.selectedAA.slice(
+                      0,
+                      indexCount
+                    );
+                  pages[pages.length - 1].content.push({
+                    type: firstGroupedTest.type,
+                    visitTest: safeToPutAAInVisitTest,
+                    indicatorIndex: firstGroupedTest.indicatorIndex,
+                  });
+                }
+                break;
+              } else {
+                // safeAA.push(firstGroupedTest.visitTest[indexCount]);
+                indexCount++;
+              }
+            }
+            break;
+          }
+
+          default:
+            isDefault = true;
+            break;
+        }
+        if (isDefault) {
+          staticTestHeight += pxTomm("static-test-header-" + readingIndex);
+          staticTestHeight += pxTomm("static-template-print-" + readingIndex);
+          // handle test has a larger height than A4
+          if (staticTestHeight > 217) {
+            toast.error("Check the console");
+            console.error(
+              "Error in sectioning function: static test doesn't fit in an A4 page",
+              firstGroupedTest
+            );
+            return;
+          }
+
+          if (staticTestHeight < pages[pages.length - 1].height) {
+            // append content (safe to add to this page)
+            pages[pages.length - 1].height -= staticTestHeight;
+            pages[pages.length - 1].content.push(firstGroupedTest);
+          } else {
+            // add to new page
+            pages.push({
+              height: 217 - staticTestHeight,
+              content: [firstGroupedTest],
+            });
+          }
         }
       }
       if (!firstGroupedTest.hasOwnProperty("readingIndex")) {
@@ -267,7 +436,7 @@ function PrintPage({ params }) {
     }
 
     setIsLoading(false);
-
+    console.log(pages);
     return pages;
   };
 
@@ -291,6 +460,7 @@ function PrintPage({ params }) {
   }, [testsGroupedByCategory]);
 
   const pxTomm = function (elementId) {
+    console.log("elementId", elementId);
     return (
       document.getElementById(elementId).getBoundingClientRect().height /
       (document.getElementById("my_mm").getBoundingClientRect().height / 100)
