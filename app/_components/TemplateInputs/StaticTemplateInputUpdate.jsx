@@ -4,6 +4,7 @@ import UrinalysisTemplateInput from "./PresetTemplates/UrinalysisTemplateInput";
 import HematologyCoagulationTemplateInput from "./PresetTemplates/HematologyCoagulationTemplateInput";
 import { toast } from "react-toastify";
 import api from "@/app/_lib/api";
+import CultureAndSensitivityTemplateInput from "./PresetTemplates/CultureAndSensitivityTemplateInput";
 
 function StaticTemplateInputUpdate({
   visitTest,
@@ -28,19 +29,45 @@ function StaticTemplateInputUpdate({
     switch (visitTest.template.staticTemplate) {
       case "Hematology - Coagulation":
         if (Object.keys(result).length !== 18) {
-          toast.error("يرجى تعبئة جميع حقول التحليل");
           shouldStop = true;
         }
         break;
 
       case "تحليل البول Urinalysis":
         if (Object.keys(result).length !== 20) {
-          toast.error("يرجى تعبئة جميع حقول التحليل");
           shouldStop = true;
         }
         break;
+      case "Culture And Sensitivity":
+        let shouldAppend = false;
+        if (result.isPositive) {
+          if (
+            result.specimen === "" ||
+            result.growthOf === "" ||
+            result.coloniesCount === ""
+          ) {
+            shouldStop = true;
+            break;
+          } else {
+            shouldAppend = true;
+          }
+
+          if (result.selectedAA.length === 0) {
+            toast.error("يرجى إدخال مضاد واحد على الأقل");
+            return;
+          }
+          // add arbitrary values to the db
+          await api.put(`/arbitrary/cs/append`, {
+            specimen: result.specimen,
+            growthOf: result.growthOf,
+          });
+        }
+        break;
     }
-    if (shouldStop) return;
+    if (shouldStop) {
+      toast.error("يرجى تعبئة جميع حقول التحليل");
+      return;
+    }
     setIsLoading(true);
     const newTemplate = structuredClone(visitTest.template);
     newTemplate.result = result;
@@ -96,6 +123,16 @@ function StaticTemplateInputUpdate({
               result={result}
               setResult={handleUpdateState}
               lastTest={lastTest}
+              saveButtonTitle="تعديل"
+            />
+          ),
+          "Culture And Sensitivity": (
+            <CultureAndSensitivityTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
               saveButtonTitle="تعديل"
             />
           ),
