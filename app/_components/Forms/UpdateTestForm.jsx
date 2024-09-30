@@ -9,6 +9,7 @@ import DropMenu from "../Inputs/DropMenu";
 import ManualTemplate from "../Templates/ManualTemplate";
 import UrinalysisTemplate from "../Templates/PresetTemplates/UrinalysisTemplate";
 import HematologyCoagulationTemplate from "../Templates/PresetTemplates/HematologyCoagulationTemplate";
+import CultureAndSensitivityTemplate from "../Templates/PresetTemplates/CultureAndSensitivityTemplate";
 
 function UpdateTestForm({ submit, categories = [], test }) {
   const [name, setName] = useState("");
@@ -88,7 +89,11 @@ function UpdateTestForm({ submit, categories = [], test }) {
               setState={setStaticTemplate}
               title="القوالب الجاهزة"
               uniqueName="template"
-              options={["تحليل البول Urinalysis", "Hematology - Coagulation"]}
+              options={[
+                "تحليل البول Urinalysis",
+                "Hematology - Coagulation",
+                "Culture And Sensitivity",
+              ]}
             />
           )}
         </div>
@@ -100,6 +105,7 @@ function UpdateTestForm({ submit, categories = [], test }) {
             {
               "تحليل البول Urinalysis": <UrinalysisTemplate />,
               "Hematology - Coagulation": <HematologyCoagulationTemplate />,
+              "Culture And Sensitivity": <CultureAndSensitivityTemplate />,
             }[staticTemplate]
           )}
         </div>
