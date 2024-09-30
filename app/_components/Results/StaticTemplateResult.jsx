@@ -2,6 +2,7 @@
 import React from "react";
 import UrinalysisTemplateResult from "./PresetTemplates/UrinalysisTemplateResult";
 import HematologyCoagulationTemplateResult from "./PresetTemplates/HematologyCoagulationTemplateResult";
+import CultureAndSensitivityTemplateResult from "./PresetTemplates/CultureAndSensitivityTemplateResult";
 
 function StaticTemplateResult({ template }) {
   return (
@@ -13,6 +14,9 @@ function StaticTemplateResult({ template }) {
           ),
           "Hematology - Coagulation": (
             <HematologyCoagulationTemplateResult template={template} />
+          ),
+          "Culture And Sensitivity": (
+            <CultureAndSensitivityTemplateResult template={template} />
           ),
         }[template.staticTemplate]
       }
