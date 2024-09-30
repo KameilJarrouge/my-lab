@@ -11,12 +11,12 @@ function TestRow({ test, index, date }) {
     <div className="w-full h-fit">
       <div className={`flex items-center justify-between w-full `}>
         {/* info */}
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-3 items-center flex-wrap ">
           <span>{index + 1})</span>
           <span
             data-tooltip-id="my-tooltip"
             data-tooltip-content={"التحليل : " + test.Test.name}
-            className="max-w-[20ch] truncate text-start group-hover:font-semibold"
+            className="max-w-[30ch] truncate text-start group-hover:font-semibold"
           >
             {test.Test.name}
           </span>{" "}
@@ -24,7 +24,7 @@ function TestRow({ test, index, date }) {
           <span
             data-tooltip-id="my-tooltip"
             data-tooltip-content={"التصنيف : " + test.Test.category.name}
-            className="max-w-[20ch] truncate "
+            className="max-w-[30ch] truncate "
           >
             {test.Test.category.name}
           </span>{" "}
