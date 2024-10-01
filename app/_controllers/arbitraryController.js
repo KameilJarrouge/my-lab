@@ -112,12 +112,36 @@ const CultureAndSensitivityRows = [
   },
 ];
 
+const Urinalysis = {
+  Color: [],
+  Appearance: [],
+  "Specific Gravity": [],
+  pH: [],
+  Glucose: [],
+  Protein: [],
+  Hemoglobin: [],
+  Urobilinogen: [],
+  Bilirubin: [],
+  Nitrite: [],
+  Ketone: [],
+  Leucocytes: [],
+  Erythrocytes: [],
+  "Epithelial Cells": [],
+  Cylinders: [],
+  "Ca. Oxalate": [],
+  Urate: [],
+  "Uric Acid": [],
+  Phosphate: [],
+  Dynamic: [],
+};
+
 async function createArbitrary() {
   const result = await prisma.arbitrary.create({
     data: {
       CS_ANTIMICROBIAL_AGENTS: JSON.stringify(CultureAndSensitivityRows),
       CS_Growth_Of: "[]",
       CS_Specimen: "[]",
+      Urinalysis: JSON.stringify(Urinalysis),
       // Fill this with remaining fields once you add them
     },
   });

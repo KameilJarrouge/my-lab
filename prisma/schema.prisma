@@ -25,6 +25,7 @@ model Arbitrary {
   CS_ANTIMICROBIAL_AGENTS String? // json array
   CS_Specimen             String?
   CS_Growth_Of            String?
+  Urinalysis              String?
 }
 
 model User {
