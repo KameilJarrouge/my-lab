@@ -26,7 +26,9 @@ function ManipulateAAForm({ shouldFetch }) {
     }
     setId(result.data.result.id);
     setAntimicrobialAgents(
-      JSON.parse(result.data.result.CS_ANTIMICROBIAL_AGENTS)
+      JSON.parse(result.data.result.CS_ANTIMICROBIAL_AGENTS).sort((a, b) =>
+        a.agent.localeCompare(b.agent)
+      )
     );
   };
 
