@@ -29,7 +29,10 @@ function UrinalysisTemplate() {
         </span>
         <div className="w-full flex justify-between items-start ">
           <div className="flex flex-col gap-4 w-[30%]">
-            <Item englishName={"Bacteria"} />
+            <Item englishName={"Dynamic"} arabicName={"ديناميكي"} />
+            <Item englishName={"Dynamic"} arabicName={"ديناميكي"} />
+            <Item englishName={"Dynamic"} arabicName={"ديناميكي"} />
+            <Item englishName={"Dynamic"} arabicName={"ديناميكي"} />
           </div>
           <div className="flex flex-col gap-4 w-[30%] h-full">
             <Item
