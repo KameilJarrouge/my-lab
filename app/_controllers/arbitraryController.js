@@ -255,11 +255,14 @@ export async function appendUrinalysisArbitrary(urinalysis) {
     if (field === "Dynamic") {
       if (!urinalysis.hasOwnProperty("Dynamic")) continue;
       for (let item of urinalysis[field]) {
-        if (!urinalysisInDB[field].includes(item.name)) {
+        if (item.name !== "" && !urinalysisInDB[field].includes(item.name)) {
           urinalysisInDB[field].push(item.name);
         }
       }
-    } else if (!urinalysisInDB[field].includes(urinalysis[field])) {
+    } else if (
+      urinalysis[field] !== "" &&
+      !urinalysisInDB[field].includes(urinalysis[field])
+    ) {
       urinalysisInDB[field].push(urinalysis[field]);
     }
   }
