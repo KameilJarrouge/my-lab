@@ -219,3 +219,49 @@ export async function appendCSArbitrary(specimen, growthOf) {
     specimens
   );
 }
+
+export async function getUrinalysisArbitrary() {
+  let result = await prisma.arbitrary.findFirst({
+    select: {
+      id: true,
+      Urinalysis: true,
+    },
+  });
+  if (!result) return successReturn(await createArbitrary());
+
+  return successReturn(result);
+}
+
+export async function updateUrinalysisArbitrary(id, urinalysis) {
+  await prisma.arbitrary.update({
+    where: {
+      id: id,
+    },
+    data: {
+      Urinalysis: JSON.stringify(urinalysis),
+    },
+  });
+  return successReturn();
+}
+
+export async function appendUrinalysisArbitrary(urinalysis) {
+  let result = await getUrinalysisArbitrary();
+  let urinalysisInDB = JSON.parse(result.returned.Urinalysis);
+  let keys = Object.keys(urinalysisInDB);
+  let field = undefined;
+  for (let i = 0; i < keys.length; i++) {
+    field = keys[i];
+
+    if (field === "Dynamic") {
+      for (let value of urinalysis[field]) {
+        if (urinalysisInDB[field].includes(value)) {
+          urinalysisInDB[field].push(value);
+        }
+      }
+    } else if (urinalysisInDB[field].includes(urinalysis[field])) {
+      urinalysisInDB[field].push(urinalysis[field]);
+    }
+  }
+
+  return await updateUrinalysisArbitrary(result.returned.id, urinalysisInDB);
+}
