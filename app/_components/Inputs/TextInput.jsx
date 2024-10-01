@@ -20,13 +20,13 @@ function TextInput({
     setState(e.target.value, e);
   };
   return (
-    <div className="w-full h-fit flex flex-col">
+    <div className="w-full h-fit flex flex-col ">
       {withHoveringTitle && (
         <span className=" text-xs  h-[1rem] w-full text-end">
           {state !== "" && title}
         </span>
       )}
-      <div className="w-full h-fit flex  justify-center items-center  border-b-[1px] border-b-light_primary focus-within:border-b-light_text relative">
+      <div className="w-full h-fit flex bg-dark_primary  justify-center items-center  border-b-[1px] border-b-light_primary focus-within:border-b-light_text relative">
         <input
           {...props}
           type={hidden ? type : "text"}

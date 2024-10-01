@@ -34,6 +34,7 @@ function AutoCompleteInput({
         state={state}
         title={title}
         onFocus={() => setIsAutoCompleteShowing(true)}
+        onBlur={() => setIsAutoCompleteShowing(false)}
         {...props}
       />
       {state !== "" && isAutoCompleteShowing && (
