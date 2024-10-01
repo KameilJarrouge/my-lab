@@ -39,12 +39,16 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
         break;
 
       case "تحليل البول Urinalysis":
-        if (Object.keys(result).length !== 20) {
+        let fieldsCount = result.hasOwnProperty("Dynamic") ? 20 : 19;
+        if (Object.keys(result).length !== fieldsCount) {
           shouldStop = true;
+        } else {
+          await api.put(`/arbitrary/urinalysis/append`, {
+            urinalysis: result,
+          });
         }
         break;
       case "Culture And Sensitivity":
-        let shouldAppend = false;
         if (result.isPositive) {
           if (
             result.specimen === "" ||

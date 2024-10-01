@@ -54,6 +54,7 @@ function UrinalysisTemplateInput({
     }
 
     setOptions(JSON.parse(result.data.result.Urinalysis));
+    console.log("result.data.result.Urinalysis", result.data.result.Urinalysis);
   };
 
   useEffect(() => {

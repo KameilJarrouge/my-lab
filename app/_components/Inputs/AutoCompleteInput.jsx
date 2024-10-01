@@ -50,6 +50,7 @@ function AutoCompleteInput({
             .slice(0, 20)
             .map((option, index, arr) => (
               <button
+                tabIndex={"-1"}
                 onClick={() => {
                   setState(option);
                   setIsAutoCompleteShowing(false);
