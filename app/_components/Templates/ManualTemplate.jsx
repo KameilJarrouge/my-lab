@@ -4,7 +4,7 @@ import TextAreaInput from "../Inputs/TextAreaInput";
 import Separator from "../Separator";
 import api from "@/app/_lib/api";
 import TextInput from "../Inputs/TextInput";
-import RichAutoCompleteInput from "../Inputs/RichAutoCompleteInput copy";
+import RichAutoCompleteInput from "../Inputs/RichAutoCompleteInput";
 import { toast } from "react-toastify";
 
 function ManualTemplate({

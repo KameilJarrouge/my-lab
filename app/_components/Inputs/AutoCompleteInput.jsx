@@ -34,15 +34,20 @@ function AutoCompleteInput({
         state={state}
         title={title}
         onFocus={() => setIsAutoCompleteShowing(true)}
-        onBlur={() => setIsAutoCompleteShowing(false)}
+        onBlur={() => {
+          setTimeout(() => {
+            setIsAutoCompleteShowing(false);
+          }, 200);
+        }}
         {...props}
       />
-      {state !== "" && isAutoCompleteShowing && (
+      {isAutoCompleteShowing && (
         <div className="absolute top-[calc(25px+1rem)] z-40 left-0 w-full bg-primary rounded shadow shadow-black  flex flex-col gap-2 max-h-[15rem] h-fit p-2 overflow-y-auto overflow-x-hidden">
           {options
             .filter((option) => {
               return option.toLowerCase().includes(state.toLowerCase());
             })
+            .slice(0, 20)
             .map((option, index, arr) => (
               <button
                 onClick={() => {
