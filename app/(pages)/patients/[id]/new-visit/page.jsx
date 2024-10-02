@@ -120,6 +120,32 @@ function NewVisit({ params }) {
               }
             }
             break;
+          case "Serology": {
+            const result = element.test.template.result;
+            const hasSelectedTest = result.hasOwnProperty("selectedTest");
+            let resultTemp = structuredClone(result);
+            if (!hasSelectedTest) {
+              resultTemp.selectedTest = "Both";
+            }
+            let fieldsCount = 0;
+
+            switch (resultTemp.selectedTest) {
+              case "Both":
+                fieldsCount = 7;
+                break;
+              case "Wright": {
+                fieldsCount = 3;
+              }
+              case "Widal": {
+                fieldsCount = 5;
+              }
+            }
+            if (Object.keys(resultTemp).length !== fieldsCount) {
+              toast.error("يرجى تعبئة حقول كل التحاليل");
+              return;
+            }
+            break;
+          }
           default:
             toast.error("Not Implemented Yet");
             return;

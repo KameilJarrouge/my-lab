@@ -145,6 +145,7 @@ const Serology = {
   "Typhi. ( H )": [],
   "Para A ( H )": [],
   "Para B ( H )": [],
+  selectedTest: "Both",
   // },
 };
 

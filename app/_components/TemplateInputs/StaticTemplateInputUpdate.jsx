@@ -5,6 +5,7 @@ import HematologyCoagulationTemplateInput from "./PresetTemplates/HematologyCoag
 import { toast } from "react-toastify";
 import api from "@/app/_lib/api";
 import CultureAndSensitivityTemplateInput from "./PresetTemplates/CultureAndSensitivityTemplateInput";
+import SerologyTemplateInput from "./PresetTemplates/SerologyTemplateInput";
 
 function StaticTemplateInputUpdate({
   visitTest,
@@ -67,6 +68,36 @@ function StaticTemplateInputUpdate({
           });
         }
         break;
+      case "Serology": {
+        const hasSelectedTest = result.hasOwnProperty("selectedTest");
+        let resultTemp = structuredClone(result);
+        if (!hasSelectedTest) {
+          handleUpdateState("selectedTest", "Both", false);
+          resultTemp.selectedTest = "Both";
+        }
+        let fieldsCount = 0;
+
+        switch (resultTemp.selectedTest) {
+          case "Both":
+            fieldsCount = 7;
+            break;
+          case "Wright": {
+            fieldsCount = 3;
+          }
+          case "Widal": {
+            fieldsCount = 5;
+          }
+        }
+        if (Object.keys(resultTemp).length !== fieldsCount) {
+          shouldStop = true;
+        }
+        if (!shouldStop) {
+          await api.put(`/arbitrary/serology/append`, {
+            serology: resultTemp,
+          });
+        }
+        break;
+      }
     }
     if (shouldStop) {
       toast.error("يرجى تعبئة جميع حقول التحليل");
@@ -138,6 +169,15 @@ function StaticTemplateInputUpdate({
               result={result}
               setResult={handleUpdateState}
               saveButtonTitle="تعديل"
+            />
+          ),
+          Serology: (
+            <SerologyTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
             />
           ),
         }[visitTest.template.staticTemplate]

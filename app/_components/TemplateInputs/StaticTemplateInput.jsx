@@ -5,6 +5,7 @@ import HematologyCoagulationTemplateInput from "./PresetTemplates/HematologyCoag
 import { toast } from "react-toastify";
 import CultureAndSensitivityTemplateInput from "./PresetTemplates/CultureAndSensitivityTemplateInput";
 import api from "@/app/_lib/api";
+import SerologyTemplateInput from "./PresetTemplates/SerologyTemplateInput";
 
 function StaticTemplateInput({ test, updateTemplate, lastTest }) {
   const [result, setResult] = useState(test.test.template.result || {});
@@ -57,21 +58,51 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
           ) {
             shouldStop = true;
             break;
-          } else {
-            shouldAppend = true;
           }
 
           if (result.selectedAA.length === 0) {
             toast.error("يرجى إدخال مضاد واحد على الأقل");
             return;
           }
-          // add arbitrary values to the db
-          await api.put(`/arbitrary/cs/append`, {
-            specimen: result.specimen,
-            growthOf: result.growthOf,
+          if (!shouldStop) {
+            // add arbitrary values to the db
+            await api.put(`/arbitrary/cs/append`, {
+              specimen: result.specimen,
+              growthOf: result.growthOf,
+            });
+          }
+        }
+        break;
+      case "Serology": {
+        const hasSelectedTest = result.hasOwnProperty("selectedTest");
+        let resultTemp = structuredClone(result);
+        if (!hasSelectedTest) {
+          handleUpdateState("selectedTest", "Both", false);
+          resultTemp.selectedTest = "Both";
+        }
+        let fieldsCount = 0;
+
+        switch (resultTemp.selectedTest) {
+          case "Both":
+            fieldsCount = 7;
+            break;
+          case "Wright": {
+            fieldsCount = 3;
+          }
+          case "Widal": {
+            fieldsCount = 5;
+          }
+        }
+        if (Object.keys(resultTemp).length !== fieldsCount) {
+          shouldStop = true;
+        }
+        if (!shouldStop) {
+          await api.put(`/arbitrary/serology/append`, {
+            serology: resultTemp,
           });
         }
         break;
+      }
     }
     if (shouldStop) {
       toast.error("يرجى تعبئة جميع حقول التحليل");
@@ -142,6 +173,15 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
           ),
           "Culture And Sensitivity": (
             <CultureAndSensitivityTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+            />
+          ),
+          Serology: (
+            <SerologyTemplateInput
               handleSave={handleSave}
               handleRestore={handleRestore}
               isDirty={isDirty}

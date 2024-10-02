@@ -139,7 +139,6 @@ function PrintPage({ params }) {
     });
 
     setTestsGroupedByCategory(categorizedTestsArray);
-    console.log("categorizedTestsArray", categorizedTestsArray);
     setVisit(result.data.result);
     setIsLoading(false);
   };
@@ -156,7 +155,6 @@ function PrintPage({ params }) {
 
     while (visitTestsLeft.length !== 0) {
       const firstGroupedTest = visitTestsLeft.shift();
-      console.log("firstGroupedTest", firstGroupedTest);
 
       if (Array.isArray(firstGroupedTest.visitTest)) {
         // This means that the tests are manual
@@ -315,7 +313,6 @@ function PrintPage({ params }) {
             while (true) {
               // finished this grouped test
               if (indexCount === 19) {
-                console.log("lol");
               }
               if (
                 indexCount >
@@ -436,7 +433,6 @@ function PrintPage({ params }) {
     }
 
     setIsLoading(false);
-    console.log(pages);
     return pages;
   };
 
@@ -460,7 +456,6 @@ function PrintPage({ params }) {
   }, [testsGroupedByCategory]);
 
   const pxTomm = function (elementId) {
-    console.log("elementId", elementId);
     return (
       document.getElementById(elementId).getBoundingClientRect().height /
       (document.getElementById("my_mm").getBoundingClientRect().height / 100)

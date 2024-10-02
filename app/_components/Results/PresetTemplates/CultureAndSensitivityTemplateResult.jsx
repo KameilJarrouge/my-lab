@@ -1,7 +1,6 @@
 import React from "react";
 
 function CultureAndSensitivityTemplateResult({ template }) {
-  console.log("template", template);
   return (
     <div className="flex flex-col gap-4 items-center" dir="ltr">
       {/* header */}
