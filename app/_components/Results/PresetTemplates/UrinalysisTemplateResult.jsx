@@ -89,7 +89,12 @@ function UrinalysisTemplateResult({ template }) {
             {(template.result.Dynamic || []).map((dField, index) => {
               if (index >= 4) return;
               return (
-                <Item1 state={dField} row={"value"} englishName={dField.name} />
+                <Item1
+                  key={index}
+                  state={dField}
+                  row={"value"}
+                  englishName={dField.name}
+                />
               );
             })}
           </div>
@@ -148,13 +153,35 @@ function UrinalysisTemplateResult({ template }) {
         </div>
       </div>
       <div className="w-full flex justify-between flex-wrap gap-8" dir="ltr">
-        {(template.result.Dynamic || []).map((dField, index) => {
+        {(template.result.Dynamic || []).map((dField, index, arr) => {
           if (index < 4) return;
-          return (
-            <div className="w-[30%] " dir="rtl">
-              <Item1 state={dField} row={"value"} englishName={dField.name} />
-            </div>
-          );
+          let length = arr.length - 4;
+          if (length % 3 === 2 && index === arr.length - 1) {
+            return (
+              <>
+                <div key={index} className="w-[30%] " dir="rtl">
+                  <Item1
+                    state={dField}
+                    row={"value"}
+                    englishName={dField.name}
+                  />
+                </div>
+                <div key={-1 * index} className="w-[30%] invisible " dir="rtl">
+                  <Item1
+                    state={dField}
+                    row={"value"}
+                    englishName={dField.name}
+                  />
+                </div>
+              </>
+            );
+          } else {
+            return (
+              <div key={index} className="w-[30%] " dir="rtl">
+                <Item1 state={dField} row={"value"} englishName={dField.name} />
+              </div>
+            );
+          }
         })}
       </div>
     </div>

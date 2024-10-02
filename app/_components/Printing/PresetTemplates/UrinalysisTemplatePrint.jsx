@@ -91,7 +91,12 @@ function UrinalysisTemplatePrint({ template }) {
             {(template.result.Dynamic || []).map((dField, index) => {
               if (index >= 4) return;
               return (
-                <Item1 state={dField} row={"value"} englishName={dField.name} />
+                <Item1
+                  key={index}
+                  state={dField}
+                  row={"value"}
+                  englishName={dField.name}
+                />
               );
             })}
           </div>
@@ -159,14 +164,14 @@ function UrinalysisTemplatePrint({ template }) {
           if (length % 3 === 2 && index === arr.length - 1) {
             return (
               <>
-                <div className="w-[30%] " dir="rtl">
+                <div key={index} className="w-[30%] " dir="rtl">
                   <Item1
                     state={dField}
                     row={"value"}
                     englishName={dField.name}
                   />
                 </div>
-                <div className="w-[30%] invisible " dir="rtl">
+                <div key={-1 * index} className="w-[30%] invisible " dir="rtl">
                   <Item1
                     state={dField}
                     row={"value"}
@@ -177,7 +182,7 @@ function UrinalysisTemplatePrint({ template }) {
             );
           } else {
             return (
-              <div className="w-[30%] " dir="rtl">
+              <div key={index} className="w-[30%] " dir="rtl">
                 <Item1 state={dField} row={"value"} englishName={dField.name} />
               </div>
             );

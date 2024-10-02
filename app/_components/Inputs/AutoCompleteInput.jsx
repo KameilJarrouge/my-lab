@@ -37,7 +37,7 @@ function AutoCompleteInput({
         onBlur={() => {
           setTimeout(() => {
             setIsAutoCompleteShowing(false);
-          }, 200);
+          }, 100);
         }}
         {...props}
       />

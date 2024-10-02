@@ -267,7 +267,7 @@ function UrinalysisTemplateInput({
         {(result.Dynamic || []).map((dField, index) => {
           if (index < 4) return;
           return (
-            <div className="w-[30%] ">
+            <div key={index} className="w-[30%] ">
               <DynamicInput
                 options={options["Dynamic"] || []}
                 nameState={result["Dynamic"][index].name || ""}

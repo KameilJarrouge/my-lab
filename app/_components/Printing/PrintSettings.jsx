@@ -35,7 +35,10 @@ function PrintSettings({
                 ? testGroupedByCategory.visitTest[0].Test.category.name
                 : testGroupedByCategory.visitTest.Test.category.name;
               return (
-                <div className="w-full flex flex-col gap-1 items-center">
+                <div
+                  key={index}
+                  className="w-full flex flex-col gap-1 items-center"
+                >
                   <div
                     key={index}
                     className="flex w-full justify-between items-center"
