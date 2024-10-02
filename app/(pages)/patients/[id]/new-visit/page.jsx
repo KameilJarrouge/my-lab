@@ -135,15 +135,24 @@ function NewVisit({ params }) {
                 break;
               case "Wright": {
                 fieldsCount = 3;
+                delete resultTemp["Typhi. ( O )"];
+                delete resultTemp["Typhi. ( H )"];
+                delete resultTemp["Para A ( H )"];
+                delete resultTemp["Para B ( H )"];
+                break;
               }
               case "Widal": {
                 fieldsCount = 5;
+                delete resultTemp["B. Abortus"];
+                delete resultTemp["B. Melitensis"];
+                break;
               }
             }
             if (Object.keys(resultTemp).length !== fieldsCount) {
               toast.error("يرجى تعبئة حقول كل التحاليل");
               return;
             }
+            element.test.template.result = resultTemp;
             break;
           }
           default:

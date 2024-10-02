@@ -3,6 +3,7 @@ import React from "react";
 import UrinalysisTemplateResult from "./PresetTemplates/UrinalysisTemplateResult";
 import HematologyCoagulationTemplateResult from "./PresetTemplates/HematologyCoagulationTemplateResult";
 import CultureAndSensitivityTemplateResult from "./PresetTemplates/CultureAndSensitivityTemplateResult";
+import SerologyTemplateResult from "./PresetTemplates/SerologyTemplateResult";
 
 function StaticTemplateResult({ template }) {
   return (
@@ -18,6 +19,7 @@ function StaticTemplateResult({ template }) {
           "Culture And Sensitivity": (
             <CultureAndSensitivityTemplateResult template={template} />
           ),
+          Serology: <SerologyTemplateResult template={template} />,
         }[template.staticTemplate]
       }
     </div>

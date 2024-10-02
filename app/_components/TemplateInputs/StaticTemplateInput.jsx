@@ -32,73 +32,81 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
 
   const handleSave = async () => {
     let shouldStop = false;
+    let resultMutable = structuredClone(result);
     switch (test.test.template.staticTemplate) {
       case "Hematology - Coagulation":
-        if (Object.keys(result).length !== 18) {
+        if (Object.keys(resultMutable).length !== 18) {
           shouldStop = true;
         }
         break;
 
       case "تحليل البول Urinalysis":
-        let fieldsCount = result.hasOwnProperty("Dynamic") ? 20 : 19;
-        if (Object.keys(result).length !== fieldsCount) {
+        let fieldsCount = resultMutable.hasOwnProperty("Dynamic") ? 20 : 19;
+        if (Object.keys(resultMutable).length !== fieldsCount) {
           shouldStop = true;
         } else {
           await api.put(`/arbitrary/urinalysis/append`, {
-            urinalysis: result,
+            urinalysis: resultMutable,
           });
         }
         break;
       case "Culture And Sensitivity":
-        if (result.isPositive) {
+        if (resultMutable.isPositive) {
           if (
-            result.specimen === "" ||
-            result.growthOf === "" ||
-            result.coloniesCount === ""
+            resultMutable.specimen === "" ||
+            resultMutable.growthOf === "" ||
+            resultMutable.coloniesCount === ""
           ) {
             shouldStop = true;
             break;
           }
 
-          if (result.selectedAA.length === 0) {
+          if (resultMutable.selectedAA.length === 0) {
             toast.error("يرجى إدخال مضاد واحد على الأقل");
             return;
           }
           if (!shouldStop) {
             // add arbitrary values to the db
             await api.put(`/arbitrary/cs/append`, {
-              specimen: result.specimen,
-              growthOf: result.growthOf,
+              specimen: resultMutable.specimen,
+              growthOf: resultMutable.growthOf,
             });
           }
         }
         break;
       case "Serology": {
-        const hasSelectedTest = result.hasOwnProperty("selectedTest");
-        let resultTemp = structuredClone(result);
+        const hasSelectedTest = resultMutable.hasOwnProperty("selectedTest");
         if (!hasSelectedTest) {
           handleUpdateState("selectedTest", "Both", false);
-          resultTemp.selectedTest = "Both";
+          resultMutable.selectedTest = "Both";
         }
         let fieldsCount = 0;
 
-        switch (resultTemp.selectedTest) {
+        switch (resultMutable.selectedTest) {
           case "Both":
             fieldsCount = 7;
             break;
           case "Wright": {
             fieldsCount = 3;
+            delete resultMutable["Typhi. ( O )"];
+            delete resultMutable["Typhi. ( H )"];
+            delete resultMutable["Para A ( H )"];
+            delete resultMutable["Para B ( H )"];
+            break;
           }
           case "Widal": {
             fieldsCount = 5;
+            delete resultMutable["B. Abortus"];
+            delete resultMutable["B. Melitensis"];
+            break;
           }
         }
-        if (Object.keys(resultTemp).length !== fieldsCount) {
+        if (Object.keys(resultMutable).length !== fieldsCount) {
           shouldStop = true;
         }
         if (!shouldStop) {
           await api.put(`/arbitrary/serology/append`, {
-            serology: resultTemp,
+            serology: resultMutable,
           });
         }
         break;
@@ -109,7 +117,7 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
       return;
     }
     const readyTest = test;
-    readyTest.test.template.result = result;
+    readyTest.test.template.result = resultMutable;
     updateTemplate(readyTest);
     setIsDirty(false);
   };

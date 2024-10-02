@@ -136,17 +136,12 @@ const Urinalysis = {
 };
 
 const Serology = {
-  // "Wright T.": {
   "B. Abortus": [],
   "B. Melitensis": [],
-  // },
-  // "Widal T.": {
   "Typhi. ( O )": [],
   "Typhi. ( H )": [],
   "Para A ( H )": [],
   "Para B ( H )": [],
-  selectedTest: "Both",
-  // },
 };
 
 async function createArbitrary() {
@@ -323,7 +318,7 @@ export async function appendSerologyArbitrary(serology) {
   let field = undefined;
   for (let i = 0; i < keys.length; i++) {
     field = keys[i];
-
+    if (field === "selectedTest") continue;
     if (
       shouldBeSaved(serology[field]) &&
       !serologyInDB[field].includes(serology[field])
