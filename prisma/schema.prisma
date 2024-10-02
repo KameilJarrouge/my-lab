@@ -26,6 +26,7 @@ model Arbitrary {
   CS_Specimen             String?
   CS_Growth_Of            String?
   Urinalysis              String?
+  Serology                String?
 }
 
 model User {

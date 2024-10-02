@@ -135,6 +135,19 @@ const Urinalysis = {
   Dynamic: [],
 };
 
+const Serology = {
+  // "Wright T.": {
+  "B. Abortus": [],
+  "B. Melitensis": [],
+  // },
+  // "Widal T.": {
+  "Typhi. ( O )": [],
+  "Typhi. ( H )": [],
+  "Para A ( H )": [],
+  "Para B ( H )": [],
+  // },
+};
+
 async function createArbitrary() {
   const result = await prisma.arbitrary.create({
     data: {
@@ -142,6 +155,7 @@ async function createArbitrary() {
       CS_Growth_Of: "[]",
       CS_Specimen: "[]",
       Urinalysis: JSON.stringify(Urinalysis),
+      Serology: JSON.stringify(Serology),
       // Fill this with remaining fields once you add them
     },
   });
@@ -201,12 +215,12 @@ export async function appendCSArbitrary(specimen, growthOf) {
   let result = await getCSArbitrary();
   let specimens = JSON.parse(result.returned.CS_Specimen);
   let growthOfs = JSON.parse(result.returned.CS_Growth_Of);
-  if (!specimens.includes(specimen)) {
+  if (shouldBeSaved(specimen) && !specimens.includes(specimen)) {
     specimens.push(specimen);
   } else {
     specimens = undefined;
   }
-  if (!growthOfs.includes(growthOf)) {
+  if (shouldBeSaved(growthOf) && !growthOfs.includes(growthOf)) {
     growthOfs.push(growthOf);
   } else {
     growthOfs = undefined;
@@ -255,12 +269,15 @@ export async function appendUrinalysisArbitrary(urinalysis) {
     if (field === "Dynamic") {
       if (!urinalysis.hasOwnProperty("Dynamic")) continue;
       for (let item of urinalysis[field]) {
-        if (item.name !== "" && !urinalysisInDB[field].includes(item.name)) {
+        if (
+          shouldBeSaved(item.name) &&
+          !urinalysisInDB[field].includes(item.name)
+        ) {
           urinalysisInDB[field].push(item.name);
         }
       }
     } else if (
-      urinalysis[field] !== "" &&
+      shouldBeSaved(urinalysis[field]) &&
       !urinalysisInDB[field].includes(urinalysis[field])
     ) {
       urinalysisInDB[field].push(urinalysis[field]);
@@ -268,4 +285,51 @@ export async function appendUrinalysisArbitrary(urinalysis) {
   }
 
   return await updateUrinalysisArbitrary(result.returned.id, urinalysisInDB);
+}
+
+function shouldBeSaved(text) {
+  return text.trim() !== "";
+}
+
+export async function getSerologyArbitrary() {
+  let result = await prisma.arbitrary.findFirst({
+    select: {
+      id: true,
+      Serology: true,
+    },
+  });
+  if (!result) return successReturn(await createArbitrary());
+
+  return successReturn(result);
+}
+
+export async function updateSerologyArbitrary(id, serology) {
+  await prisma.arbitrary.update({
+    where: {
+      id: id,
+    },
+    data: {
+      Serology: JSON.stringify(serology),
+    },
+  });
+  return successReturn();
+}
+
+export async function appendSerologyArbitrary(serology) {
+  let result = await getSerologyArbitrary();
+  let serologyInDB = JSON.parse(result.returned.Serology);
+  let keys = Object.keys(serology);
+  let field = undefined;
+  for (let i = 0; i < keys.length; i++) {
+    field = keys[i];
+
+    if (
+      shouldBeSaved(serology[field]) &&
+      !serologyInDB[field].includes(serology[field])
+    ) {
+      serologyInDB[field].push(serology[field]);
+    }
+  }
+
+  return await updateSerologyArbitrary(result.returned.id, serologyInDB);
 }
