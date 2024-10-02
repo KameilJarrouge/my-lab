@@ -14,25 +14,25 @@ function UrinalysisTemplatePrint({ template }) {
             arabicName={"مولد اليوروبيلين"}
             englishName={"Urobilinogen"}
             state={template.result}
-            row={7}
+            row={"Urobilinogen"}
           />
           <Item1
             arabicName={"البليروبين"}
             englishName={"Bilirubin"}
             state={template.result}
-            row={8}
+            row={"Bilirubin"}
           />
           <Item1
             arabicName={"النتريت"}
             englishName={"Nitrite"}
             state={template.result}
-            row={9}
+            row={"Nitrite"}
           />
           <Item1
             arabicName={"الكيتون"}
             englishName={"Ketone"}
             state={template.result}
-            row={10}
+            row={"Ketone"}
           />
         </div>
         <div className="flex flex-col gap-0.5 w-[30%]">
@@ -40,19 +40,19 @@ function UrinalysisTemplatePrint({ template }) {
             arabicName={"الغلوكوز"}
             englishName={"Glucose"}
             state={template.result}
-            row={4}
+            row={"Glucose"}
           />
           <Item1
             arabicName={"البروتين"}
             englishName={"Protein"}
             state={template.result}
-            row={5}
+            row={"Protein"}
           />
           <Item1
             arabicName={"الخضاب"}
             englishName={"Hemoglobin"}
             state={template.result}
-            row={6}
+            row={"Hemoglobin"}
           />
         </div>
         <div className="flex flex-col gap-0.5 w-[30%] h-full">
@@ -60,25 +60,25 @@ function UrinalysisTemplatePrint({ template }) {
             arabicName={"اللون"}
             englishName={"Color"}
             state={template.result}
-            row={0}
+            row={"Color"}
           />
           <Item1
             arabicName={"المظهر"}
             englishName={"Appearance"}
             state={template.result}
-            row={1}
+            row={"Appearance"}
           />
           <Item2
             arabicName={"النقل النوعي"}
             englishName={"Specific Gravity"}
             state={template.result}
-            row={2}
+            row={"Specific Gravity"}
           />
           <Item2
             arabicName={"الحموضىة"}
             englishName={"pH"}
             state={template.result}
-            row={3}
+            row={"pH"}
           />
         </div>
       </div>
@@ -87,36 +87,36 @@ function UrinalysisTemplatePrint({ template }) {
           الفحص المجهري Microscopic Examination
         </span>
         <div className="w-full flex justify-between items-start ">
-          <div className="flex flex-col  w-[30%]">
-            <Item4
-              state={template.result}
-              row={19}
-              englishName={"Bacteria"}
-              arabicName={"البكتيريا"}
-            />
+          <div className="flex flex-col gap-5  w-[30%] mt-[0.75rem]">
+            {(template.result.Dynamic || []).map((dField, index) => {
+              if (index >= 4) return;
+              return (
+                <Item1 state={dField} row={"value"} englishName={dField.name} />
+              );
+            })}
           </div>
-          <div className="flex flex-col  w-[30%] h-full">
+          <div className="flex flex-col  w-[30%] h-full ">
             <Item4
               state={template.result}
-              row={15}
+              row={"Ca. Oxalate"}
               arabicName={"اكسالات الكالسيوم"}
               englishName={"Ca. Oxalate"}
             />
             <Item4
               state={template.result}
-              row={16}
+              row={"Urate"}
               arabicName={"اليورات"}
               englishName={"Urate"}
             />
             <Item4
               state={template.result}
-              row={17}
+              row={"Uric Acid"}
               arabicName={"اليوريك اسيد"}
               englishName={"Uric Acid"}
             />
             <Item4
               state={template.result}
-              row={18}
+              row={"Phosphate"}
               arabicName={"الفوسفات"}
               englishName={"Phosphate"}
             />
@@ -124,30 +124,65 @@ function UrinalysisTemplatePrint({ template }) {
           <div className="flex flex-col  w-[30%]">
             <Item3
               state={template.result}
-              row={11}
+              row={"Leucocytes"}
               arabicName={"الكريات البيض"}
               englishName={"Leucocytes"}
             />
             <Item3
               state={template.result}
-              row={12}
+              row={"Erythrocytes"}
               arabicName={"الكريات الحمر"}
               englishName={"Erythrocytes"}
             />
             <Item3
               state={template.result}
-              row={13}
+              row={"Epithelial Cells"}
               arabicName={"الخلايا الظهارية"}
               englishName={"Epithelial Cells"}
             />
             <Item3
               state={template.result}
-              row={14}
+              row={"Cylinders"}
               arabicName={"الاسطوانات"}
               englishName={"Cylinders"}
             />
           </div>
         </div>
+      </div>
+      <div
+        className="w-full flex justify-between flex-wrap gap-x-8 pt-1 pb-1 gap-y-3"
+        dir="ltr"
+      >
+        {(template.result.Dynamic || []).map((dField, index, arr) => {
+          if (index < 4) return;
+          let length = arr.length - 4;
+          if (length % 3 === 2 && index === arr.length - 1) {
+            return (
+              <>
+                <div className="w-[30%] " dir="rtl">
+                  <Item1
+                    state={dField}
+                    row={"value"}
+                    englishName={dField.name}
+                  />
+                </div>
+                <div className="w-[30%] invisible " dir="rtl">
+                  <Item1
+                    state={dField}
+                    row={"value"}
+                    englishName={dField.name}
+                  />
+                </div>
+              </>
+            );
+          } else {
+            return (
+              <div className="w-[30%] " dir="rtl">
+                <Item1 state={dField} row={"value"} englishName={dField.name} />
+              </div>
+            );
+          }
+        })}
       </div>
     </div>
   );

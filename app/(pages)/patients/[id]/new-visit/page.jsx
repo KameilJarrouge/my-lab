@@ -73,15 +73,26 @@ function NewVisit({ params }) {
         }
 
         switch (element.test.template.staticTemplate) {
-          case "تحليل البول Urinalysis":
+          case "تحليل البول Urinalysis": {
+            let fieldsCountUrinalysis = 19;
+            if (element.test.template.result.hasOwnProperty("Dynamic")) {
+              // remove empty dynamic fields
+              element.test.template.result.Dynamic =
+                element.test.template.result.Dynamic.filter(
+                  (dRow) => dRow.name !== "" && dRow.value !== ""
+                );
+              // account for the extra element in the array ("Dynamic")
+              fieldsCountUrinalysis = 20;
+            }
             if (
               Object.keys(element.test.template.result).length !==
-              fieldsCount[element.test.template.staticTemplate]
+              fieldsCountUrinalysis
             ) {
               toast.error("يرجى تعبئة حقول كل التحاليل");
               return;
             }
             break;
+          }
           case "Hematology - Coagulation":
             if (
               Object.keys(element.test.template.result).length !==

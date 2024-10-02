@@ -25,7 +25,6 @@ function UrinalysisTemplateInput({
     let atIndex = structuredClone(dFields[index]);
     atIndex[isUpdatingName ? "name" : "value"] = value;
     dFields[index] = atIndex;
-    // setDynamicFields(dFields);
     setResult("Dynamic", [...dFields], false);
   };
 
@@ -33,13 +32,11 @@ function UrinalysisTemplateInput({
     let dFields = [...(result.Dynamic || [])];
     dFields = dFields.filter((dField, index) => indexToRemove !== index);
 
-    // setDynamicFields(dFields);
     setResult("Dynamic", dFields, false);
   };
 
   const addDynamicField = () => {
     const dFields = [...(result.Dynamic || []), { name: "", value: "" }];
-    // setDynamicFields(dFields);
     setResult("Dynamic", dFields, false);
   };
 
@@ -54,7 +51,6 @@ function UrinalysisTemplateInput({
     }
 
     setOptions(JSON.parse(result.data.result.Urinalysis));
-    console.log("result.data.result.Urinalysis", result.data.result.Urinalysis);
   };
 
   useEffect(() => {
@@ -271,11 +267,11 @@ function UrinalysisTemplateInput({
         {(result.Dynamic || []).map((dField, index) => {
           if (index < 4) return;
           return (
-            <div className="w-[30%] h-[2ch]">
+            <div className="w-[30%] ">
               <DynamicInput
                 options={options["Dynamic"] || []}
-                nameState={result["Dynamic"].name || ""}
-                valueState={result["Dynamic"].value || ""}
+                nameState={result["Dynamic"][index].name || ""}
+                valueState={result["Dynamic"][index].value || ""}
                 index={index}
                 shouldWarn={shouldWarn}
                 updateValue={updateDynamicFields}
@@ -402,6 +398,7 @@ function DynamicInput({
         />
       </div>
       <button
+        tabIndex={"-1"}
         className=" absolute top-[0.375rem] -right-[3.5rem] w-[5ch] h-fit text-text hover:text-red-400"
         onClick={remove}
       >
