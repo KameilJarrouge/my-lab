@@ -10,6 +10,7 @@ import ManualTemplate from "../Templates/ManualTemplate";
 import UrinalysisTemplate from "../Templates/PresetTemplates/UrinalysisTemplate";
 import HematologyCoagulationTemplate from "../Templates/PresetTemplates/HematologyCoagulationTemplate";
 import CultureAndSensitivityTemplate from "../Templates/PresetTemplates/CultureAndSensitivityTemplate";
+import SemenAnalysisTemplate from "../Templates/PresetTemplates/SemenAnalysisTemplate";
 
 function UpdateTestForm({ submit, categories = [], test }) {
   const [name, setName] = useState("");
@@ -106,6 +107,7 @@ function UpdateTestForm({ submit, categories = [], test }) {
               "تحليل البول Urinalysis": <UrinalysisTemplate />,
               "Hematology - Coagulation": <HematologyCoagulationTemplate />,
               "Culture And Sensitivity": <CultureAndSensitivityTemplate />,
+              "Semen Analysis": <SemenAnalysisTemplate />,
             }[staticTemplate]
           )}
         </div>

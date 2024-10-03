@@ -12,6 +12,7 @@ import UrinalysisTemplate from "../Templates/PresetTemplates/UrinalysisTemplate"
 import HematologyCoagulationTemplate from "../Templates/PresetTemplates/HematologyCoagulationTemplate";
 import CultureAndSensitivityTemplate from "../Templates/PresetTemplates/CultureAndSensitivityTemplate";
 import SerologyTemplate from "../Templates/PresetTemplates/SerologyTemplate";
+import SemenAnalysisTemplate from "../Templates/PresetTemplates/SemenAnalysisTemplate";
 
 function CreateTestForm({ submit, categories = [] }) {
   const [name, setName] = useState("");
@@ -79,6 +80,7 @@ function CreateTestForm({ submit, categories = [] }) {
                 "Hematology - Coagulation",
                 "Culture And Sensitivity",
                 "Serology",
+                "Semen Analysis",
               ]}
             />
           )}
@@ -93,6 +95,7 @@ function CreateTestForm({ submit, categories = [] }) {
               "Hematology - Coagulation": <HematologyCoagulationTemplate />,
               "Culture And Sensitivity": <CultureAndSensitivityTemplate />,
               Serology: <SerologyTemplate />,
+              "Semen Analysis": <SemenAnalysisTemplate />,
             }[staticTemplate]
           )}
         </div>
