@@ -2,7 +2,6 @@
 import React from "react";
 
 function SerologyTemplatePrint({ template }) {
-  console.log("template", template);
   return (
     <div className="flex flex-col gap-6 text-sm w-full " dir="ltr">
       {(template.result.selectedTest === "Both" ||

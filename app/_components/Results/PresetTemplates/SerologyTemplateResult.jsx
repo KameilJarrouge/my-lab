@@ -3,7 +3,6 @@ import React from "react";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 
 function SerologyTemplateResult({ template }) {
-  console.log("template", template);
   return (
     <div className="flex flex-col gap-6 " dir="ltr">
       <div className="w-full flex gap-8 px-4">
