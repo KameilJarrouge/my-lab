@@ -152,11 +152,12 @@ const SemenAnalysis = {
   "Abnormal Forms": [],
   "Normal Forms": [],
   "Sperm Count": [],
-  "Spermatogneic Cells": [],
+  "Spermatogenic Cells": [],
   Erythrocytes: [],
   Leucocytes: [],
   "Directl Motility Very Active": [],
   "Directl Motility Active": [],
+  "Directl Motility Inactive": [],
   "Motility After 1 hr Inactive": [],
   "Motility After 1 hr Very Active": [],
   "Motility After 1 hr Active": [],
@@ -378,12 +379,17 @@ export async function updateSemenAnalysisArbitrary(id, semenAnalysis) {
 }
 
 export async function appendSemenAnalysisArbitrary(semenAnalysis) {
-  let result = await getSerologyArbitrary();
+  let result = await getSemenAnalysisArbitrary();
   let semenAnalysisInDB = JSON.parse(result.returned.SemenAnalysis);
+  console.log("semenAnalysis", Object.keys(semenAnalysis));
+  console.log("semenAnalysisInDB", Object.keys(semenAnalysisInDB));
   let keys = Object.keys(semenAnalysis);
   let field = undefined;
   for (let i = 0; i < keys.length; i++) {
     field = keys[i];
+    if (!semenAnalysisInDB[field]) {
+      console.log("field", field);
+    }
     if (
       shouldBeSaved(semenAnalysis[field]) &&
       !semenAnalysisInDB[field].includes(semenAnalysis[field])

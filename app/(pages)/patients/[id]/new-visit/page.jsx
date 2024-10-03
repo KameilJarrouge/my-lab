@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 const fieldsCount = {
   "تحليل البول Urinalysis": 20,
   "Hematology - Coagulation": 18,
+  "Semen Analysis": 19,
 };
 
 function NewVisit({ params }) {
@@ -94,6 +95,15 @@ function NewVisit({ params }) {
             break;
           }
           case "Hematology - Coagulation":
+            if (
+              Object.keys(element.test.template.result).length !==
+              fieldsCount[element.test.template.staticTemplate]
+            ) {
+              toast.error("يرجى تعبئة حقول كل التحاليل");
+              return;
+            }
+            break;
+          case "Semen Analysis":
             if (
               Object.keys(element.test.template.result).length !==
               fieldsCount[element.test.template.staticTemplate]

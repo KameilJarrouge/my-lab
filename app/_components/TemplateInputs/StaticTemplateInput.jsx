@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import CultureAndSensitivityTemplateInput from "./PresetTemplates/CultureAndSensitivityTemplateInput";
 import api from "@/app/_lib/api";
 import SerologyTemplateInput from "./PresetTemplates/SerologyTemplateInput";
+import SemenAnalysisTemplateInput from "./PresetTemplates/SemenAnalysisTemplateInput";
 
 function StaticTemplateInput({ test, updateTemplate, lastTest }) {
   const [result, setResult] = useState(test.test.template.result || {});
@@ -37,6 +38,15 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
       case "Hematology - Coagulation":
         if (Object.keys(resultMutable).length !== 18) {
           shouldStop = true;
+        }
+        break;
+      case "Semen Analysis":
+        if (Object.keys(resultMutable).length !== 19) {
+          shouldStop = true;
+        } else {
+          await api.put(`/arbitrary/semen-analysis/append`, {
+            semenAnalysis: resultMutable,
+          });
         }
         break;
 
@@ -190,6 +200,15 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
           ),
           Serology: (
             <SerologyTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+            />
+          ),
+          "Semen Analysis": (
+            <SemenAnalysisTemplateInput
               handleSave={handleSave}
               handleRestore={handleRestore}
               isDirty={isDirty}

@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import api from "@/app/_lib/api";
 import CultureAndSensitivityTemplateInput from "./PresetTemplates/CultureAndSensitivityTemplateInput";
 import SerologyTemplateInput from "./PresetTemplates/SerologyTemplateInput";
+import SemenAnalysisTemplateInput from "./PresetTemplates/SemenAnalysisTemplateInput";
 
 function StaticTemplateInputUpdate({
   visitTest,
@@ -34,7 +35,15 @@ function StaticTemplateInputUpdate({
           shouldStop = true;
         }
         break;
-
+      case "Semen Analysis":
+        if (Object.keys(resultMutable).length !== 19) {
+          shouldStop = true;
+        } else {
+          await api.put(`/arbitrary/semen-analysis/append`, {
+            semenAnalysis: resultMutable,
+          });
+        }
+        break;
       case "تحليل البول Urinalysis":
         let fieldsCount = resultMutable.hasOwnProperty("Dynamic") ? 20 : 19;
         if (Object.keys(resultMutable).length !== fieldsCount) {
@@ -71,7 +80,6 @@ function StaticTemplateInputUpdate({
         break;
       case "Serology": {
         const hasSelectedTest = resultMutable.hasOwnProperty("selectedTest");
-        let resultTemp = structuredClone(result);
         if (!hasSelectedTest) {
           resultMutable.selectedTest = "Both";
         }
@@ -182,6 +190,15 @@ function StaticTemplateInputUpdate({
           ),
           Serology: (
             <SerologyTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+            />
+          ),
+          "Semen Analysis": (
+            <SemenAnalysisTemplateInput
               handleSave={handleSave}
               handleRestore={handleRestore}
               isDirty={isDirty}
