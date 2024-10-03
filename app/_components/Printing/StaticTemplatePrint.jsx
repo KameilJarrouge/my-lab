@@ -2,6 +2,7 @@ import React from "react";
 import UrinalysisTemplatePrint from "./PresetTemplates/UrinalysisTemplatePrint";
 import HematologyCoagulationTemplatePrint from "./PresetTemplates/HematologyCoagulationTemplatePrint";
 import CultureAndSensitivityTemplatePrint from "./PresetTemplates/CultureAndSensitivityTemplatePrint";
+import SerologyTemplatePrint from "./PresetTemplates/SerologyTemplatePrint";
 
 function StaticTemplatePrint({ id, template, lastTestResult, lastTestDate }) {
   return (
@@ -27,6 +28,7 @@ function StaticTemplatePrint({ id, template, lastTestResult, lastTestDate }) {
               catIndex={id}
             />
           ),
+          Serology: <SerologyTemplatePrint template={template} />,
         }[template.staticTemplate]
       }
     </div>
