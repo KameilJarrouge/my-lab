@@ -27,6 +27,7 @@ model Arbitrary {
   CS_Growth_Of            String?
   Urinalysis              String?
   Serology                String?
+  SemenAnalysis           String?
 }
 
 model User {

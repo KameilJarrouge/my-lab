@@ -144,6 +144,32 @@ const Serology = {
   "Para B ( H )": [],
 };
 
+const SemenAnalysis = {
+  PH: [],
+  Viscosity: [],
+  Volume: [],
+  Color: [],
+  "Abnormal Forms": [],
+  "Normal Forms": [],
+  "Sperm Count": [],
+  "Spermatogneic Cells": [],
+  Erythrocytes: [],
+  Leucocytes: [],
+  "Directl Motility Very Active": [],
+  "Directl Motility Active": [],
+  "Motility After 1 hr Inactive": [],
+  "Motility After 1 hr Very Active": [],
+  "Motility After 1 hr Active": [],
+  "Motility After 1 hr Inactive": [],
+  "Motility After 2 hr Very Active": [],
+  "Motility After 2 hr Active": [],
+  "Motility After 2 hr Inactive": [],
+};
+
+function shouldBeSaved(text) {
+  return text.trim() !== "";
+}
+
 async function createArbitrary() {
   const result = await prisma.arbitrary.create({
     data: {
@@ -152,6 +178,7 @@ async function createArbitrary() {
       CS_Specimen: "[]",
       Urinalysis: JSON.stringify(Urinalysis),
       Serology: JSON.stringify(Serology),
+      SemenAnalysis: JSON.stringify(SemenAnalysis),
       // Fill this with remaining fields once you add them
     },
   });
@@ -283,10 +310,6 @@ export async function appendUrinalysisArbitrary(urinalysis) {
   return await updateUrinalysisArbitrary(result.returned.id, urinalysisInDB);
 }
 
-function shouldBeSaved(text) {
-  return text.trim() !== "";
-}
-
 export async function getSerologyArbitrary() {
   let result = await prisma.arbitrary.findFirst({
     select: {
@@ -328,4 +351,49 @@ export async function appendSerologyArbitrary(serology) {
   }
 
   return await updateSerologyArbitrary(result.returned.id, serologyInDB);
+}
+
+export async function getSemenAnalysisArbitrary() {
+  let result = await prisma.arbitrary.findFirst({
+    select: {
+      id: true,
+      SemenAnalysis: true,
+    },
+  });
+  if (!result) return successReturn(await createArbitrary());
+
+  return successReturn(result);
+}
+
+export async function updateSemenAnalysisArbitrary(id, semenAnalysis) {
+  await prisma.arbitrary.update({
+    where: {
+      id: id,
+    },
+    data: {
+      SemenAnalysis: JSON.stringify(semenAnalysis),
+    },
+  });
+  return successReturn();
+}
+
+export async function appendSemenAnalysisArbitrary(semenAnalysis) {
+  let result = await getSerologyArbitrary();
+  let semenAnalysisInDB = JSON.parse(result.returned.SemenAnalysis);
+  let keys = Object.keys(semenAnalysis);
+  let field = undefined;
+  for (let i = 0; i < keys.length; i++) {
+    field = keys[i];
+    if (
+      shouldBeSaved(semenAnalysis[field]) &&
+      !semenAnalysisInDB[field].includes(semenAnalysis[field])
+    ) {
+      semenAnalysisInDB[field].push(semenAnalysis[field]);
+    }
+  }
+
+  return await updateSemenAnalysisArbitrary(
+    result.returned.id,
+    semenAnalysisInDB
+  );
 }
