@@ -4,6 +4,7 @@ import UrinalysisTemplateResult from "./PresetTemplates/UrinalysisTemplateResult
 import HematologyCoagulationTemplateResult from "./PresetTemplates/HematologyCoagulationTemplateResult";
 import CultureAndSensitivityTemplateResult from "./PresetTemplates/CultureAndSensitivityTemplateResult";
 import SerologyTemplateResult from "./PresetTemplates/SerologyTemplateResult";
+import SemenAnalysisTemplateResult from "./PresetTemplates/SemenAnalysisTemplateResult";
 
 function StaticTemplateResult({ template }) {
   return (
@@ -20,6 +21,7 @@ function StaticTemplateResult({ template }) {
             <CultureAndSensitivityTemplateResult template={template} />
           ),
           Serology: <SerologyTemplateResult template={template} />,
+          "Semen Analysis": <SemenAnalysisTemplateResult template={template} />,
         }[template.staticTemplate]
       }
     </div>
