@@ -171,6 +171,29 @@ function shouldBeSaved(text) {
   return text.trim() !== "";
 }
 
+export async function getAllArbitrary() {
+  const result = await prisma.arbitrary.findFirst({});
+  return successReturn(result);
+}
+
+export async function updateArbitrary(data) {
+  await prisma.arbitrary.update({
+    data: {
+      CS_Growth_Of: JSON.stringify(
+        data["Culture And Sensitivity"]["Growth Of"]
+      ),
+      CS_Specimen: JSON.stringify(data["Culture And Sensitivity"]["Specimen"]),
+      Urinalysis: JSON.stringify(data.Urinalysis),
+      Serology: JSON.stringify(data.Serology),
+      SemenAnalysis: JSON.stringify(data.SemenAnalysis),
+    },
+    where: {
+      id: data.id,
+    },
+  });
+  return successReturn();
+}
+
 async function createArbitrary() {
   const result = await prisma.arbitrary.create({
     data: {
@@ -381,14 +404,11 @@ export async function updateSemenAnalysisArbitrary(id, semenAnalysis) {
 export async function appendSemenAnalysisArbitrary(semenAnalysis) {
   let result = await getSemenAnalysisArbitrary();
   let semenAnalysisInDB = JSON.parse(result.returned.SemenAnalysis);
-  console.log("semenAnalysis", Object.keys(semenAnalysis));
-  console.log("semenAnalysisInDB", Object.keys(semenAnalysisInDB));
   let keys = Object.keys(semenAnalysis);
   let field = undefined;
   for (let i = 0; i < keys.length; i++) {
     field = keys[i];
     if (!semenAnalysisInDB[field]) {
-      console.log("field", field);
     }
     if (
       shouldBeSaved(semenAnalysis[field]) &&

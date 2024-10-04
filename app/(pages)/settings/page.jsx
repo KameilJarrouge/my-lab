@@ -4,6 +4,7 @@ import RichTextInput from "@/app/_components/Inputs/RichTextInput";
 import TextInput from "@/app/_components/Inputs/TextInput";
 import LoadingComponent from "@/app/_components/LoadingComponent";
 import AAManipulateModal from "@/app/_components/Modals/AAManipulateModal";
+import ArbitraryUpdateModal from "@/app/_components/Modals/ArbitraryUpdateModal";
 import Title from "@/app/_components/Title";
 import api from "@/app/_lib/api";
 import React, { useEffect, useState } from "react";
@@ -18,6 +19,7 @@ function SettingsPage() {
   const [location, setLocation] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [isAAModalOpen, setIsAAModalOpen] = useState(false);
+  const [isArbitraryUpdateOpen, setIsArbitraryUpdateOpen] = useState(false);
 
   const refocusAddUnitField = () => {
     const element = document.getElementById("rich-text-units");
@@ -123,6 +125,13 @@ function SettingsPage() {
           uniqueName={"settings-page"}
         />
       )}
+      {isArbitraryUpdateOpen && (
+        <ArbitraryUpdateModal
+          isOpen={isArbitraryUpdateOpen}
+          setIsOpen={setIsArbitraryUpdateOpen}
+          uniqueName={"settings-page"}
+        />
+      )}
       <div className="w-1/3 flex gap-2">
         <div className="w-full p-2 bg-dark_primary h-[30rem] shadow shadow-black rounded flex flex-col gap-8 items-center">
           <Title> وحدات القياس</Title>
@@ -205,10 +214,14 @@ function SettingsPage() {
             <AuthButton title="تعديل" onClick={handleUpdateLocation} />
           </div>
         </div>
-        <div dir="rtl" className="w-fit flex items-center justify-center">
+        <div dir="rtl" className="w-fit flex items-center gap-4 justify-center">
           <AuthButton
             onClick={() => setIsAAModalOpen(true)}
             title="قائمة ال Antimicrobial Agents"
+          />
+          <AuthButton
+            onClick={() => setIsArbitraryUpdateOpen(true)}
+            title="قائمة قيم الإكمال التلقائي"
           />
         </div>
       </div>
