@@ -7,6 +7,7 @@ import CultureAndSensitivityTemplateInput from "./PresetTemplates/CultureAndSens
 import api from "@/app/_lib/api";
 import SerologyTemplateInput from "./PresetTemplates/SerologyTemplateInput";
 import SemenAnalysisTemplateInput from "./PresetTemplates/SemenAnalysisTemplateInput";
+import getDefaultResult from "./Defaults/defaultResult";
 
 function StaticTemplateInput({ test, updateTemplate, lastTest }) {
   const [result, setResult] = useState(test.test.template.result || {});
@@ -16,22 +17,14 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
     if (test.test.template.hasOwnProperty("result")) {
       setResult(test.test.template.result);
     } else {
-      if (test.test.template.staticTemplate === "Culture And Sensitivity") {
-        setResult({
-          selectedAA: [],
-          isPositive: true,
-          specimen: "",
-          growthOf: "",
-          coloniesCount: "",
-        });
-      } else {
-        setResult({});
-      }
+      // restore to defaults result (per template)
+      setResult(getDefaultResult(test.test.template.staticTemplate));
     }
     setIsDirty(false);
   };
 
   const handleSave = async () => {
+    console.log("test.template.result", test.test.template.result);
     let shouldStop = false;
     let resultMutable = structuredClone(result);
     switch (test.test.template.staticTemplate) {
@@ -138,33 +131,24 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
     let tempResult = structuredClone(result);
     tempResult[row] = value;
     setResult(tempResult);
+    setIsDirty(true);
   };
 
   useEffect(() => {
-    if (
-      test.test.template.staticTemplate === "Culture And Sensitivity" &&
-      JSON.stringify(result) === "{}"
-    ) {
-      setResult({
-        selectedAA: [],
-        isPositive: true,
-        specimen: "",
-        growthOf: "",
-        coloniesCount: "",
-      });
-      setTimeout(() => {
-        setIsDirty(false);
-      }, 0);
-    }
+    const defaultResult = getDefaultResult(test.test.template.staticTemplate);
+    const readyTest = test;
+    readyTest.test.template.result = defaultResult;
+    updateTemplate(readyTest);
+    setResult(defaultResult);
   }, []);
 
-  useEffect(() => {
-    if (
-      JSON.stringify(result) !== JSON.stringify(test.test.template.result || {})
-    ) {
-      setIsDirty(true);
-    }
-  }, [result]);
+  // useEffect(() => {
+  //   if (
+  //     JSON.stringify(result) !== JSON.stringify(test.test.template.result || {})
+  //   ) {
+  //     setIsDirty(true);
+  //   }
+  // }, [result]);
 
   return (
     <div className="w-full flex flex-col gap-4 relative">
