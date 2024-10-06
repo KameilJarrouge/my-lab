@@ -163,8 +163,9 @@ function UpdateArbitraryForm({ setIsLoading }) {
                 )}
               </div>
               <div className=" min-w-[50ch] max-w-fit bg-light_primary/50 rounded h-full flex  overflow-y-auto overflow-x-hidden justify-center p-2">
-                {selectedColumn && (
-                  <div className="flex flex-col gap-2">
+                {selectedColumn ? (
+                  <div className="flex flex-col gap-2 py-2">
+                    <span>{selectedArbitrary + " > " + selectedColumn}</span>
                     <table className="w-full h-fit border-collapse pb-2">
                       <thead className="">
                         <tr>
@@ -230,6 +231,10 @@ function UpdateArbitraryForm({ setIsLoading }) {
                         title="إضافة سطر"
                       ></AuthButton>
                     </div>
+                  </div>
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center  rounded">
+                    يرجى اختيار عنوان
                   </div>
                 )}
               </div>
