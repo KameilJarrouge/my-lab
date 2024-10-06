@@ -7,6 +7,11 @@ import api from "@/app/_lib/api";
 import CultureAndSensitivityTemplateInput from "./PresetTemplates/CultureAndSensitivityTemplateInput";
 import SerologyTemplateInput from "./PresetTemplates/SerologyTemplateInput";
 import SemenAnalysisTemplateInput from "./PresetTemplates/SemenAnalysisTemplateInput";
+import hematologyCoagulationValidation from "./Validation/hematologyCoagulationValidation";
+import semenAnalysisValidation from "./Validation/semenAnalysisValidation";
+import urinalysisValidation from "./Validation/urinalysisValidation";
+import cultureAndSensitivityValidation from "./Validation/cultureAndSensitivityValidation";
+import serologyValidation from "./Validation/serologyValidation";
 
 function StaticTemplateInputUpdate({
   visitTest,
@@ -31,12 +36,12 @@ function StaticTemplateInputUpdate({
     let resultMutable = structuredClone(result);
     switch (visitTest.template.staticTemplate) {
       case "Hematology - Coagulation":
-        if (Object.keys(resultMutable).length !== 18) {
+        if (!hematologyCoagulationValidation(resultMutable)) {
           shouldStop = true;
         }
         break;
       case "Semen Analysis":
-        if (Object.keys(resultMutable).length !== 19) {
+        if (!semenAnalysisValidation(resultMutable)) {
           shouldStop = true;
         } else {
           await api.put(`/arbitrary/semen-analysis/append`, {
@@ -45,8 +50,7 @@ function StaticTemplateInputUpdate({
         }
         break;
       case "تحليل البول Urinalysis":
-        let fieldsCount = resultMutable.hasOwnProperty("Dynamic") ? 20 : 19;
-        if (Object.keys(resultMutable).length !== fieldsCount) {
+        if (!urinalysisValidation(resultMutable)) {
           shouldStop = true;
         } else {
           await api.put(`/arbitrary/urinalysis/append`, {
@@ -55,22 +59,9 @@ function StaticTemplateInputUpdate({
         }
         break;
       case "Culture And Sensitivity":
-        if (resultMutable.isPositive) {
-          if (
-            resultMutable.specimen === "" ||
-            resultMutable.growthOf === "" ||
-            resultMutable.coloniesCount === ""
-          ) {
-            shouldStop = true;
-            break;
-          } else {
-            shouldAppend = true;
-          }
-
-          if (resultMutable.selectedAA.length === 0) {
-            toast.error("يرجى إدخال مضاد واحد على الأقل");
-            return;
-          }
+        if (!cultureAndSensitivityValidation(resultMutable)) {
+          shouldStop = true;
+        } else {
           // add arbitrary values to the db
           await api.put(`/arbitrary/cs/append`, {
             specimen: resultMutable.specimen,
@@ -79,12 +70,7 @@ function StaticTemplateInputUpdate({
         }
         break;
       case "Serology": {
-        const hasSelectedTest = resultMutable.hasOwnProperty("selectedTest");
-        if (!hasSelectedTest) {
-          resultMutable.selectedTest = "Both";
-        }
         let fieldsCount = 0;
-
         switch (resultMutable.selectedTest) {
           case "Both":
             fieldsCount = 7;
@@ -104,11 +90,9 @@ function StaticTemplateInputUpdate({
             break;
           }
         }
-
-        if (Object.keys(resultMutable).length !== fieldsCount) {
+        if (!serologyValidation(resultMutable, fieldsCount)) {
           shouldStop = true;
-        }
-        if (!shouldStop) {
+        } else {
           await api.put(`/arbitrary/serology/append`, {
             serology: resultMutable,
           });

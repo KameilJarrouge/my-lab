@@ -6,6 +6,11 @@ import LoadingComponent from "@/app/_components/LoadingComponent";
 import NewTestMenu from "@/app/_components/Menus/NewTestMenu";
 import ManualTemplateInput from "@/app/_components/TemplateInputs/ManualTemplateInput";
 import StaticTemplateInput from "@/app/_components/TemplateInputs/StaticTemplateInput";
+import cultureAndSensitivityValidation from "@/app/_components/TemplateInputs/Validation/cultureAndSensitivityValidation";
+import hematologyCoagulationValidation from "@/app/_components/TemplateInputs/Validation/hematologyCoagulationValidation";
+import semenAnalysisValidation from "@/app/_components/TemplateInputs/Validation/semenAnalysisValidation";
+import serologyValidation from "@/app/_components/TemplateInputs/Validation/serologyValidation";
+import urinalysisValidation from "@/app/_components/TemplateInputs/Validation/urinalysisValidation";
 import api from "@/app/_lib/api";
 import numberWithCommas from "@/app/_lib/numberWithCommas";
 import Link from "next/link";
@@ -75,20 +80,17 @@ function NewVisit({ params }) {
 
         switch (element.test.template.staticTemplate) {
           case "تحليل البول Urinalysis": {
-            let fieldsCountUrinalysis = 19;
-            if (element.test.template.result.hasOwnProperty("Dynamic")) {
-              // remove empty dynamic fields
-              element.test.template.result.Dynamic =
-                element.test.template.result.Dynamic.filter(
-                  (dRow) => dRow.name !== "" && dRow.value !== ""
-                );
-              // account for the extra element in the array ("Dynamic")
-              fieldsCountUrinalysis = 20;
-            }
-            if (
-              Object.keys(element.test.template.result).length !==
-              fieldsCountUrinalysis
-            ) {
+            // let fieldsCountUrinalysis = 19;
+            // if (element.test.template.result.hasOwnProperty("Dynamic")) {
+            //   // remove empty dynamic fields
+            //   element.test.template.result.Dynamic =
+            //     element.test.template.result.Dynamic.filter(
+            //       (dRow) => dRow.name !== "" && dRow.value !== ""
+            //     );
+            //   // account for the extra element in the array ("Dynamic")
+            //   fieldsCountUrinalysis = 20;
+            // }
+            if (!urinalysisValidation(element.test.template.result)) {
               toast.error("يرجى تعبئة حقول كل التحاليل");
               return;
             }
@@ -96,47 +98,29 @@ function NewVisit({ params }) {
           }
           case "Hematology - Coagulation":
             if (
-              Object.keys(element.test.template.result).length !==
-              fieldsCount[element.test.template.staticTemplate]
+              !hematologyCoagulationValidation(element.test.template.result)
             ) {
               toast.error("يرجى تعبئة حقول كل التحاليل");
               return;
             }
             break;
           case "Semen Analysis":
-            if (
-              Object.keys(element.test.template.result).length !==
-              fieldsCount[element.test.template.staticTemplate]
-            ) {
+            if (!semenAnalysisValidation(element.test.template.result)) {
               toast.error("يرجى تعبئة حقول كل التحاليل");
               return;
             }
             break;
 
           case "Culture And Sensitivity":
-            const result = element.test.template.result;
-            if (result.isPositive) {
-              if (
-                result.specimen === "" ||
-                result.growthOf === "" ||
-                result.coloniesCount === ""
-              ) {
-                toast.error("يرجى تعبئة حقول كل التحاليل");
-                return;
-              }
-              if (result.selectedAA.length === 0) {
-                toast.error("يرجى إدخال مضاد واحد على الأقل");
-                return;
-              }
+            if (
+              !cultureAndSensitivityValidation(element.test.template.result)
+            ) {
+              toast.error("يرجى تعبئة حقول كل التحاليل");
+              return;
             }
             break;
           case "Serology": {
-            const result = element.test.template.result;
-            const hasSelectedTest = result.hasOwnProperty("selectedTest");
-            let resultTemp = structuredClone(result);
-            if (!hasSelectedTest) {
-              resultTemp.selectedTest = "Both";
-            }
+            let resultTemp = structuredClone(element.test.template.result);
             let fieldsCount = 0;
 
             switch (resultTemp.selectedTest) {
@@ -158,7 +142,7 @@ function NewVisit({ params }) {
                 break;
               }
             }
-            if (Object.keys(resultTemp).length !== fieldsCount) {
+            if (!serologyValidation(resultTemp, fieldsCount)) {
               toast.error("يرجى تعبئة حقول كل التحاليل");
               return;
             }

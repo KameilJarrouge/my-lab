@@ -73,12 +73,12 @@ const CultureAndSensitivity = {
 };
 
 const Serology = {
-  "B. Abortus": "1",
-  "B. Melitensis": "1",
-  "Typhi. ( O )": "1",
-  "Typhi. ( H )": "1",
-  "Para A ( H )": "1",
-  "Para B ( H )": "1",
+  "B. Abortus": "",
+  "B. Melitensis": "",
+  "Typhi. ( O )": "",
+  "Typhi. ( H )": "",
+  "Para A ( H )": "",
+  "Para B ( H )": "",
   selectedTest: "Both",
 };
 

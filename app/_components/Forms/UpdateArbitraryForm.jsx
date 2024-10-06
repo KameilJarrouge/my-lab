@@ -61,10 +61,8 @@ function UpdateArbitraryForm({ setIsLoading }) {
   const handleSave = async () => {
     setIsLoading(true);
     let arbitraryInputMutable = structuredClone(arbitraryInput);
-    console.log("arbitraryInputMutable", arbitraryInputMutable);
     for (let arbitraryKey in arbitraryInputMutable) {
       const template = arbitraryInputMutable[arbitraryKey];
-      console.log("arbitraryKey", arbitraryKey);
       for (let fieldKey in template) {
         const field = template[fieldKey];
         arbitraryInputMutable[arbitraryKey][fieldKey] = field.filter((n) => n);

@@ -8,6 +8,11 @@ import api from "@/app/_lib/api";
 import SerologyTemplateInput from "./PresetTemplates/SerologyTemplateInput";
 import SemenAnalysisTemplateInput from "./PresetTemplates/SemenAnalysisTemplateInput";
 import getDefaultResult from "./Defaults/defaultResult";
+import hematologyCoagulationValidation from "./Validation/hematologyCoagulationValidation";
+import cultureAndSensitivityValidation from "./Validation/cultureAndSensitivityValidation";
+import semenAnalysisValidation from "./Validation/semenAnalysisValidation";
+import urinalysisValidation from "./Validation/urinalysisValidation";
+import serologyValidation from "./Validation/serologyValidation";
 
 function StaticTemplateInput({ test, updateTemplate, lastTest }) {
   const [result, setResult] = useState(test.test.template.result || {});
@@ -24,17 +29,16 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
   };
 
   const handleSave = async () => {
-    console.log("test.template.result", test.test.template.result);
     let shouldStop = false;
     let resultMutable = structuredClone(result);
     switch (test.test.template.staticTemplate) {
       case "Hematology - Coagulation":
-        if (Object.keys(resultMutable).length !== 18) {
+        if (!hematologyCoagulationValidation(resultMutable)) {
           shouldStop = true;
         }
         break;
       case "Semen Analysis":
-        if (Object.keys(resultMutable).length !== 19) {
+        if (!semenAnalysisValidation(resultMutable)) {
           shouldStop = true;
         } else {
           await api.put(`/arbitrary/semen-analysis/append`, {
@@ -44,8 +48,7 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
         break;
 
       case "تحليل البول Urinalysis":
-        let fieldsCount = resultMutable.hasOwnProperty("Dynamic") ? 20 : 19;
-        if (Object.keys(resultMutable).length !== fieldsCount) {
+        if (!urinalysisValidation(resultMutable)) {
           shouldStop = true;
         } else {
           await api.put(`/arbitrary/urinalysis/append`, {
@@ -54,37 +57,18 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
         }
         break;
       case "Culture And Sensitivity":
-        if (resultMutable.isPositive) {
-          if (
-            resultMutable.specimen === "" ||
-            resultMutable.growthOf === "" ||
-            resultMutable.coloniesCount === ""
-          ) {
-            shouldStop = true;
-            break;
-          }
-
-          if (resultMutable.selectedAA.length === 0) {
-            toast.error("يرجى إدخال مضاد واحد على الأقل");
-            return;
-          }
-          if (!shouldStop) {
-            // add arbitrary values to the db
-            await api.put(`/arbitrary/cs/append`, {
-              specimen: resultMutable.specimen,
-              growthOf: resultMutable.growthOf,
-            });
-          }
+        if (!cultureAndSensitivityValidation(resultMutable)) {
+          shouldStop = true;
+        } else {
+          // add arbitrary values to the db
+          await api.put(`/arbitrary/cs/append`, {
+            specimen: resultMutable.specimen,
+            growthOf: resultMutable.growthOf,
+          });
         }
         break;
       case "Serology": {
-        const hasSelectedTest = resultMutable.hasOwnProperty("selectedTest");
-        if (!hasSelectedTest) {
-          handleUpdateState("selectedTest", "Both", false);
-          resultMutable.selectedTest = "Both";
-        }
         let fieldsCount = 0;
-
         switch (resultMutable.selectedTest) {
           case "Both":
             fieldsCount = 7;
@@ -104,10 +88,9 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
             break;
           }
         }
-        if (Object.keys(resultMutable).length !== fieldsCount) {
+        if (!serologyValidation(resultMutable, fieldsCount)) {
           shouldStop = true;
-        }
-        if (!shouldStop) {
+        } else {
           await api.put(`/arbitrary/serology/append`, {
             serology: resultMutable,
           });
