@@ -203,7 +203,7 @@ function Item1({ arabicName, englishName, state, row }) {
         className="w-[13ch] text-sm shadow-sm shadow-black text-black text-center   h-fit "
         dir="ltr"
       >
-        {state[row]}
+        {state[row].trim() !== "" ? state[row] : "-"}
       </span>
       <div className="flex flex-col  text-left text-sm">
         <span>{arabicName}</span>
@@ -219,7 +219,7 @@ function Item2({ arabicName, englishName, state, row }) {
         className="w-[13ch] text-sm shadow-sm shadow-black text-black text-center   h-fit "
         dir="ltr"
       >
-        {state[row]}
+        {state[row].trim() !== "" ? state[row] : "-"}
       </span>
       <div className="flex flex-col  text-left text-sm">
         <span>{arabicName}</span>
@@ -235,7 +235,7 @@ function Item3({ arabicName, englishName, state, row }) {
         className="w-[13ch] text-sm shadow-sm shadow-black text-black text-center   h-fit flex items-center justify-center gap-2 "
         dir="ltr"
       >
-        {state[row]}
+        {state[row].trim() !== "" ? state[row] : "-"}
         <span>/field</span>
       </div>
       <div className="flex flex-col  text-left text-sm">
@@ -253,7 +253,7 @@ function Item4({ arabicName, englishName, state, row }) {
         dir="ltr"
       >
         <span>(</span>
-        {state[row]}
+        {state[row].trim() !== "" ? state[row] : "-"}
         <span>)</span>
       </div>
       <div className="flex flex-col  text-left text-sm">

@@ -29,7 +29,9 @@ function CultureAndSensitivityTemplatePrint({ template, catIndex }) {
               <div
                 className={`w-[63ch] shadow shadow-black   text-center rounded`}
               >
-                {template.result.specimen}
+                {template.result.specimen.trim() !== ""
+                  ? template.result.specimen
+                  : "-"}
               </div>
             </div>
             <div className="flex gap-4 w-full">
@@ -37,13 +39,17 @@ function CultureAndSensitivityTemplatePrint({ template, catIndex }) {
               <div
                 className={`w-[25ch] shadow shadow-black    text-center rounded`}
               >
-                {template.result.growthOf}
+                {template.result.growthOf.trim() !== ""
+                  ? template.result.growthOf
+                  : "-"}
               </div>
               <span>COLONIES COUNT:</span>
               <div
                 className={`w-[18ch] shadow shadow-black  text-center rounded`}
               >
-                {template.result.coloniesCount}
+                {template.result.coloniesCount.trim() !== ""
+                  ? template.result.coloniesCount
+                  : "-"}
               </div>
             </div>
           </div>

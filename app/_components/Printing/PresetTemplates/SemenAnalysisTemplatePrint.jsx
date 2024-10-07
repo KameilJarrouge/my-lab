@@ -99,7 +99,7 @@ function Field({ arabicName, englishName, unit, result }) {
           className="w-[15ch] text-black shadow shadow-black text-center  rounded h-fit "
           dir="ltr"
         >
-          {result[englishName] || "-"}
+          {result[englishName].trim() !== "" ? result[englishName] : "-"}
         </span>
       </div>
       <span className="min-w-[5ch] self-end">{unit || ""}</span>
@@ -117,21 +117,27 @@ function Field2({ arabicName, englishName, result }) {
           className="w-[15ch] text-black shadow shadow-black text-center py-1  rounded h-fit "
           dir="ltr"
         >
-          {result[`${englishName} Very Active`] || "-"}
+          {result[`${englishName} Very Active`].trim() !== ""
+            ? result[`${englishName} Very Active`]
+            : "-"}
         </span>
 
         <span
           className="w-[15ch] text-black shadow shadow-black text-center py-1  rounded h-fit "
           dir="ltr"
         >
-          {result[`${englishName} Active`] || "-"}
+          {result[`${englishName} Active`].trim() !== ""
+            ? result[`${englishName} Active`]
+            : "-"}
         </span>
 
         <span
           className="w-[15ch] text-black shadow shadow-black text-center py-1  rounded h-fit "
           dir="ltr"
         >
-          {result[`${englishName} Inactive`] || "-"}
+          {result[`${englishName} Inactive`].trim() !== ""
+            ? result[`${englishName} Inactive`]
+            : "-"}
         </span>
       </div>
       <div className="flex flex-col items-center self-end gap-0.5">

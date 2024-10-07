@@ -15,7 +15,9 @@ function SerologyTemplatePrint({ template }) {
                 className="w-[15ch] text-black shadow shadow-black text-center rounded h-fit "
                 dir="ltr"
               >
-                {template.result["B. Abortus"] || "-"}
+                {template.result["B. Abortus"].trim() !== ""
+                  ? template.result["B. Abortus"]
+                  : "-"}
               </span>
             </div>
             <div className="w-fit gap-4 flex items-center">
@@ -24,7 +26,9 @@ function SerologyTemplatePrint({ template }) {
                 className="w-[15ch] text-black shadow shadow-black text-center rounded h-fit "
                 dir="ltr"
               >
-                {template.result["B. Melitensis"] || "-"}
+                {template.result["B. Melitensis"].trim() !== ""
+                  ? template.result["B. Melitensis"]
+                  : "-"}
               </span>
             </div>
           </div>
@@ -43,7 +47,9 @@ function SerologyTemplatePrint({ template }) {
                   className="w-[15ch] text-black shadow shadow-black text-center  rounded h-fit "
                   dir="ltr"
                 >
-                  {template.result["Typhi. ( O )"] || "-"}
+                  {template.result["Typhi. ( O )"].trim() !== ""
+                    ? template.result["Typhi. ( O )"]
+                    : "-"}
                 </span>
               </div>
               <div className="w-fit gap-4 flex items-center">
@@ -52,7 +58,9 @@ function SerologyTemplatePrint({ template }) {
                   className="w-[15ch] text-black shadow shadow-black text-center  rounded h-fit "
                   dir="ltr"
                 >
-                  {template.result["Typhi. ( H )"] || "-"}
+                  {template.result["Typhi. ( H )"].trim() !== ""
+                    ? template.result["Typhi. ( H )"]
+                    : "-"}
                 </span>
               </div>
             </div>
@@ -65,7 +73,9 @@ function SerologyTemplatePrint({ template }) {
                   className="w-[15ch] text-black shadow shadow-black text-center  rounded h-fit "
                   dir="ltr"
                 >
-                  {template.result["Para A ( H )"] || "-"}
+                  {template.result["Para A ( H )"].trim() !== ""
+                    ? template.result["Para A ( H )"]
+                    : "-"}
                 </span>
               </div>
               <div className="w-fit gap-4 flex items-center">
@@ -75,7 +85,9 @@ function SerologyTemplatePrint({ template }) {
                   className="w-[15ch] text-black shadow shadow-black text-center  rounded h-fit "
                   dir="ltr"
                 >
-                  {template.result["Para B ( H )"] || "-"}
+                  {template.result["Para B ( H )"].trim() !== ""
+                    ? template.result["Para B ( H )"]
+                    : "-"}
                 </span>
               </div>
             </div>

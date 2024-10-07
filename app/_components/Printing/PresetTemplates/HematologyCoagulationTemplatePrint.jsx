@@ -177,7 +177,7 @@ function RowA({
           className="w-[12ch] shadow-sm shadow-black text-black text-center bg-white  h-fit "
           dir="ltr"
         >
-          {state[row]}
+          {state[row].trim() !== "" ? state[row] : "-"}
         </span>
         <span className="w-[16ch]">{measureUnit1}</span>
       </div>
@@ -227,7 +227,7 @@ function RowB({
           className="w-[12ch] shadow-sm shadow-black text-black text-center bg-white  h-fit "
           dir="ltr"
         >
-          {state[row]}
+          {state[row].trim() !== "" ? state[row] : "-"}
         </span>
         <span className="w-[16ch]">{measureUnit1}</span>
       </div>
@@ -243,7 +243,7 @@ function RowB({
           className="w-[10ch] shadow-sm shadow-black text-black text-center bg-white  h-fit "
           dir="ltr"
         >
-          {state[row + 1]}
+          {state[row + 1].trim() !== "" ? state[row + 1] : "-"}
         </span>
         <span>{measureUnit2}</span>
       </div>
@@ -279,7 +279,7 @@ function RowC({
           className="w-[12ch] shadow-sm shadow-black text-black text-center bg-white  h-fit "
           dir="ltr"
         >
-          {state[row]}
+          {state[row].trim() !== "" ? state[row] : "-"}
         </span>
         <span className="w-[16ch]">{measureUnit1}</span>
       </div>
