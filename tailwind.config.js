@@ -53,6 +53,7 @@ module.exports = {
         dark_primary: "#181818",
         secondary: "#025CA2",
         light_secondary: "#0078D4",
+        input_background: "#1C1C1C",
         warning: "#8C8303",
         danger: "#B10402",
         text: "#CCCCCC",

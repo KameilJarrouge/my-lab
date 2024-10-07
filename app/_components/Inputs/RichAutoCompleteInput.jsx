@@ -10,6 +10,8 @@ function RichAutoCompleteInput({
   title,
   options = [],
   uniqueName = "unique",
+  dir = "rtl",
+  ...props
 }) {
   const [isRaised, setIsRaised] = useState(false);
   return (
@@ -19,6 +21,7 @@ function RichAutoCompleteInput({
         id={`rich-text-${uniqueName}`}
         title={title}
         state={state}
+        dir={dir}
         setState={(newValue, e) => {
           if (isRaised && newValue.length >= (state?.length || 0)) {
             const indexOfNewChar = e.target.selectionStart - 1;
@@ -37,6 +40,7 @@ function RichAutoCompleteInput({
             setState(newValue);
           }
         }}
+        {...props}
       />
       <button
         onClick={() => {

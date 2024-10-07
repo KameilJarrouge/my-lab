@@ -6,10 +6,12 @@ import api from "@/app/_lib/api";
 import TextInput from "../Inputs/TextInput";
 import RichAutoCompleteInput from "../Inputs/RichAutoCompleteInput";
 import { toast } from "react-toastify";
+import ManualTemplatePreview from "./ManualTemplatePreview";
 
 function ManualTemplate({
   state = { min: "", max: "", referenceRange: "", unit: "" },
   setState,
+  testName,
 }) {
   const [measureUnits, setMeasureUnits] = useState([]);
 
@@ -29,47 +31,54 @@ function ManualTemplate({
 
   return (
     <div className="flex flex-col gap-6 w-full">
-      <div className="w-[30ch]" dir="ltr">
-        <RichAutoCompleteInput
-          options={measureUnits}
-          state={state.unit}
-          title={"وحدة القياس"}
-          setState={(unit) =>
-            setState((state) => {
-              return { ...state, unit: unit };
-            })
-          }
-        />
-      </div>
-      <Separator className={"bg-text/50"} />
-      <div className="flex justify-between w-full ">
-        <div className="w-[30ch]">
-          <TextInput
-            title={"القيمة الأدنى"}
-            state={state.min}
-            setState={(min) =>
-              setState((state) => {
-                return { ...state, min: min };
-              })
-            }
-          />
-        </div>
-        <div className="w-[30ch]">
-          <TextInput
-            title={"القيمة الأعلى"}
-            state={state.max}
-            setState={(max) =>
-              setState((state) => {
-                return { ...state, max: max };
-              })
-            }
-          />
-        </div>
-      </div>
-      <Separator className={"bg-text/50"} />
-      <div className=" flex gap-4 w-full items-center " dir="ltr">
-        <div className="w-1/2 ">
+      <div className="flex justify-between">
+        <div className={"w-[45%] px-4 flex flex-col gap-4 h-fit"}>
+          <div className="flex gap-2 items-center ">
+            <span className="w-[15ch]">وحدة القياس : </span>
+            <RichAutoCompleteInput
+              options={measureUnits}
+              dir="ltr"
+              state={state.unit}
+              withHoveringTitle={false}
+              setState={(unit) =>
+                setState((state) => {
+                  return { ...state, unit: unit };
+                })
+              }
+            />
+          </div>
+          <div className="flex gap-2 items-center">
+            <span className="w-[15ch]">القيمة الأدنى : </span>
+            <TextInput
+              withHoveringTitle={false}
+              state={state.min}
+              setState={(min) =>
+                setState((state) => {
+                  return { ...state, min: min };
+                })
+              }
+              dir="ltr"
+            />
+          </div>
+          <div className="flex gap-2 items-center">
+            <span className="w-[15ch]">القيمة الأعلى : </span>
+            <TextInput
+              withHoveringTitle={false}
+              state={state.max}
+              setState={(max) =>
+                setState((state) => {
+                  return { ...state, max: max };
+                })
+              }
+              dir="ltr"
+            />
+          </div>
+        </div>{" "}
+        <div className="h-[5rem] w-[1px] bg-dark_text self-center"></div>
+        <div className="w-[45%] flex flex-col gap-2">
+          <span>القيمة التي ستظهر في المجال المرجعي على التقرير :</span>
           <TextAreaInput
+            dir="ltr"
             state={state.referenceRange}
             setState={(referenceRange) =>
               setState((state) => {
@@ -79,24 +88,13 @@ function ManualTemplate({
                 };
               })
             }
-            rows={7}
-            title={
-              "القيمة التي ستظهر في المجال المرجعي على التقرير (reference range)"
-            }
+            rows={5}
           />
         </div>
-        <div className="flex flex-col gap-1 w-1/2 h-[10rem] items-center overflow-y-auto overflow-x-hidden text-wrap">
-          <div>Reference Range</div>
-          {state.referenceRange && state.referenceRange !== "" ? (
-            state.referenceRange
-              .split("\n")
-              .filter((line) => line !== "")
-              .map((line, index) => <span key={index}>{line}</span>)
-          ) : (
-            <span>{`${state.min}-${state.max}`}</span>
-          )}
-        </div>
       </div>
+      <Separator className={"bg-dark_text"} />
+
+      <ManualTemplatePreview template={state} testName={testName} />
     </div>
   );
 }

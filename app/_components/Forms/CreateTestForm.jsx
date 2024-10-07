@@ -89,7 +89,11 @@ function CreateTestForm({ submit, categories = [] }) {
           <div className="w-full h-[calc(100%-2rem)] ">
             {/* Template */}
             {templateType === "قالب يدوي" ? (
-              <ManualTemplate state={template} setState={setTemplate} />
+              <ManualTemplate
+                state={template}
+                setState={setTemplate}
+                testName={name}
+              />
             ) : (
               {
                 "تحليل البول Urinalysis": <UrinalysisTemplate />,
