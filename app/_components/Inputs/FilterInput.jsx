@@ -19,7 +19,7 @@ function FilterInput({
         }}
         autoComplete="off"
         placeholder={title}
-        className={`bg-dark_primary text-text  outline-none w-full px-2 py-1 ${className}`}
+        className={`bg-input_background text-text  outline-none w-full px-2 py-1 ${className}`}
         onChange={handleChange}
         value={state}
       />

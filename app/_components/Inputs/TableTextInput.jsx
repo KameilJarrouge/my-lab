@@ -10,7 +10,7 @@ function TableTextInput({
   return (
     <input
       type="text"
-      className={`bg-dark_primary px-1 outline-none overflow-hidden  h-[1.8rem] w-full ${className}`}
+      className={`bg-input_background px-1 outline-none overflow-hidden  h-[1.8rem] w-full ${className}`}
       value={value}
       onChange={(e) => {
         if (

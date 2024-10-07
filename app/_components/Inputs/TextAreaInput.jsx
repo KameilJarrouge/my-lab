@@ -18,7 +18,7 @@ function TextAreaInput({
         {...props}
         placeholder={title}
         rows={rows}
-        className={`w-full bg-dark_primary text-text resize-none  outline-none ${className}`}
+        className={`w-full bg-input_background text-text resize-none  outline-none ${className}`}
         onChange={handleChange}
         value={state}
       />

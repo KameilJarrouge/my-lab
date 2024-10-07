@@ -26,12 +26,12 @@ function TextInput({
           {state !== "" && title}
         </span>
       )}
-      <div className="w-full h-fit flex bg-dark_primary  justify-center items-center  border-b-[1px] border-b-light_primary focus-within:border-b-light_text relative">
+      <div className="w-full h-fit flex bg-input_background  justify-center items-center  border-b-[1px] border-b-light_primary focus-within:border-b-light_text relative">
         <input
           {...props}
           type={hidden ? type : "text"}
           placeholder={title}
-          className={`w-full bg-dark_primary text-text  outline-none h-[1.8rem]  ${className}`}
+          className={`w-full bg-transparent  text-text  outline-none h-[1.8rem]  ${className}`}
           autoComplete="off"
           onChange={handleChange}
           value={state || ""}
