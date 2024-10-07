@@ -29,7 +29,7 @@ const micros2 = [
 function SemenAnalysisTemplate() {
   return (
     <div
-      className="flex flex-col  gap-6 w-full h-[80%] px-2 overflow-y-auto overflow-x-hidden"
+      className="flex flex-col  gap-6 w-full h-full px-2 overflow-y-auto overflow-x-hidden"
       dir="ltr"
     >
       <span className="border-b border-text w-fit">

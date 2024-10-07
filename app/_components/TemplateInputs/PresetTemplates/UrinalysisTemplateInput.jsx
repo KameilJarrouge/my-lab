@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import AuthButton from "../../Buttons/AuthButton";
-import DropMenu from "../../Inputs/DropMenu";
 import TextInput from "../../Inputs/TextInput";
 import AutoCompleteInput from "../../Inputs/AutoCompleteInput";
 import api from "@/app/_lib/api";

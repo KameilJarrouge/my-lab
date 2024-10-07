@@ -2,7 +2,7 @@ import React from "react";
 
 function UrinalysisTemplate() {
   return (
-    <div className="flex flex-col items-end gap-4 w-full h-[80%] px-2 overflow-y-auto overflow-x-hidden">
+    <div className="flex flex-col items-end gap-4 w-full h-full px-2 overflow-y-auto overflow-x-hidden">
       <span className="border-b border-text w-fit">تحليل البول URINALYSIS</span>
       <div className="flex justify-between items-start  w-full">
         <div className="flex flex-col gap-4 w-[30%]">

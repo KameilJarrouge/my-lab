@@ -2,7 +2,7 @@ import React from "react";
 
 function HematologyCoagulationTemplate() {
   return (
-    <div className="flex flex-col gap-4 w-full h-[80%] px-2 overflow-y-auto overflow-x-hidden">
+    <div className="flex flex-col gap-4 w-full h-full px-2 overflow-y-auto overflow-x-hidden">
       {/* Main Row */}
       <div className="flex flex-row-reverse justify-between items-center w-full ">
         <span className="w-[15ch] text-end">Leucocytes</span>

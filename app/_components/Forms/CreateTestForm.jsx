@@ -58,46 +58,48 @@ function CreateTestForm({ submit, categories = [] }) {
           <AuthButton title="إضافة" onClick={handleSubmit} />
         </div>
       </div>
-      <div className="flex flex-col items-center gap-8 w-fit min-w-[60rem] py-2 px-4 h-full bg-dark_primary rounded">
+      <div className="flex flex-col items-center gap-4 w-fit min-w-[60rem] py-2 px-4 h-full bg-dark_primary rounded">
         <Title>قالب التحليل</Title>
-        <div className="w-full h-[5rem] flex items-start justify-between gap-2">
-          <div className="w-[22ch] h-fit">
-            <ToggleInput
-              selectedValue={templateType}
-              setSelectedValue={setTemplateType}
-              value1="قالب يدوي"
-              value2="قالب جاهز"
-            />
+        <div className="flex flex-col gap-4 w-full h-[calc(100%-4rem)]">
+          <div className="w-full h-[2rem] flex items-start justify-between gap-2">
+            <div className="w-[22ch] h-fit">
+              <ToggleInput
+                selectedValue={templateType}
+                setSelectedValue={setTemplateType}
+                value1="قالب يدوي"
+                value2="قالب جاهز"
+              />
+            </div>
+            {templateType === "قالب جاهز" && (
+              <DropMenu
+                state={staticTemplate}
+                setState={setStaticTemplate}
+                title="القوالب الجاهزة"
+                uniqueName="template"
+                options={[
+                  "تحليل البول Urinalysis",
+                  "Hematology - Coagulation",
+                  "Culture And Sensitivity",
+                  "Serology",
+                  "Semen Analysis",
+                ]}
+              />
+            )}
           </div>
-          {templateType === "قالب جاهز" && (
-            <DropMenu
-              state={staticTemplate}
-              setState={setStaticTemplate}
-              title="القوالب الجاهزة"
-              uniqueName="template"
-              options={[
-                "تحليل البول Urinalysis",
-                "Hematology - Coagulation",
-                "Culture And Sensitivity",
-                "Serology",
-                "Semen Analysis",
-              ]}
-            />
-          )}
-        </div>
-        <div className="w-full h-[85%]">
-          {/* Template */}
-          {templateType === "قالب يدوي" ? (
-            <ManualTemplate state={template} setState={setTemplate} />
-          ) : (
-            {
-              "تحليل البول Urinalysis": <UrinalysisTemplate />,
-              "Hematology - Coagulation": <HematologyCoagulationTemplate />,
-              "Culture And Sensitivity": <CultureAndSensitivityTemplate />,
-              Serology: <SerologyTemplate />,
-              "Semen Analysis": <SemenAnalysisTemplate />,
-            }[staticTemplate]
-          )}
+          <div className="w-full h-[calc(100%-2rem)] ">
+            {/* Template */}
+            {templateType === "قالب يدوي" ? (
+              <ManualTemplate state={template} setState={setTemplate} />
+            ) : (
+              {
+                "تحليل البول Urinalysis": <UrinalysisTemplate />,
+                "Hematology - Coagulation": <HematologyCoagulationTemplate />,
+                "Culture And Sensitivity": <CultureAndSensitivityTemplate />,
+                Serology: <SerologyTemplate />,
+                "Semen Analysis": <SemenAnalysisTemplate />,
+              }[staticTemplate]
+            )}
+          </div>
         </div>
       </div>
     </div>

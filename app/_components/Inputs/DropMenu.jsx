@@ -61,7 +61,7 @@ function DropMenu({
 
       {!collapsed && (
         <div
-          className="absolute left-0 z-10 mt-2 min-w-[10ch] max-w-fit origin-top-right rounded-md bg-dark_primary max-h-[10rem] overflow-y-auto shadow shadow-black outline-none"
+          className="absolute left-0 z-10 mt-2 min-w-[10ch] max-w-fit origin-top-right rounded-md bg-dark_primary max-h-[15rem] overflow-y-auto shadow-lg border border-light_primary/60 shadow-black outline-none"
           tabIndex="-1"
         >
           <div className="p-3 flex flex-col gap-1" role="none">
