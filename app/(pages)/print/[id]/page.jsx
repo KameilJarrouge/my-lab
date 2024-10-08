@@ -11,6 +11,7 @@ import api from "@/app/_lib/api";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+// let heights = {};
 
 function PrintPage({ params }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -37,6 +38,7 @@ function PrintPage({ params }) {
   };
 
   const getVisit = async () => {
+    if (testsGroupedByCategory.length !== 0) return;
     setIsLoading(true);
     const result = await api.get(`/visits/${params.id}/for-printing`);
     if (!result.data.success) {
@@ -451,11 +453,20 @@ function PrintPage({ params }) {
   useEffect(() => {
     if (testsGroupedByCategory.length !== 0) {
       const pages = sectioning();
+      console.log("pages", pages);
       setPages(pages);
     }
   }, [testsGroupedByCategory]);
 
   const pxTomm = function (elementId) {
+    // console.log("heights", heights);
+    // if (!heights.hasOwnProperty(elementId)) {
+    //   heights[elementId] =
+    //     document.getElementById(elementId).getBoundingClientRect().height /
+    //     (document.getElementById("my_mm").getBoundingClientRect().height / 100);
+    // }
+
+    // return heights[elementId];
     return (
       document.getElementById(elementId).getBoundingClientRect().height /
       (document.getElementById("my_mm").getBoundingClientRect().height / 100)
@@ -545,7 +556,7 @@ function PrintPage({ params }) {
                           }  print:bg-transparent`}
                         >
                           <ManualTestsHeader
-                            id={catIndex}
+                            id={" "}
                             key={catIndex}
                             categoryName={
                               groupedVisitTest.visitTest[0].Test.category.name
@@ -556,7 +567,7 @@ function PrintPage({ params }) {
                               // if (visitTest.template.type === "manual") {
                               return (
                                 <ManualTemplatePrint
-                                  id={index}
+                                  id={" "}
                                   catId={catIndex}
                                   key={index}
                                   testName={visitTest.Test.name}
@@ -598,14 +609,14 @@ function PrintPage({ params }) {
                         >
                           <StaticTestHeader
                             key={catIndex}
-                            id={catIndex}
+                            id={" "}
                             categoryName={
                               groupedVisitTest.visitTest.Test.category.name
                             }
                           />
                           <StaticTemplatePrint
                             key={catIndex}
-                            id={catIndex}
+                            id={" "}
                             template={groupedVisitTest.visitTest.template}
                             lastTestDate={
                               groupedVisitTest.visitTest.lastVisitTest?.Visit
@@ -624,7 +635,7 @@ function PrintPage({ params }) {
             </Page>
           ))}
         {/* {true && ( */}
-        <Page hideOnPrint invisible>
+        <Page hideOnPrint heightFit invisible>
           <PrintHeader
             date={visit?.date}
             doctorsName={visit?.doctor.name}

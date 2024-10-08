@@ -5,12 +5,15 @@ function Page({
   invisible = false,
   pageNumber,
   hideOnPrint = false,
+  heightFit = false,
 }) {
   return (
     <div
-      className={`w-[210mm] h-[297mm] bg-white p-[10mm] relative ${
-        hideOnPrint && "print:hidden"
-      } ${invisible && "invisible"} `}
+      className={`w-[210mm] ${
+        heightFit ? "h-fit" : "h-[297mm]"
+      } bg-white p-[10mm] relative ${hideOnPrint && "print:hidden"} ${
+        invisible && "invisible"
+      } `}
     >
       {/* <div className="w-[210mm] h-[2px] border border-dashed border-red-500/20 absolute top-[calc(297mm/2)] left-[0mm] z-[1000] print:hidden"></div> */}
       {children}
