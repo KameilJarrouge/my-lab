@@ -11,7 +11,6 @@ import api from "@/app/_lib/api";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-// let heights = {};
 
 function PrintPage({ params }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -458,22 +457,11 @@ function PrintPage({ params }) {
   useEffect(() => {
     if (testsGroupedByCategory.length !== 0) {
       const pages = sectioning();
-      console.log("pages", pages);
       setPages(pages);
     }
   }, [testsGroupedByCategory]);
 
   const pxTomm = function (elementId) {
-    // console.log("heights", heights);
-    // if (!heights.hasOwnProperty(elementId)) {
-    //   heights[elementId] =
-    //     document.getElementById(elementId).getBoundingClientRect().height /
-    //     (document.getElementById("my_mm").getBoundingClientRect().height / 100);
-    // }
-
-    // return heights[elementId];
-
-    console.log("elementId", elementId);
     return (
       document.getElementById(elementId).getBoundingClientRect().height /
       (document.getElementById("my_mm").getBoundingClientRect().height / 100)
@@ -665,7 +653,6 @@ function PrintPage({ params }) {
                       />
                       {groupedVisitTest.visitTest.map((visitTest, index) => {
                         // if (visitTest.template.type === "manual") {
-                        console.log(visitTest);
 
                         return (
                           <ManualTemplatePrint
