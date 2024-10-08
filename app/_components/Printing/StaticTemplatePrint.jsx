@@ -4,6 +4,7 @@ import HematologyCoagulationTemplatePrint from "./PresetTemplates/HematologyCoag
 import CultureAndSensitivityTemplatePrint from "./PresetTemplates/CultureAndSensitivityTemplatePrint";
 import SerologyTemplatePrint from "./PresetTemplates/SerologyTemplatePrint";
 import SemenAnalysisTemplatePrint from "./PresetTemplates/SemenAnalysisTemplatePrint";
+import BloodTypeTemplatePrint from "./PresetTemplates/BloodTypeTemplatePrint";
 
 function StaticTemplatePrint({ id, template, lastTestResult, lastTestDate }) {
   return (
@@ -31,6 +32,7 @@ function StaticTemplatePrint({ id, template, lastTestResult, lastTestDate }) {
           ),
           Serology: <SerologyTemplatePrint template={template} />,
           "Semen Analysis": <SemenAnalysisTemplatePrint template={template} />,
+          "Blood Type": <BloodTypeTemplatePrint template={template} />,
         }[template.staticTemplate]
       }
     </div>

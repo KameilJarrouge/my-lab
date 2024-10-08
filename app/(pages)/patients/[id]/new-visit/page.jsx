@@ -149,6 +149,8 @@ function NewVisit({ params }) {
             element.test.template.result = resultTemp;
             break;
           }
+          case "Blood Type":
+            break;
           default:
             toast.error("Not Implemented Yet");
             return;
@@ -365,7 +367,7 @@ function NewVisit({ params }) {
       />
 
       {/* Tests */}
-      <div className="w-full h-fit flex flex-col items-center gap-3 px-3 pb-2  overflow-y-auto overflow-x-hidden">
+      <div className="w-full min-h-[50vh] h-fit flex flex-col items-center gap-3 px-3 pb-2  overflow-y-auto overflow-x-hidden">
         {tests.map((test, index) => (
           <TestTemplateCard
             key={index}

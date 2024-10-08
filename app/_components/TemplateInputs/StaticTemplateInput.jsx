@@ -13,6 +13,7 @@ import cultureAndSensitivityValidation from "./Validation/cultureAndSensitivityV
 import semenAnalysisValidation from "./Validation/semenAnalysisValidation";
 import urinalysisValidation from "./Validation/urinalysisValidation";
 import serologyValidation from "./Validation/serologyValidation";
+import BloodTypeTemplateInput from "./PresetTemplates/BloodTypeTemplateInput";
 
 function StaticTemplateInput({ test, updateTemplate, lastTest }) {
   const [result, setResult] = useState(test.test.template.result || {});
@@ -181,6 +182,15 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
           ),
           "Semen Analysis": (
             <SemenAnalysisTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+            />
+          ),
+          "Blood Type": (
+            <BloodTypeTemplateInput
               handleSave={handleSave}
               handleRestore={handleRestore}
               isDirty={isDirty}

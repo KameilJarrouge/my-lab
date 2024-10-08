@@ -2,7 +2,10 @@ import React from "react";
 
 function CultureAndSensitivityTemplatePrint({ template, catIndex }) {
   return (
-    <div className="flex flex-col  items-center text-sm w-full" dir="ltr">
+    <div
+      className="flex flex-col border-b border-dashed border-gray-400 pb-1 items-center text-sm w-full"
+      dir="ltr"
+    >
       {/* header */}
       <div
         className="w-full flex justify-between items-center "

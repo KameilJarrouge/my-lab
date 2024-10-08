@@ -243,7 +243,7 @@ function UpdateVisit({ params }) {
         </div>
       </div>
       {/* Tests */}
-      <div className="w-full h-fit flex flex-col items-center gap-3 px-3 pb-2  overflow-y-auto overflow-x-hidden">
+      <div className="w-full min-h-[50vh] h-fit flex flex-col items-center gap-3 px-3 pb-2  overflow-y-auto overflow-x-hidden">
         {tests.map((test, index) => (
           <TestTemplateCardUpdate
             key={index}

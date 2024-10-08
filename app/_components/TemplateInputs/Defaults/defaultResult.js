@@ -82,6 +82,11 @@ const Serology = {
   selectedTest: "Both",
 };
 
+const BloodType = {
+  bloodGroup: "A",
+  Rh: "Negative",
+};
+
 export default function getDefaultResult(staticTemplate) {
   switch (staticTemplate) {
     case "تحليل البول Urinalysis":
@@ -94,5 +99,7 @@ export default function getDefaultResult(staticTemplate) {
       return Serology;
     case "Semen Analysis":
       return SemenAnalysis;
+    case "Blood Type":
+      return BloodType;
   }
 }

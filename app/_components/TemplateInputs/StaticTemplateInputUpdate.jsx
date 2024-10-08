@@ -12,6 +12,7 @@ import semenAnalysisValidation from "./Validation/semenAnalysisValidation";
 import urinalysisValidation from "./Validation/urinalysisValidation";
 import cultureAndSensitivityValidation from "./Validation/cultureAndSensitivityValidation";
 import serologyValidation from "./Validation/serologyValidation";
+import BloodTypeTemplateInput from "./PresetTemplates/BloodTypeTemplateInput";
 
 function StaticTemplateInputUpdate({
   visitTest,
@@ -179,6 +180,7 @@ function StaticTemplateInputUpdate({
               isDirty={isDirty}
               result={result}
               setResult={handleUpdateState}
+              saveButtonTitle="تعديل"
             />
           ),
           "Semen Analysis": (
@@ -188,6 +190,17 @@ function StaticTemplateInputUpdate({
               isDirty={isDirty}
               result={result}
               setResult={handleUpdateState}
+              saveButtonTitle="تعديل"
+            />
+          ),
+          "Blood Type": (
+            <BloodTypeTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+              saveButtonTitle="تعديل"
             />
           ),
         }[visitTest.template.staticTemplate]
