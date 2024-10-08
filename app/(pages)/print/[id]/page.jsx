@@ -630,7 +630,7 @@ function PrintPage({ params }) {
             </Page>
           ))}
         {/* {true && ( */}
-        <Page hideOnPrint heightFit>
+        <Page hideOnPrint heightFit invisible>
           <PrintHeader
             date={visit?.date}
             doctorsName={visit?.doctor.name}
