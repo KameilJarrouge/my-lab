@@ -210,7 +210,12 @@ function PrintPage({ params }) {
               // create a new page
               pages.push({ height: 217, content: [] });
               // unshift the first grouped test (redo this in a new page)
-              visitTestsLeft.unshift(firstGroupedTest);
+              visitTestsLeft.unshift({
+                ...firstGroupedTest,
+                readingIndex: firstGroupedTest.hasOwnProperty("readingIndex")
+                  ? firstGroupedTest.readingIndex
+                  : readingIndex,
+              });
             } else {
               // add the remaining test in their own groupedTest
               visitTestsLeft.unshift({
@@ -467,6 +472,8 @@ function PrintPage({ params }) {
     // }
 
     // return heights[elementId];
+
+    console.log("elementId", elementId);
     return (
       document.getElementById(elementId).getBoundingClientRect().height /
       (document.getElementById("my_mm").getBoundingClientRect().height / 100)
@@ -635,7 +642,7 @@ function PrintPage({ params }) {
             </Page>
           ))}
         {/* {true && ( */}
-        <Page hideOnPrint heightFit invisible>
+        <Page hideOnPrint heightFit>
           <PrintHeader
             date={visit?.date}
             doctorsName={visit?.doctor.name}
@@ -658,6 +665,8 @@ function PrintPage({ params }) {
                       />
                       {groupedVisitTest.visitTest.map((visitTest, index) => {
                         // if (visitTest.template.type === "manual") {
+                        console.log(visitTest);
+
                         return (
                           <ManualTemplatePrint
                             id={visitTest.id}

@@ -15,7 +15,7 @@ function ManualTemplatePrint({
 }) {
   return (
     <div
-      id={"manual-template-print-cat-" + catId + "-test-" + id}
+      id={`manual-template-print-cat-${catId}-test-${id}`}
       className="text-black grid grid-cols-12 w-full text-sm h-fit border-b border-dashed border-gray-400 pb-1 pt-[5px]"
       dir="ltr"
     >
