@@ -118,6 +118,11 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
   };
 
   useEffect(() => {
+    if (
+      JSON.stringify(result) !== "{}" &&
+      JSON.stringify(test.test.template.result) !== "{}"
+    )
+      return;
     const defaultResult = getDefaultResult(test.test.template.staticTemplate);
     const readyTest = test;
     readyTest.test.template.result = defaultResult;
