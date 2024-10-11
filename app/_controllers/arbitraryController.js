@@ -173,7 +173,9 @@ function shouldBeSaved(text) {
 
 export async function getAllArbitrary() {
   const result = await prisma.arbitrary.findFirst({});
-  return successReturn(result);
+  if (!result) return successReturn(await createArbitrary());
+
+  return successReturn(await assertFieldsNotNull(result));
 }
 
 export async function updateArbitrary(data) {
@@ -194,18 +196,61 @@ export async function updateArbitrary(data) {
   return successReturn();
 }
 
+function getTemplate(key) {
+  switch (key) {
+    case "CS_ANTIMICROBIAL_AGENTS":
+      return JSON.stringify(CultureAndSensitivityRows);
+    case "CS_Growth_Of":
+      return "[]";
+    case "CS_Specimen":
+      return "[]";
+    case "Urinalysis":
+      return JSON.stringify(Urinalysis);
+    case "Serology":
+      return JSON.stringify(Serology);
+    case "SemenAnalysis":
+      return JSON.stringify(SemenAnalysis);
+
+    default:
+      return "[]";
+  }
+}
+
 async function createArbitrary() {
   const result = await prisma.arbitrary.create({
     data: {
-      CS_ANTIMICROBIAL_AGENTS: JSON.stringify(CultureAndSensitivityRows),
-      CS_Growth_Of: "[]",
-      CS_Specimen: "[]",
-      Urinalysis: JSON.stringify(Urinalysis),
-      Serology: JSON.stringify(Serology),
-      SemenAnalysis: JSON.stringify(SemenAnalysis),
+      CS_ANTIMICROBIAL_AGENTS: getTemplate("CS_ANTIMICROBIAL_AGENTS"),
+      CS_Growth_Of: getTemplate("CS_Growth_Of"),
+      CS_Specimen: getTemplate("CS_Specimen"),
+      Urinalysis: getTemplate("Urinalysis"),
+      Serology: getTemplate("Serology"),
+      SemenAnalysis: getTemplate("SemenAnalysis"),
       // Fill this with remaining fields once you add them
     },
   });
+  return result;
+}
+
+/**
+ * asserts that the result from arbitrary doesn't contain null fields, and creates them if null.
+ * @param {object} object object to question if it's fields are null
+ * @returns {object} same object if no fields are null, or a new object with filled fields
+ */
+async function assertFieldsNotNull(object) {
+  let nullKeys = Object.keys(object).filter((key) => !object[key]);
+
+  if (nullKeys.length === 0) return object;
+
+  let data = {};
+  for (const nullKey of nullKeys) {
+    data[nullKey] = getTemplate(nullKey);
+  }
+
+  const result = await prisma.arbitrary.update({
+    where: { id: object.id },
+    data: data,
+  });
+
   return result;
 }
 
@@ -219,7 +264,7 @@ export async function getCSArbitrary() {
   });
   if (!result) return successReturn(await createArbitrary());
 
-  return successReturn(result);
+  return successReturn(await assertFieldsNotNull(result));
 }
 
 export async function getCSAntimicrobialAgents() {
@@ -231,7 +276,7 @@ export async function getCSAntimicrobialAgents() {
   });
   if (!result) return successReturn(await createArbitrary());
 
-  return successReturn(result);
+  return successReturn(await assertFieldsNotNull(result));
 }
 
 export async function updateCSArbitrary(
@@ -290,7 +335,7 @@ export async function getUrinalysisArbitrary() {
   });
   if (!result) return successReturn(await createArbitrary());
 
-  return successReturn(result);
+  return successReturn(await assertFieldsNotNull(result));
 }
 
 export async function updateUrinalysisArbitrary(id, urinalysis) {
@@ -343,7 +388,7 @@ export async function getSerologyArbitrary() {
   });
   if (!result) return successReturn(await createArbitrary());
 
-  return successReturn(result);
+  return successReturn(await assertFieldsNotNull(result));
 }
 
 export async function updateSerologyArbitrary(id, serology) {
@@ -386,7 +431,7 @@ export async function getSemenAnalysisArbitrary() {
   });
   if (!result) return successReturn(await createArbitrary());
 
-  return successReturn(result);
+  return successReturn(await assertFieldsNotNull(result));
 }
 
 export async function updateSemenAnalysisArbitrary(id, semenAnalysis) {
