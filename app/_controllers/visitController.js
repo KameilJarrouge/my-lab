@@ -157,6 +157,7 @@ export async function getTodaysVisits() {
       Patient: true,
       doctor: true,
     },
+    orderBy: { date: "desc" },
   });
 
   return successReturn(result);
