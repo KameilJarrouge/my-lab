@@ -27,6 +27,7 @@ const navData = [
     subtitles: [
       { subtitle: "إضافة مريض", url: "/patients/create" },
       { subtitle: "قائمة المرضى", url: "/patients" },
+      { subtitle: "قائمة الزيارات", url: "/visits" },
     ],
   },
   {

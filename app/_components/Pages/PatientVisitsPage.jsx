@@ -15,7 +15,7 @@ import {
 } from "react-icons/md";
 import ToggleInput from "../Inputs/ToggleInput";
 import AutoCompleteSelect from "../Inputs/AutoCompleteSelection";
-import VisitCard from "../Cards/VisitCard";
+import PatientVisitCard from "../Cards/PatientVisitCard";
 import NoResultComponent from "../NoResultComponent";
 
 function PatientVisitsPage({ patientId, isLoading, setIsLoading }) {
@@ -223,7 +223,7 @@ function PatientVisitsPage({ patientId, isLoading, setIsLoading }) {
       </div>
       <div className="w-full h-[calc(100%-4rem)] px-2 overflow-y-auto overflow-x-hidden flex flex-col gap-4">
         {visits.map((visit, index) => (
-          <VisitCard visit={visit} key={index} />
+          <PatientVisitCard visit={visit} key={index} />
         ))}
         {visits.length === 0 && (
           <div className="w-full h-[calc(100%-4rem)] flex justify-center items-center">

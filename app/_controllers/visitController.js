@@ -45,6 +45,50 @@ export async function getVisitForPrinting(id) {
   return successReturn(result);
 }
 
+export async function searchVisits(
+  startDate,
+  endDate,
+  orderByDateDirection
+  // page
+) {
+  let conditions = {};
+  if (startDate) {
+    if (endDate) {
+      const startOfStartDate = moment(startDate).startOf("day");
+      const endOfEndDate = moment(endDate).endOf("day");
+      conditions["date"] = {
+        lte: new Date(endOfEndDate),
+        gte: new Date(startOfStartDate),
+      };
+    } else {
+      const startOfStartDate = moment(startDate).startOf("day");
+      const endOfStartDate = moment(startDate).endOf("day");
+      conditions["date"] = {
+        lte: new Date(endOfStartDate),
+        gte: new Date(startOfStartDate),
+      };
+    }
+  }
+
+  // const count = await prisma.visit.count({
+  //   where: { ...conditions },
+  // });
+
+  const result = await prisma.visit.findMany({
+    where: {
+      ...conditions,
+    },
+    // take: 20,
+    // skip: (Number(page) - 1) * 20,
+    orderBy: { date: orderByDateDirection },
+    include: {
+      doctor: true,
+      tests: { include: { Test: { include: { category: true } } } },
+      Patient: true,
+    },
+  });
+  return successReturn(result);
+}
 export async function getVisits(
   patientId,
   isByTest,

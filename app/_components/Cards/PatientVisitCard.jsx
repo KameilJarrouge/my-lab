@@ -6,10 +6,8 @@ import Link from "next/link";
 import moment from "moment";
 import numberWithCommas from "@/app/_lib/numberWithCommas";
 import TestRow from "../Rows/TestRow";
-import { useRouter } from "next/navigation";
 
-function VisitCard({ visit, alterBg = false }) {
-  const router = useRouter();
+function PatientVisitCard({ visit }) {
   const [areTestsVisible, setAreTestsVisible] = useState(false);
   const totalPrice = useMemo(() => {
     return visit.tests.reduce((total, test) => {
@@ -20,22 +18,15 @@ function VisitCard({ visit, alterBg = false }) {
   return (
     <div className="w-full flex flex-col h-fit shadow shadow-black">
       <div
-        className={`${
-          alterBg ? "bg-dark_primary/80" : "bg-dark_primary"
-        } border-b ${
+        className={`bg-dark_primary border-b ${
           areTestsVisible ? "border-b-dark_text/80" : "border-transparent"
         } h-fit w-full group  rounded flex items-center justify-between`}
       >
         <div className="flex items-center gap-4">
           {/* info */}
-          <button
-            onClick={() => router.push(`/patients/${visit.Patient.id}`)}
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content={"المريض : " + visit.Patient.name}
-            className="w-[30ch] truncate text-center bg-light_primary text-light_text py-2 rounded-s"
-          >
-            {visit.Patient.name}
-          </button>
+          <span className="w-[14ch] truncate text-center bg-light_primary text-light_text py-2 rounded-s">
+            {moment(visit.date).format("yyyy-MM-DD")}
+          </span>
           <span
             data-tooltip-id="my-tooltip"
             data-tooltip-content={"الطبيب : " + visit.doctor.name}
@@ -92,4 +83,4 @@ function VisitCard({ visit, alterBg = false }) {
   );
 }
 
-export default VisitCard;
+export default PatientVisitCard;
