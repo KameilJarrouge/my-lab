@@ -5,7 +5,7 @@ import { IoMdAdd } from "react-icons/io";
 import { FiMinus } from "react-icons/fi";
 import AuthButton from "../../Buttons/AuthButton";
 import AutoCompleteInput from "../../Inputs/AutoCompleteInput";
-import { MdCheckBoxOutlineBlank, MdDelete } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 import TableTextInput from "../../Inputs/TableTextInput";
 import api from "@/app/_lib/api";
 import { toast } from "react-toastify";

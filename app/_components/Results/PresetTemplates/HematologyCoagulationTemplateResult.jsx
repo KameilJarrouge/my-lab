@@ -1,9 +1,5 @@
 "use client";
 import React from "react";
-import TextInput from "../../Inputs/TextInput";
-import { MdChevronRight } from "react-icons/md";
-import AuthButton from "../../Buttons/AuthButton";
-import moment from "moment";
 
 function HematologyCoagulationTemplateResult({ template }) {
   return (

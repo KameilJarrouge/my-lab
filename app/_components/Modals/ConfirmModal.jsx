@@ -4,7 +4,6 @@ import Modal from "./Modal";
 import Title from "../Title";
 import { MdWarning } from "react-icons/md";
 import AuthButton from "../Buttons/AuthButton";
-import { useRouter } from "next/navigation";
 import LoadingComponent from "../LoadingComponent";
 
 function ConfirmModal({

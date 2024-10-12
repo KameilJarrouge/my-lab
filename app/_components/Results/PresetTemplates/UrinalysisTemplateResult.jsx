@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import AuthButton from "../../Buttons/AuthButton";
 
 function UrinalysisTemplateResult({ template }) {
   return (

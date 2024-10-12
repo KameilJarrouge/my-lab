@@ -1,10 +1,7 @@
 "use client";
 import AuthButton from "@/app/_components/Buttons/AuthButton";
-import PatientCard from "@/app/_components/Cards/PatientCard";
 import TestCard from "@/app/_components/Cards/TestCard";
 import AutoCompleteSelect from "@/app/_components/Inputs/AutoCompleteSelection";
-import DropMenu from "@/app/_components/Inputs/DropMenu";
-import NumberInput from "@/app/_components/Inputs/NumberInput";
 import TextInput from "@/app/_components/Inputs/TextInput";
 import LoadingComponent from "@/app/_components/LoadingComponent";
 import NoResultComponent from "@/app/_components/NoResultComponent";
@@ -12,7 +9,7 @@ import Pagination from "@/app/_components/Pagination";
 import api from "@/app/_lib/api";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { MdClear, MdSearch } from "react-icons/md";
+import { MdSearch } from "react-icons/md";
 import { toast } from "react-toastify";
 
 function TestsPage() {

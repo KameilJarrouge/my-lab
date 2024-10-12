@@ -1,6 +1,6 @@
 "use client";
 import React, { useMemo, useState } from "react";
-import { MdChevronLeft, MdChevronRight, MdPrint } from "react-icons/md";
+import { MdChevronRight, MdPrint } from "react-icons/md";
 import AuthButton from "../Buttons/AuthButton";
 import Link from "next/link";
 import moment from "moment";

@@ -1,10 +1,7 @@
 "use client";
-import PatientCard from "@/app/_components/Cards/PatientCard";
-import PatientVisitCard from "@/app/_components/Cards/PatientVisitCard";
 import VisitCard from "@/app/_components/Cards/VisitCard";
 import LoadingComponent from "@/app/_components/LoadingComponent";
 import NoResultComponent from "@/app/_components/NoResultComponent";
-import Pagination from "@/app/_components/Pagination";
 import api from "@/app/_lib/api";
 import numberWithCommas from "@/app/_lib/numberWithCommas";
 import moment from "moment";

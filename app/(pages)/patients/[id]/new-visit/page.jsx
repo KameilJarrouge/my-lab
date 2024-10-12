@@ -20,12 +20,6 @@ import DateTimePicker from "react-datetime-picker";
 import { MdClear } from "react-icons/md";
 import { toast } from "react-toastify";
 
-const fieldsCount = {
-  "تحليل البول Urinalysis": 20,
-  "Hematology - Coagulation": 18,
-  "Semen Analysis": 19,
-};
-
 function NewVisit({ params }) {
   const [patient, setPatient] = useState({});
   const [isLoading, setIsLoading] = useState(true);

@@ -2,7 +2,6 @@
 import React from "react";
 import AuthButton from "../Buttons/AuthButton";
 import Link from "next/link";
-import { MdLink } from "react-icons/md";
 
 function TodayVisitCard({ visit }) {
   return (

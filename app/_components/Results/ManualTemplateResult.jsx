@@ -1,10 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import TextInput from "../Inputs/TextInput";
-import AuthButton from "../Buttons/AuthButton";
-import moment from "moment";
-import { MdChevronRight } from "react-icons/md";
-import { toast } from "react-toastify";
+import React from "react";
 
 function ManualTemplateResult({ template, lastTest }) {
   return (

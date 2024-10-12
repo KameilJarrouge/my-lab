@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Title from "../Title";
 import TextInput from "../Inputs/TextInput";
 import AuthButton from "../Buttons/AuthButton";
-import { toast } from "react-toastify";
 import AutoCompleteInput from "../Inputs/AutoCompleteInput";
 import ToggleInput from "../Inputs/ToggleInput";
 import DropMenu from "../Inputs/DropMenu";

@@ -1,6 +1,5 @@
 "use client";
 
-import Title from "./_components/Title";
 import { useEffect, useState } from "react";
 import api from "./_lib/api";
 import { toast } from "react-toastify";
