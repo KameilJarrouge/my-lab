@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import LoadingComponent from "./_components/LoadingComponent";
 import TodayEarningsComponent from "./_components/TodayEarningsComponent";
 import TodayVisits from "./_components/TodayVisits";
+import AuthButton from "./_components/Buttons/AuthButton";
 
 export default function Home() {
   const [totalEarnings, setTotalEarnings] = useState(-1);
@@ -37,6 +38,24 @@ export default function Home() {
     setTodayVisits(result.data.result);
   };
 
+  const handleBackup = async () => {
+    const response = await fetch("http://localhost:3000/api/backup");
+    if (response.ok) {
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = response.headers
+        .get("Content-Disposition")
+        .split("filename=")[1];
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } else {
+      console.error("Failed to download backup");
+    }
+  };
+
   useEffect(() => {
     getTotalEarnings();
     getTodayVisits();
@@ -55,6 +74,10 @@ export default function Home() {
           totalEarnings={totalEarnings}
           setIsTotalEarningsHidden={setIsTotalEarningsHidden}
           isTotalEarningsHidden={isTotalEarningsHidden}
+        />
+        <AuthButton
+          title="نسخة احتياطية من قاعدة البيانات"
+          onClick={handleBackup}
         />
       </div>
       <div className="w-3/4 h-full flex flex-col gap-8 items-center ">
