@@ -6,7 +6,6 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
-/prisma/migrations
 /prisma/data.*
 # testing
 /coverage
