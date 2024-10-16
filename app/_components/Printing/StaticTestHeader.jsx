@@ -7,7 +7,7 @@ function StaticTestHeader({ id, categoryName = "Test" }) {
       id={"static-test-header-" + id}
     >
       {/* Category Title */}
-      <span className="w-fit min-w-[50%] border-b text-center font-bold text-lg shadow shadow-black mb-[0.5rem]">
+      <span className="w-fit min-w-[50%] border-b text-center font-bold text-lg shadow shadow-black mb-[0.5rem] px-1">
         {categoryName}
       </span>
     </div>
