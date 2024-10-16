@@ -13,6 +13,11 @@ import urinalysisValidation from "./Validation/urinalysisValidation";
 import cultureAndSensitivityValidation from "./Validation/cultureAndSensitivityValidation";
 import serologyValidation from "./Validation/serologyValidation";
 import BloodTypeTemplateInput from "./PresetTemplates/BloodTypeTemplateInput";
+import PTValidation from "./Validation/PTValidation";
+import PTTValidation from "./Validation/PTTValidation";
+import PTTemplateInput from "./PresetTemplates/PTTemplateInput";
+import PTTTemplateInput from "./PresetTemplates/PTTTemplateInput";
+import PregnancyTestTemplateInput from "./PresetTemplates/PregnancyTestTemplateInput";
 
 function StaticTemplateInputUpdate({
   visitTest,
@@ -100,6 +105,16 @@ function StaticTemplateInputUpdate({
         }
         break;
       }
+      case "Prothrombin Time (PT)":
+        if (!PTValidation(resultMutable)) {
+          shouldStop = true;
+        }
+        break;
+      case "Partial Thromboplastin Time (PTT)":
+        if (!PTTValidation(resultMutable)) {
+          shouldStop = true;
+        }
+        break;
     }
     if (shouldStop) {
       toast.error("يرجى تعبئة جميع حقول التحليل");
@@ -195,6 +210,36 @@ function StaticTemplateInputUpdate({
           ),
           "Blood Type": (
             <BloodTypeTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+              saveButtonTitle="تعديل"
+            />
+          ),
+          "Prothrombin Time (PT)": (
+            <PTTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+              saveButtonTitle="تعديل"
+            />
+          ),
+          "Partial Thromboplastin Time (PTT)": (
+            <PTTTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+              saveButtonTitle="تعديل"
+            />
+          ),
+          "Pregnancy Test": (
+            <PregnancyTestTemplateInput
               handleSave={handleSave}
               handleRestore={handleRestore}
               isDirty={isDirty}

@@ -8,6 +8,8 @@ import ManualTemplateInput from "@/app/_components/TemplateInputs/ManualTemplate
 import StaticTemplateInput from "@/app/_components/TemplateInputs/StaticTemplateInput";
 import cultureAndSensitivityValidation from "@/app/_components/TemplateInputs/Validation/cultureAndSensitivityValidation";
 import hematologyCoagulationValidation from "@/app/_components/TemplateInputs/Validation/hematologyCoagulationValidation";
+import PTTValidation from "@/app/_components/TemplateInputs/Validation/PTTValidation";
+import PTValidation from "@/app/_components/TemplateInputs/Validation/PTValidation";
 import semenAnalysisValidation from "@/app/_components/TemplateInputs/Validation/semenAnalysisValidation";
 import serologyValidation from "@/app/_components/TemplateInputs/Validation/serologyValidation";
 import urinalysisValidation from "@/app/_components/TemplateInputs/Validation/urinalysisValidation";
@@ -145,6 +147,24 @@ function NewVisit({ params }) {
           }
           case "Blood Type":
             break;
+
+          case "Pregnancy Test":
+            break;
+
+          case "Prothrombin Time (PT)":
+            if (!PTValidation(element.test.template.result)) {
+              toast.error("يرجى تعبئة حقول كل التحاليل");
+              return;
+            }
+            break;
+
+          case "Partial Thromboplastin Time (PTT)":
+            if (!PTTValidation(element.test.template.result)) {
+              toast.error("يرجى تعبئة حقول كل التحاليل");
+              return;
+            }
+            break;
+
           default:
             toast.error("Not Implemented Yet");
             return;

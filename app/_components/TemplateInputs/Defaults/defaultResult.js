@@ -87,6 +87,23 @@ const BloodType = {
   Rh: "Negative",
 };
 
+const PT = {
+  pt1: "",
+  pt2: "",
+  control1: "",
+  control2: "",
+  INR: "",
+};
+
+const PTT = {
+  ptt: "",
+  control: "",
+};
+
+const PregnancyTest = {
+  pregnancyResult: "Negative",
+};
+
 export default function getDefaultResult(staticTemplate) {
   switch (staticTemplate) {
     case "تحليل البول Urinalysis":
@@ -101,5 +118,11 @@ export default function getDefaultResult(staticTemplate) {
       return SemenAnalysis;
     case "Blood Type":
       return BloodType;
+    case "Prothrombin Time (PT)":
+      return PT;
+    case "Partial Thromboplastin Time (PTT)":
+      return PTT;
+    case "Pregnancy Test":
+      return PregnancyTest;
   }
 }

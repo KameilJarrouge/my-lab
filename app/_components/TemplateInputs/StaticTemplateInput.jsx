@@ -14,6 +14,11 @@ import semenAnalysisValidation from "./Validation/semenAnalysisValidation";
 import urinalysisValidation from "./Validation/urinalysisValidation";
 import serologyValidation from "./Validation/serologyValidation";
 import BloodTypeTemplateInput from "./PresetTemplates/BloodTypeTemplateInput";
+import PTTemplateInput from "./PresetTemplates/PTTemplateInput";
+import PTTTemplateInput from "./PresetTemplates/PTTTemplateInput";
+import PregnancyTestTemplateInput from "./PresetTemplates/PregnancyTestTemplateInput";
+import PTValidation from "./Validation/PTValidation";
+import PTTValidation from "./Validation/PTTValidation";
 
 function StaticTemplateInput({ test, updateTemplate, lastTest }) {
   const [result, setResult] = useState(test.test.template.result || {});
@@ -98,6 +103,16 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
         }
         break;
       }
+      case "Prothrombin Time (PT)":
+        if (!PTValidation(resultMutable)) {
+          shouldStop = true;
+        }
+        break;
+      case "Partial Thromboplastin Time (PTT)":
+        if (!PTTValidation(resultMutable)) {
+          shouldStop = true;
+        }
+        break;
     }
     if (shouldStop) {
       toast.error("يرجى تعبئة جميع حقول التحليل");
@@ -191,6 +206,33 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
           ),
           "Blood Type": (
             <BloodTypeTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+            />
+          ),
+          "Prothrombin Time (PT)": (
+            <PTTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+            />
+          ),
+          "Partial Thromboplastin Time (PTT)": (
+            <PTTTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+            />
+          ),
+          "Pregnancy Test": (
+            <PregnancyTestTemplateInput
               handleSave={handleSave}
               handleRestore={handleRestore}
               isDirty={isDirty}
