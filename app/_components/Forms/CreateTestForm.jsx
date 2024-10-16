@@ -13,6 +13,9 @@ import CultureAndSensitivityTemplate from "../Templates/PresetTemplates/CultureA
 import SerologyTemplate from "../Templates/PresetTemplates/SerologyTemplate";
 import SemenAnalysisTemplate from "../Templates/PresetTemplates/SemenAnalysisTemplate";
 import BloodTypeTemplate from "../Templates/PresetTemplates/BloodTypeTemplate";
+import PTTemplate from "../Templates/PresetTemplates/PTTemplate";
+import PTTTemplate from "../Templates/PresetTemplates/PTTTemplate";
+import PregnancyTestTemplate from "../Templates/PresetTemplates/PregnancyTestTemplate";
 
 function CreateTestForm({ submit, categories = [] }) {
   const [name, setName] = useState("");
@@ -83,6 +86,9 @@ function CreateTestForm({ submit, categories = [] }) {
                   "Serology",
                   "Semen Analysis",
                   "Blood Type",
+                  "Prothrombin Time (PT)",
+                  "Partial Thromboplastin Time (PTT)",
+                  "Pregnancy Test",
                 ]}
               />
             )}
@@ -103,6 +109,9 @@ function CreateTestForm({ submit, categories = [] }) {
                 Serology: <SerologyTemplate />,
                 "Semen Analysis": <SemenAnalysisTemplate />,
                 "Blood Type": <BloodTypeTemplate />,
+                "Prothrombin Time (PT)": <PTTemplate />,
+                "Partial Thromboplastin Time (PTT)": <PTTTemplate />,
+                "Pregnancy Test": <PregnancyTestTemplate />,
               }[staticTemplate]
             )}
           </div>
