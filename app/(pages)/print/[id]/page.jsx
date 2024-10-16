@@ -430,7 +430,8 @@ function PrintPage({ params }) {
         readingIndex++;
       }
       // the user broke the page after this category
-      if (!firstGroupedTest.spliced && firstGroupedTest.breaksPage) {
+      // !firstGroupedTest.spliced && I think the previous code is not useful
+      if (firstGroupedTest.breaksPage && visitTestsLeft.length !== 0) {
         pages.push({
           height: 217,
           content: [],
