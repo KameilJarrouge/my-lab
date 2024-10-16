@@ -101,7 +101,11 @@ function UpdateTestForm({ submit, categories = [], test }) {
         <div className="w-full h-[85%]">
           {/* Template */}
           {templateType === "قالب يدوي" ? (
-            <ManualTemplate state={template} setState={setTemplate} />
+            <ManualTemplate
+              state={template}
+              setState={setTemplate}
+              testName={name}
+            />
           ) : (
             {
               "تحليل البول Urinalysis": <UrinalysisTemplate />,
