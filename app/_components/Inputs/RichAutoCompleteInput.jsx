@@ -23,7 +23,7 @@ function RichAutoCompleteInput({
         state={state}
         dir={dir}
         setState={(newValue, e) => {
-          if (isRaised && newValue.length >= (state?.length || 0)) {
+          if (isRaised && newValue.length >= (state?.length || 0) && e) {
             const indexOfNewChar = e.target.selectionStart - 1;
             setState(
               newValue.substring(0, indexOfNewChar) +
