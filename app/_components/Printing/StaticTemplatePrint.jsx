@@ -5,6 +5,9 @@ import CultureAndSensitivityTemplatePrint from "./PresetTemplates/CultureAndSens
 import SerologyTemplatePrint from "./PresetTemplates/SerologyTemplatePrint";
 import SemenAnalysisTemplatePrint from "./PresetTemplates/SemenAnalysisTemplatePrint";
 import BloodTypeTemplatePrint from "./PresetTemplates/BloodTypeTemplatePrint";
+import PTTemplatePrint from "./PresetTemplates/PTTemplatePrint";
+import PTTTemplatePrint from "./PresetTemplates/PTTTemplatePrint";
+import PregnancyTestTemplatePrint from "./PresetTemplates/PregnancyTestTemplatePrint";
 
 function StaticTemplatePrint({ id, template, lastTestResult, lastTestDate }) {
   return (
@@ -33,6 +36,11 @@ function StaticTemplatePrint({ id, template, lastTestResult, lastTestDate }) {
           Serology: <SerologyTemplatePrint template={template} />,
           "Semen Analysis": <SemenAnalysisTemplatePrint template={template} />,
           "Blood Type": <BloodTypeTemplatePrint template={template} />,
+          "Prothrombin Time (PT)": <PTTemplatePrint template={template} />,
+          "Partial Thromboplastin Time (PTT)": (
+            <PTTTemplatePrint template={template} />
+          ),
+          "Pregnancy Test": <PregnancyTestTemplatePrint template={template} />,
         }[template.staticTemplate]
       }
     </div>
