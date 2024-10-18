@@ -1,8 +1,5 @@
 @echo off
 
-:: Set color for the terminal
-color 0A
-
 :: Navigate to the root directory
 cd ..
 
@@ -32,6 +29,6 @@ call npx prisma migrate deploy
 call npm run build
 
 :: Notify that the update was successful with green text
+echo --------------------------------------------------
 echo Update successful! Backup created at %BACKUP_DIR%
-echo. & echo. & echo. & color 0A & echo Update Successful! Backup created at %BACKUP_DIR% & echo. & echo. & echo.
 pause
