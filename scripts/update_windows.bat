@@ -1,5 +1,8 @@
 @echo off
 
+:: Navigate to the root directory
+cd ..
+
 :: Define backup directory with timestamp
 set TIMESTAMP=%date:~10,4%%date:~4,2%%date:~7,2%%time:~0,2%%time:~3,2%%time:~6,2%
 set BACKUP_DIR=prismaBackups\backup_%TIMESTAMP%_prisma
