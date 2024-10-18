@@ -4,7 +4,11 @@
 cd ..
 
 :: Define backup directory with timestamp
-set TIMESTAMP=%date:~10,4%%date:~4,2%%date:~7,2%%time:~0,2%%time:~3,2%%time:~6,2%
+:: set TIMESTAMP=%date:~10,4%%date:~4,2%%date:~7,2%%time:~0,2%%time:~3,2%%time:~6,2%
+:: Define backup directory with formatted timestamp
+for /f "tokens=1-7 delims=/:. " %%A in ("%date% %time%") do (
+    set TIMESTAMP=%%A_%%B_%%C_%%D_%%E_%%F_%%G
+)
 set BACKUP_DIR=prismaBackups\backup_%TIMESTAMP%_prisma
 
 :: Create the backup directory if it doesn't exist
