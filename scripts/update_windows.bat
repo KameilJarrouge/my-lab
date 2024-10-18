@@ -1,10 +1,11 @@
 @echo off
 
+:: Set color for the terminal
+color 0A
+
 :: Navigate to the root directory
 cd ..
 
-:: Define backup directory with timestamp
-:: set TIMESTAMP=%date:~10,4%%date:~4,2%%date:~7,2%%time:~0,2%%time:~3,2%%time:~6,2%
 :: Define backup directory with formatted timestamp
 for /f "tokens=1-7 delims=/:. " %%A in ("%date% %time%") do (
     set TIMESTAMP=%%A_%%B_%%C_%%D_%%E_%%F_%%G
@@ -19,17 +20,18 @@ if not exist %BACKUP_DIR% mkdir %BACKUP_DIR%
 xcopy prisma %BACKUP_DIR%\prisma /E /I
 
 :: Pull the latest changes from GitHub
-git pull origin main
+call git pull origin main
 
 :: Install any new dependencies
-npm install
+call npm install
 
 :: Run Prisma migrations
-npx prisma migrate deploy
+call npx prisma migrate deploy
 
 :: Build the project
-npm run build
+call npm run build
 
-:: Notify that the update was successful
+:: Notify that the update was successful with green text
 echo Update successful! Backup created at %BACKUP_DIR%
+echo. & echo. & echo. & color 0A & echo Update Successful! Backup created at %BACKUP_DIR% & echo. & echo. & echo.
 pause
