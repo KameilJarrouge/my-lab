@@ -32,6 +32,7 @@ function NewVisit({ params }) {
   const [unitPrice, setUnitPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [uniqueNumbering, setUniqueNumbering] = useState(0);
+  const [overrideSerologyUnits, setOverrideSerologyUnits] = useState(false);
   const router = useRouter();
 
   const getUnitPrice = async () => {
@@ -223,11 +224,20 @@ function NewVisit({ params }) {
 
     // Prep tests data for creating visitTests
     const visitTestsData = tests.map((testItem) => {
+      let unitsTemp = testItem.test.units;
+      // account for the second test in serology (the units only refer to one of the tests)
+      if (
+        testItem.test.template.staticTemplate === "Serology" &&
+        testItem.test.template.result.selectedTest === "Both"
+      ) {
+        unitsTemp *= 2;
+      }
+
       if (!testItem.test.template.hasOwnProperty("position")) {
         testItem.test.template.position = Infinity;
       }
       return {
-        units: testItem.test.units,
+        units: unitsTemp,
         price: unitPrice,
         template: JSON.stringify(testItem.test.template),
         visitId: newVisitResult.data.result.id,
@@ -306,10 +316,18 @@ function NewVisit({ params }) {
       return;
     }
     const totalPriceTemp = tests.reduce((total, test) => {
-      return total + test.test.units * unitPrice;
+      let units = test.test.units;
+      console.log(test);
+      if (
+        test.test.template.staticTemplate === "Serology" &&
+        overrideSerologyUnits
+      ) {
+        units *= 2;
+      }
+      return total + units * unitPrice;
     }, 0);
     setTotalPrice(totalPriceTemp);
-  }, [tests]);
+  }, [tests, overrideSerologyUnits]);
 
   return (
     <div
@@ -391,6 +409,7 @@ function NewVisit({ params }) {
             removeTest={() => removeTest(index)}
             patientId={params.id}
             dateInQuestion={createdAt}
+            overrideSerologyUnits={overrideSerologyUnits}
             templateInput={(lastTest) => {
               return test.test.template.type === "manual" ? (
                 <ManualTemplateInput
@@ -408,6 +427,7 @@ function NewVisit({ params }) {
                   dateInQuestion={createdAt}
                   lastTest={lastTest}
                   patientId={params.id}
+                  setOverrideSerologyUnits={setOverrideSerologyUnits}
                   updateTemplate={(updatedTest) =>
                     updateTest(index, updatedTest)
                   }

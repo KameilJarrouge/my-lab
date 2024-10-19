@@ -35,7 +35,7 @@ function TestRow({ test, index, date }) {
               data-tooltip-id="my-tooltip"
               data-tooltip-content={"عدد الوحدات"}
             >
-              {test.Test.units}
+              {test.units}
             </span>
             <MdChevronLeft />
           </div>

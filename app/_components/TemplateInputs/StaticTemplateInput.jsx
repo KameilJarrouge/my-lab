@@ -20,7 +20,12 @@ import PregnancyTestTemplateInput from "./PresetTemplates/PregnancyTestTemplateI
 import PTValidation from "./Validation/PTValidation";
 import PTTValidation from "./Validation/PTTValidation";
 
-function StaticTemplateInput({ test, updateTemplate, lastTest }) {
+function StaticTemplateInput({
+  test,
+  updateTemplate,
+  lastTest,
+  setOverrideSerologyUnits,
+}) {
   const [result, setResult] = useState(test.test.template.result || {});
   const [isDirty, setIsDirty] = useState(false);
 
@@ -145,6 +150,17 @@ function StaticTemplateInput({ test, updateTemplate, lastTest }) {
     updateTemplate(readyTest);
     setResult(defaultResult);
   }, []);
+
+  useEffect(() => {
+    if (
+      result.hasOwnProperty("selectedTest") &&
+      result.selectedTest === "Both"
+    ) {
+      setOverrideSerologyUnits(true);
+    } else {
+      setOverrideSerologyUnits(false);
+    }
+  }, [result]);
 
   // useEffect(() => {
   //   if (

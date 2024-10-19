@@ -39,6 +39,7 @@ function SerologyTemplateInput({
         <button
           className="flex gap-4 items-center"
           onClick={() => {
+            if (saveButtonTitle === "تعديل") return;
             if ((result.selectedTest || "Both") === "Both") {
               setResult("selectedTest", "Widal", false);
             } else if ((result.selectedTest || "Both") === "Widal") {
@@ -57,6 +58,7 @@ function SerologyTemplateInput({
         <button
           className="flex gap-4 items-center"
           onClick={() => {
+            if (saveButtonTitle === "تعديل") return;
             if ((result.selectedTest || "Both") === "Both") {
               setResult("selectedTest", "Wright", false);
             } else if ((result.selectedTest || "Both") === "Wright") {
