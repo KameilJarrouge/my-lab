@@ -161,13 +161,12 @@ function StaticTemplateInput({
   }, []);
 
   useEffect(() => {
-    if (
-      result.hasOwnProperty("selectedTest") &&
-      result.selectedTest === "Both"
-    ) {
-      setOverrideSerologyUnits(true);
-    } else {
-      setOverrideSerologyUnits(false);
+    if (result.hasOwnProperty("selectedTest")) {
+      if (result.selectedTest === "Both") {
+        setOverrideSerologyUnits(true);
+      } else {
+        setOverrideSerologyUnits(false);
+      }
     }
   }, [result]);
 

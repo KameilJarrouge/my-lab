@@ -13,7 +13,7 @@ function TestTemplateCard({
   templateInput,
   patientId,
   dateInQuestion,
-  overrideSerologyUnits = false,
+  overrideSerologyUnits = true,
 }) {
   const [areChildrenVisible, setAreChildrenVisible] = useState(true);
   const [lastTest, setLastTest] = useState();
@@ -81,7 +81,11 @@ function TestTemplateCard({
               data-tooltip-id="my-tooltip"
               data-tooltip-content={"عدد الوحدات"}
             >
-              {test.test.units * (overrideSerologyUnits ? 2 : 1)}
+              {test.test.units *
+                (overrideSerologyUnits &&
+                test.test.template.staticTemplate === "Serology"
+                  ? 2
+                  : 1)}
             </span>
             <MdChevronLeft />
           </div>
@@ -92,7 +96,12 @@ function TestTemplateCard({
           >
             التكلفة:{" "}
             {numberWithCommas(
-              unitPrice * test.test.units * (overrideSerologyUnits ? 2 : 1)
+              unitPrice *
+                test.test.units *
+                (overrideSerologyUnits &&
+                test.test.template.staticTemplate === "Serology"
+                  ? 2
+                  : 1)
             )}{" "}
             ل.س
           </span>

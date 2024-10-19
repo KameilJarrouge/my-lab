@@ -33,7 +33,7 @@ function NewVisit({ params }) {
   const [unitPrice, setUnitPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [uniqueNumbering, setUniqueNumbering] = useState(0);
-  const [overrideSerologyUnits, setOverrideSerologyUnits] = useState(false);
+  const [overrideSerologyUnits, setOverrideSerologyUnits] = useState(true);
   const router = useRouter();
 
   const getUnitPrice = async () => {
