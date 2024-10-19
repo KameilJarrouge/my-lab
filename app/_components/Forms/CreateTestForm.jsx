@@ -16,6 +16,9 @@ import BloodTypeTemplate from "../Templates/PresetTemplates/BloodTypeTemplate";
 import PTTemplate from "../Templates/PresetTemplates/PTTemplate";
 import PTTTemplate from "../Templates/PresetTemplates/PTTTemplate";
 import PregnancyTestTemplate from "../Templates/PresetTemplates/PregnancyTestTemplate";
+import ESRTemplate from "../Templates/PresetTemplates/ESRTemplate";
+import BilirubinTemplate from "../Templates/PresetTemplates/BilirubinTemplate";
+import ProteinTemplate from "../Templates/PresetTemplates/ProteinTemplate";
 
 function CreateTestForm({ submit, categories = [] }) {
   const [name, setName] = useState("");
@@ -89,6 +92,9 @@ function CreateTestForm({ submit, categories = [] }) {
                   "Prothrombin Time (PT)",
                   "Partial Thromboplastin Time (PTT)",
                   "Pregnancy Test",
+                  "ESR",
+                  "Bilirubin",
+                  "Protein",
                 ]}
               />
             )}
@@ -112,6 +118,9 @@ function CreateTestForm({ submit, categories = [] }) {
                 "Prothrombin Time (PT)": <PTTemplate />,
                 "Partial Thromboplastin Time (PTT)": <PTTTemplate />,
                 "Pregnancy Test": <PregnancyTestTemplate />,
+                ESR: <ESRTemplate />,
+                Bilirubin: <BilirubinTemplate />,
+                Protein: <ProteinTemplate />,
               }[staticTemplate]
             )}
           </div>
