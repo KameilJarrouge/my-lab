@@ -39,7 +39,7 @@ function CreateTestForm({ submit, categories = [] }) {
 
   return (
     <div className="flex gap-4 w-full h-full">
-      <div className="flex flex-col items-center gap-8 w-fit py-2 px-4 h-full bg-dark_primary rounded">
+      <div className="flex flex-col items-center gap-8 w-fit min-w-[20rem] py-2 px-4 h-full bg-dark_primary rounded">
         <Title>تحليل جديد</Title>
         <div className="flex flex-col gap-6 h-full justify-between ">
           <div className="flex flex-col gap-6">
