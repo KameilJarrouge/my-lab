@@ -26,7 +26,7 @@ const micros1 = [
 ];
 
 const micros2 = [
-  { arabicName: "الحركة المباشرة", englishName: "Directl Motility" },
+  { arabicName: "الحركة المباشرة", englishName: "Direct Motility" },
   { arabicName: "الحركة بعد ساعة", englishName: "Motility After 1 hr" },
   { arabicName: "الحركة بعد ساعتين", englishName: "Motility After 2 hr" },
 ];
