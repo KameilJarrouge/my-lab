@@ -8,6 +8,9 @@ import BloodTypeTemplatePrint from "./PresetTemplates/BloodTypeTemplatePrint";
 import PTTemplatePrint from "./PresetTemplates/PTTemplatePrint";
 import PTTTemplatePrint from "./PresetTemplates/PTTTemplatePrint";
 import PregnancyTestTemplatePrint from "./PresetTemplates/PregnancyTestTemplatePrint";
+import ESRTemplatePrint from "./PresetTemplates/ESRTemplatePrint";
+import BilirubinTemplatePrint from "./PresetTemplates/BilirubinTemplatePrint";
+import ProteinTemplatePrint from "./PresetTemplates/ProteinTemplatePrint";
 
 function StaticTemplatePrint({ id, template, lastTestResult, lastTestDate }) {
   return (
@@ -41,6 +44,9 @@ function StaticTemplatePrint({ id, template, lastTestResult, lastTestDate }) {
             <PTTTemplatePrint template={template} />
           ),
           "Pregnancy Test": <PregnancyTestTemplatePrint template={template} />,
+          ESR: <ESRTemplatePrint template={template} />,
+          Bilirubin: <BilirubinTemplatePrint template={template} />,
+          Protein: <ProteinTemplatePrint template={template} />,
         }[template.staticTemplate]
       }
     </div>
