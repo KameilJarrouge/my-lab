@@ -21,7 +21,7 @@ function CreatePatientForm({ submit }) {
     await submit(name, age, sex, notes);
   };
   return (
-    <div className="flex flex-col items-center gap-8 w-full h-full">
+    <div className="flex flex-col items-center gap-8 w-full min-w-[25rem] h-full">
       <Title>مريض جديد</Title>
       <div className="flex flex-col gap-6 h-full justify-between ">
         <div className="flex flex-col gap-6">

@@ -31,7 +31,7 @@ function UpdatePatientForm({ values, submit, onDelete, goToPatientPage }) {
   }, [values]);
 
   return (
-    <div className="flex flex-col items-center gap-8 w-full h-full relative">
+    <div className="flex flex-col items-center gap-8 w-full min-w-[25rem] h-full relative">
       <Title>تعديل المريض</Title>
       <button onClick={onDelete} className="absolute top-[0.4rem] left-[0rem] ">
         <MdDelete className="w-[1.5rem] h-fit hover:text-red-500" />
