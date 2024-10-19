@@ -104,6 +104,23 @@ const PregnancyTest = {
   pregnancyResult: "Negative",
 };
 
+const ESR = {
+  "1hr.": "",
+  "2hr.": "",
+};
+
+const Bilirubin = {
+  "Total Bilirubin": "",
+  "Direct Bilirubin": "",
+  "Indirect Bilirubin": "",
+};
+
+const Protein = {
+  "Total Protein": "",
+  Albumin: "",
+  // Globulin: "",
+};
+
 export default function getDefaultResult(staticTemplate) {
   switch (staticTemplate) {
     case "تحليل البول Urinalysis":
@@ -124,5 +141,11 @@ export default function getDefaultResult(staticTemplate) {
       return PTT;
     case "Pregnancy Test":
       return PregnancyTest;
+    case "ESR":
+      return ESR;
+    case "Bilirubin":
+      return Bilirubin;
+    case "Protein":
+      return Protein;
   }
 }

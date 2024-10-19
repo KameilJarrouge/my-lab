@@ -14,7 +14,7 @@ function BilirubinTemplate() {
         <span>up to 0.25</span>
       </div>
       <div className="flex items-center gap-10">
-        <span className="w-[15ch]">indirect Bilirubin</span>
+        <span className="w-[15ch]">Indirect Bilirubin</span>
         <span className="px-12 py-1 bg-light_primary rounded">?</span>
         <span>up to 1</span>
       </div>

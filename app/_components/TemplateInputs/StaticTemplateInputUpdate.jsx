@@ -18,6 +18,10 @@ import PTTValidation from "./Validation/PTTValidation";
 import PTTemplateInput from "./PresetTemplates/PTTemplateInput";
 import PTTTemplateInput from "./PresetTemplates/PTTTemplateInput";
 import PregnancyTestTemplateInput from "./PresetTemplates/PregnancyTestTemplateInput";
+import normalValidation from "./Validation/normalValidation";
+import ESRTemplateInput from "./PresetTemplates/ESRTemplateInput";
+import BilirubinTemplateInput from "./PresetTemplates/BilirubinTemplateInput";
+import ProteinTemplateInput from "./PresetTemplates/ProteinTemplateInput";
 
 function StaticTemplateInputUpdate({
   visitTest,
@@ -112,6 +116,11 @@ function StaticTemplateInputUpdate({
         break;
       case "Partial Thromboplastin Time (PTT)":
         if (!PTTValidation(resultMutable)) {
+          shouldStop = true;
+        }
+        break;
+      default:
+        if (!normalValidation(resultMutable)) {
           shouldStop = true;
         }
         break;
@@ -240,6 +249,36 @@ function StaticTemplateInputUpdate({
           ),
           "Pregnancy Test": (
             <PregnancyTestTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+              saveButtonTitle="تعديل"
+            />
+          ),
+          ESR: (
+            <ESRTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+              saveButtonTitle="تعديل"
+            />
+          ),
+          Bilirubin: (
+            <BilirubinTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+              saveButtonTitle="تعديل"
+            />
+          ),
+          Protein: (
+            <ProteinTemplateInput
               handleSave={handleSave}
               handleRestore={handleRestore}
               isDirty={isDirty}

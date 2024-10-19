@@ -19,6 +19,10 @@ import PTTTemplateInput from "./PresetTemplates/PTTTemplateInput";
 import PregnancyTestTemplateInput from "./PresetTemplates/PregnancyTestTemplateInput";
 import PTValidation from "./Validation/PTValidation";
 import PTTValidation from "./Validation/PTTValidation";
+import ESRTemplateInput from "./PresetTemplates/ESRTemplateInput";
+import BilirubinTemplateInput from "./PresetTemplates/BilirubinTemplateInput";
+import ProteinTemplateInput from "./PresetTemplates/ProteinTemplateInput";
+import normalValidation from "./Validation/normalValidation";
 
 function StaticTemplateInput({
   test,
@@ -115,6 +119,11 @@ function StaticTemplateInput({
         break;
       case "Partial Thromboplastin Time (PTT)":
         if (!PTTValidation(resultMutable)) {
+          shouldStop = true;
+        }
+        break;
+      default:
+        if (!normalValidation(resultMutable)) {
           shouldStop = true;
         }
         break;
@@ -249,6 +258,33 @@ function StaticTemplateInput({
           ),
           "Pregnancy Test": (
             <PregnancyTestTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+            />
+          ),
+          ESR: (
+            <ESRTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+            />
+          ),
+          Bilirubin: (
+            <BilirubinTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+            />
+          ),
+          Protein: (
+            <ProteinTemplateInput
               handleSave={handleSave}
               handleRestore={handleRestore}
               isDirty={isDirty}

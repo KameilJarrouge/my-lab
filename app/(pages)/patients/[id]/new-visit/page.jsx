@@ -8,6 +8,7 @@ import ManualTemplateInput from "@/app/_components/TemplateInputs/ManualTemplate
 import StaticTemplateInput from "@/app/_components/TemplateInputs/StaticTemplateInput";
 import cultureAndSensitivityValidation from "@/app/_components/TemplateInputs/Validation/cultureAndSensitivityValidation";
 import hematologyCoagulationValidation from "@/app/_components/TemplateInputs/Validation/hematologyCoagulationValidation";
+import normalValidation from "@/app/_components/TemplateInputs/Validation/normalValidation";
 import PTTValidation from "@/app/_components/TemplateInputs/Validation/PTTValidation";
 import PTValidation from "@/app/_components/TemplateInputs/Validation/PTValidation";
 import semenAnalysisValidation from "@/app/_components/TemplateInputs/Validation/semenAnalysisValidation";
@@ -167,8 +168,11 @@ function NewVisit({ params }) {
             break;
 
           default:
-            toast.error("Not Implemented Yet");
-            return;
+            if (!normalValidation(element.test.template.result)) {
+              toast.error("يرجى تعبئة حقول كل التحاليل");
+              return;
+            }
+            break;
         }
       } else {
         if (
