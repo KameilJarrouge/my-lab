@@ -269,6 +269,10 @@ function NewVisit({ params }) {
     setTests((tests) => [...tests, newTest]);
   };
 
+  const addMultipleTests = (newTests) => {
+    setTests((tests) => [...tests, ...newTests]);
+  };
+
   const updateTest = (index, updatedTest) => {
     setTests((tests) => {
       tests[index] = updatedTest;
@@ -321,7 +325,6 @@ function NewVisit({ params }) {
     }
     const totalPriceTemp = tests.reduce((total, test) => {
       let units = test.test.units;
-      console.log(test);
       if (
         test.test.template.staticTemplate === "Serology" &&
         overrideSerologyUnits
@@ -400,6 +403,7 @@ function NewVisit({ params }) {
         setNewTest={addTest}
         setUniqueNumbering={setUniqueNumbering}
         uniqueNumbering={uniqueNumbering}
+        addMultipleTests={addMultipleTests}
       />
 
       {/* Tests */}

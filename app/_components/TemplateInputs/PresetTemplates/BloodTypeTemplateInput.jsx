@@ -11,10 +11,6 @@ function BloodTypeTemplateInput({
   setResult,
   saveButtonTitle = "حفظ",
 }) {
-  useEffect(() => {
-    console.log("result", result);
-  }, [result]);
-
   return (
     <div className="flex flex-col gap-4 w-full h-fit" dir="ltr">
       <div className={"flex w-full gap-10 items-center px-4"}>
