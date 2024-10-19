@@ -34,10 +34,13 @@ function AutoCompleteInput({
         state={state}
         title={title}
         onFocus={() => setIsAutoCompleteShowing(true)}
-        onBlur={() => {
-          setTimeout(() => {
-            setIsAutoCompleteShowing(false);
-          }, 100);
+        // onBlur={() => {
+        //   setTimeout(() => {
+        //     setIsAutoCompleteShowing(false);
+        //   }, 100);
+        // }}
+        onKeyDown={(e) => {
+          if (e.key === "Tab") setIsAutoCompleteShowing(false);
         }}
         {...props}
       />
