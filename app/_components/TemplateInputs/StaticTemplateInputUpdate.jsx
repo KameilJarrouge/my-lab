@@ -22,6 +22,7 @@ import normalValidation from "./Validation/normalValidation";
 import ESRTemplateInput from "./PresetTemplates/ESRTemplateInput";
 import BilirubinTemplateInput from "./PresetTemplates/BilirubinTemplateInput";
 import ProteinTemplateInput from "./PresetTemplates/ProteinTemplateInput";
+import StoolExaminationTemplateInput from "./PresetTemplates/StoolExaminationTemplateInput";
 
 function StaticTemplateInputUpdate({
   visitTest,
@@ -65,6 +66,15 @@ function StaticTemplateInputUpdate({
         } else {
           await api.put(`/arbitrary/urinalysis/append`, {
             urinalysis: resultMutable,
+          });
+        }
+        break;
+      case "Stool Examination":
+        if (!normalValidation(resultMutable)) {
+          shouldStop = true;
+        } else {
+          await api.put(`/arbitrary/stool/append`, {
+            stoolExamination: resultMutable,
           });
         }
         break;
@@ -279,6 +289,16 @@ function StaticTemplateInputUpdate({
           ),
           Protein: (
             <ProteinTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+              saveButtonTitle="تعديل"
+            />
+          ),
+          "Stool Examination": (
+            <StoolExaminationTemplateInput
               handleSave={handleSave}
               handleRestore={handleRestore}
               isDirty={isDirty}

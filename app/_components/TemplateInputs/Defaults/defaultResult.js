@@ -121,6 +121,31 @@ const Protein = {
   // Globulin: "",
 };
 
+const StoolExamination = {
+  Color: "",
+  Consistency: "",
+  // Ova: "",
+  // Cysts: "",
+  // Trophozoites: "",
+  "Ascaris Lumbricoides": "",
+  "Entamoeba Histolytica C": "",
+  "Entamoeba Histolytica T": "",
+  Trichocephalus: "",
+  "Giardia Lamblia C": "",
+  "Giardia Lamblia T": "",
+  "Hymenolepis Nana": "",
+  "Entamoeba Coli C": "",
+  "Entamoeba Coli T": "",
+  Taenia: "",
+  Leucocytes: "",
+  "Starch Granules": "",
+  Mucus: "",
+  Erythrocytes: "",
+  "Fat Globules": "",
+  Fungi: "",
+  "Meat fibers": "",
+};
+
 export default function getDefaultResult(staticTemplate) {
   switch (staticTemplate) {
     case "تحليل البول Urinalysis":
@@ -147,5 +172,7 @@ export default function getDefaultResult(staticTemplate) {
       return Bilirubin;
     case "Protein":
       return Protein;
+    case "Stool Examination":
+      return StoolExamination;
   }
 }

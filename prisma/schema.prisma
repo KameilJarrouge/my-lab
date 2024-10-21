@@ -28,6 +28,7 @@ model Arbitrary {
   Urinalysis              String?
   Serology                String?
   SemenAnalysis           String?
+  StoolExamination        String?
 }
 
 model User {

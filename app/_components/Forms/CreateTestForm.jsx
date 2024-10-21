@@ -19,6 +19,7 @@ import PregnancyTestTemplate from "../Templates/PresetTemplates/PregnancyTestTem
 import ESRTemplate from "../Templates/PresetTemplates/ESRTemplate";
 import BilirubinTemplate from "../Templates/PresetTemplates/BilirubinTemplate";
 import ProteinTemplate from "../Templates/PresetTemplates/ProteinTemplate";
+import StoolExaminationTemplate from "../Templates/PresetTemplates/StoolExaminationTemplate";
 
 function CreateTestForm({ submit, categories = [] }) {
   const [name, setName] = useState("");
@@ -95,6 +96,7 @@ function CreateTestForm({ submit, categories = [] }) {
                   "ESR",
                   "Bilirubin",
                   "Protein",
+                  "Stool Examination",
                 ]}
               />
             )}
@@ -121,6 +123,7 @@ function CreateTestForm({ submit, categories = [] }) {
                 ESR: <ESRTemplate />,
                 Bilirubin: <BilirubinTemplate />,
                 Protein: <ProteinTemplate />,
+                "Stool Examination": <StoolExaminationTemplate />,
               }[staticTemplate]
             )}
           </div>

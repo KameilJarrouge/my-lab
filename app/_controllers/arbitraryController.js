@@ -167,6 +167,31 @@ const SemenAnalysis = {
   "Motility After 2 hr Inactive": [],
 };
 
+const StoolExamination = {
+  Color: [],
+  Consistency: [],
+  // Ova: [],
+  // Cysts: [],
+  // Trophozoites: [],
+  "Ascaris Lumbricoides": [],
+  "Entamoeba Histolytica C": [],
+  "Entamoeba Histolytica T": [],
+  Trichocephalus: [],
+  "Giardia Lamblia C": [],
+  "Giardia Lamblia T": [],
+  "Hymenolepis Nana": [],
+  "Entamoeba Coli C": [],
+  "Entamoeba Coli T": [],
+  Taenia: [],
+  Leucocytes: [],
+  "Starch Granules": [],
+  Mucus: [],
+  Erythrocytes: [],
+  "Fat Globules": [],
+  Fungi: [],
+  "Meat fibers": [],
+};
+
 function shouldBeSaved(text) {
   return text.trim() !== "";
 }
@@ -188,6 +213,7 @@ export async function updateArbitrary(data) {
       Urinalysis: JSON.stringify(data.Urinalysis),
       Serology: JSON.stringify(data.Serology),
       SemenAnalysis: JSON.stringify(data.SemenAnalysis),
+      StoolExamination: JSON.stringify(data.StoolExamination),
     },
     where: {
       id: data.id,
@@ -210,6 +236,8 @@ function getTemplate(key) {
       return JSON.stringify(Serology);
     case "SemenAnalysis":
       return JSON.stringify(SemenAnalysis);
+    case "StoolExamination":
+      return JSON.stringify(StoolExamination);
 
     default:
       return "[]";
@@ -225,6 +253,7 @@ async function createArbitrary() {
       Urinalysis: getTemplate("Urinalysis"),
       Serology: getTemplate("Serology"),
       SemenAnalysis: getTemplate("SemenAnalysis"),
+      StoolExamination: getTemplate("StoolExamination"),
       // Fill this with remaining fields once you add them
     },
   });
@@ -377,6 +406,49 @@ export async function appendUrinalysisArbitrary(urinalysis) {
   }
 
   return await updateUrinalysisArbitrary(result.returned.id, urinalysisInDB);
+}
+
+export async function getStoolExamination() {
+  let result = await prisma.arbitrary.findFirst({
+    select: {
+      id: true,
+      StoolExamination: true,
+    },
+  });
+  if (!result) return successReturn(await createArbitrary());
+
+  return successReturn(await assertFieldsNotNull(result));
+}
+
+export async function updateStoolExaminationArbitrary(id, stoolExamination) {
+  await prisma.arbitrary.update({
+    where: {
+      id: id,
+    },
+    data: {
+      StoolExamination: JSON.stringify(stoolExamination),
+    },
+  });
+  return successReturn();
+}
+
+export async function appendStoolExaminationArbitrary(stoolExamination) {
+  let result = await getStoolExamination();
+  let stoolInDB = JSON.parse(result.returned.StoolExamination);
+  let keys = Object.keys(stoolInDB);
+  let field = undefined;
+  for (let i = 0; i < keys.length; i++) {
+    field = keys[i];
+
+    if (
+      shouldBeSaved(stoolExamination[field]) &&
+      !stoolInDB[field].includes(stoolExamination[field])
+    ) {
+      stoolInDB[field].push(stoolExamination[field]);
+    }
+  }
+
+  return await updateStoolExaminationArbitrary(result.returned.id, stoolInDB);
 }
 
 export async function getSerologyArbitrary() {
