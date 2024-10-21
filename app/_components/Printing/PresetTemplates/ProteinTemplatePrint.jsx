@@ -3,7 +3,7 @@ import React from "react";
 function ProteinTemplatePrint({ template }) {
   return (
     <div
-      className="flex flex-col justify-end gap-4 w-full  border-b border-dashed border-gray-400 pb-1"
+      className="flex flex-col justify-end gap-4 w-full  border-b border-dashed border-gray-400 pb-1 text-sm"
       dir="ltr"
     >
       <div className="flex items-center gap-10">

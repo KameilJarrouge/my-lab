@@ -4,7 +4,7 @@ function BloodTypeTemplatePrint({ template }) {
   return (
     <div
       className={
-        "flex w-full gap-5 items-center px-4 border-b border-dashed border-gray-400 pb-1"
+        "flex w-full gap-5 items-center px-4 border-b border-dashed border-gray-400 pb-1 text-sm"
       }
       dir="ltr"
     >

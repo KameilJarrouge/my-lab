@@ -12,6 +12,7 @@ import PregnancyTestTemplateResult from "./PresetTemplates/PregnancyTestTemplate
 import ESRTemplateResult from "./PresetTemplates/ESRTemplateResult";
 import BilirubinTemplateResult from "./PresetTemplates/BilirubinTemplateResult";
 import ProteinTemplateResult from "./PresetTemplates/ProteinTemplateResult";
+import StoolExaminationTemplateResult from "./PresetTemplates/StoolExaminationTemplateResult";
 
 function StaticTemplateResult({ template }) {
   return (
@@ -38,6 +39,9 @@ function StaticTemplateResult({ template }) {
           ESR: <ESRTemplateResult template={template} />,
           Bilirubin: <BilirubinTemplateResult template={template} />,
           Protein: <ProteinTemplateResult template={template} />,
+          "Stool Examination": (
+            <StoolExaminationTemplateResult template={template} />
+          ),
         }[template.staticTemplate]
       }
     </div>

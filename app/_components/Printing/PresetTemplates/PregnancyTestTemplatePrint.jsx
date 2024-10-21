@@ -4,7 +4,7 @@ function PregnancyTestTemplatePrint({ template }) {
   return (
     <div
       className={
-        "flex w-full items-center gap-10 px-4 border-b border-dashed border-gray-400 pb-1"
+        "flex w-full items-center gap-10 px-4 border-b border-dashed border-gray-400 pb-1 text-sm"
       }
       dir="ltr"
     >

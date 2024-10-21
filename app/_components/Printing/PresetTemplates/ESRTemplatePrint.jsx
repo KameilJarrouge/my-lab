@@ -3,7 +3,7 @@ import React from "react";
 function ESRTemplatePrint({ template }) {
   return (
     <div
-      className="flex items-center gap-20 w-full  border-b border-dashed border-gray-400 pb-1"
+      className="flex items-center gap-20 w-full  border-b border-dashed border-gray-400 pb-1 text-sm"
       dir="ltr"
     >
       <span>ESR</span>

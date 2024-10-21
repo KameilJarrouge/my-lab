@@ -11,7 +11,7 @@ function Page({
     <div
       className={`w-[210mm] ${
         heightFit ? "h-fit" : "h-[297mm]"
-      } bg-white p-[10mm] relative ${hideOnPrint && "print:hidden"} ${
+      } bg-white py-[10mm] px-[5mm] relative ${hideOnPrint && "print:hidden"} ${
         invisible && "invisible"
       } `}
     >
