@@ -27,7 +27,7 @@ function AddMultipleTestsForm({ tests, submit, close }) {
   return (
     <div className="flex flex-col gap-4">
       <div
-        className="flex flex-col w-[50vw] h-[78vh] px-2 overflow-y-auto overflow-x-hidden"
+        className="flex flex-col w-[70vw] h-[72vh] 2xl:w-[50vw] 2xl:h-[78vh] px-2 overflow-y-auto overflow-x-hidden"
         dir="ltr"
       >
         {Object.keys(testsByCat).map((category, index, arr) => (
