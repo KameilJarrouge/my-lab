@@ -174,6 +174,7 @@ function UrinalysisTemplateInput({
               arabicName={"الكريات البيض"}
               englishName={"Leucocytes"}
               options={options["Leucocytes"] || []}
+              withSlashField
             />
             <Input
               shouldWarn={shouldWarn}
@@ -182,6 +183,7 @@ function UrinalysisTemplateInput({
               arabicName={"الكريات الحمر"}
               englishName={"Erythrocytes"}
               options={options["Erythrocytes"] || []}
+              withSlashField
             />
             <Input
               shouldWarn={shouldWarn}
@@ -190,6 +192,7 @@ function UrinalysisTemplateInput({
               arabicName={"الخلايا الظهارية"}
               englishName={"Epithelial Cells"}
               options={options["Epithelial Cells"] || []}
+              withSlashField
             />
             <Input
               shouldWarn={shouldWarn}
@@ -198,6 +201,7 @@ function UrinalysisTemplateInput({
               arabicName={"الاسطوانات"}
               englishName={"Cylinders"}
               options={options["Cylinders"] || []}
+              withSlashField
             />
           </div>
           <div className="flex flex-col gap-4 w-[30%] h-full">
@@ -208,6 +212,7 @@ function UrinalysisTemplateInput({
               arabicName={"اكسالات الكالسيوم"}
               englishName={"Ca. Oxalate"}
               options={options["Ca. Oxalate"] || []}
+              withParenthesis
             />
             <Input
               shouldWarn={shouldWarn}
@@ -216,6 +221,7 @@ function UrinalysisTemplateInput({
               arabicName={"اليورات"}
               englishName={"Urate"}
               options={options["Urate"] || []}
+              withParenthesis
             />
             <Input
               shouldWarn={shouldWarn}
@@ -224,6 +230,7 @@ function UrinalysisTemplateInput({
               arabicName={"اليوريك اسيد"}
               englishName={"Uric Acid"}
               options={options["Uric Acid"] || []}
+              withParenthesis
             />
             <Input
               shouldWarn={shouldWarn}
@@ -232,6 +239,7 @@ function UrinalysisTemplateInput({
               arabicName={"الفوسفات"}
               englishName={"Phosphate"}
               options={options["Phosphate"] || []}
+              withParenthesis
             />
           </div>
 
