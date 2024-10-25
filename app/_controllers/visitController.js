@@ -32,6 +32,9 @@ export async function getVisitForPrinting(id) {
       doctor: true,
       Patient: true,
       tests: {
+        where: {
+          visible: true,
+        },
         include: {
           Test: {
             include: {

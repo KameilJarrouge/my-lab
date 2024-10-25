@@ -47,6 +47,7 @@ function NewTestMenu({
           units: test.units,
           template: { ...JSON.parse(test.template), position: Infinity },
         },
+        visible: true,
       };
       setUniqueNumbering((value) => ++value);
       setNewTest(newTest);
@@ -70,6 +71,7 @@ function NewTestMenu({
           units: test.units,
           template: { ...JSON.parse(test.template), position: Infinity },
         },
+        visible: true,
       };
     });
     setUniqueNumbering(uniqueNumberingAcc);

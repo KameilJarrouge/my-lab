@@ -246,6 +246,7 @@ function NewVisit({ params }) {
         template: JSON.stringify(testItem.test.template),
         visitId: newVisitResult.data.result.id,
         testId: testItem.test.id,
+        visible: testItem.visible,
       };
     });
 
@@ -276,6 +277,14 @@ function NewVisit({ params }) {
   const updateTest = (index, updatedTest) => {
     setTests((tests) => {
       tests[index] = updatedTest;
+      return tests;
+    });
+  };
+
+  const toggleTestVisibility = (index, value) => {
+    setTests((tests) => {
+      tests[index].visible = value;
+
       return tests;
     });
   };
@@ -418,6 +427,7 @@ function NewVisit({ params }) {
             patientId={params.id}
             dateInQuestion={createdAt}
             overrideSerologyUnits={overrideSerologyUnits}
+            toggleTestVisibility={(value) => toggleTestVisibility(index, value)}
             templateInput={(lastTest) => {
               return test.test.template.type === "manual" ? (
                 <ManualTemplateInput

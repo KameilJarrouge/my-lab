@@ -5,6 +5,7 @@ import LoadingComponent from "../LoadingComponent";
 import api from "@/app/_lib/api";
 import { toast } from "react-toastify";
 import numberWithCommas from "@/app/_lib/numberWithCommas";
+import { IoMdEyeOff } from "react-icons/io";
 
 function TestTemplateCard({
   test,
@@ -13,12 +14,13 @@ function TestTemplateCard({
   templateInput,
   patientId,
   dateInQuestion,
+  toggleTestVisibility,
   overrideSerologyUnits = true,
 }) {
   const [areChildrenVisible, setAreChildrenVisible] = useState(true);
   const [lastTest, setLastTest] = useState();
   const [isLoading, setIsLoading] = useState(false);
-
+  const [visible, setVisible] = useState(true);
   const getLastTest = async () => {
     setIsLoading(true);
     const result = await api.get(
@@ -105,6 +107,26 @@ function TestTemplateCard({
             )}{" "}
             ل.س
           </span>
+          <button
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content={`${
+              !visible
+                ? "التحليل لا يظهر في الطباعة"
+                : "التحليل يظهر في الطباعة"
+            }`}
+            className={`${
+              !visible
+                ? "bg-secondary text-white"
+                : "bg-dark_text/10 hover:bg-dark_text/20"
+            } py-1 px-2 rounded`}
+            onClick={() => {
+              let visibleTemp = !visible;
+              toggleTestVisibility(visibleTemp);
+              setVisible(visibleTemp);
+            }}
+          >
+            <IoMdEyeOff />
+          </button>
         </div>
 
         {/* Actions */}

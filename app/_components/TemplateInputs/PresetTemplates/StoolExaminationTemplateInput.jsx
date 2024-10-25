@@ -184,10 +184,6 @@ function StoolExaminationTemplateInput({
       );
       return;
     }
-    console.log(
-      "result.data.result.StoolExamination",
-      result.data.result.StoolExamination
-    );
     setOptions(JSON.parse(result.data.result.StoolExamination));
   };
 

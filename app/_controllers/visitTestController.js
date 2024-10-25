@@ -114,3 +114,11 @@ export async function getTodaysEarnings() {
 
   return successReturn(totalEarnings);
 }
+
+export async function updateVisibility(id, visible) {
+  await prisma.visitTest.update({
+    where: { id: id },
+    data: { visible: visible },
+  });
+  return successReturn();
+}

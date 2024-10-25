@@ -72,6 +72,7 @@ model VisitTest {
   visitId  Int?
   Test     Test?   @relation(fields: [testId], references: [id], onDelete: Cascade)
   testId   Int?
+  visible  Boolean @default(true)
 }
 
 model Test {

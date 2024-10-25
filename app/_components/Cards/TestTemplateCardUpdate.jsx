@@ -6,6 +6,7 @@ import api from "@/app/_lib/api";
 import { toast } from "react-toastify";
 import numberWithCommas from "@/app/_lib/numberWithCommas";
 import ConfirmModal from "../Modals/ConfirmModal";
+import { IoMdEyeOff } from "react-icons/io";
 
 function TestTemplateCardUpdate({
   visitTest,
@@ -20,6 +21,7 @@ function TestTemplateCardUpdate({
   const [lastTest, setLastTest] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [confirmIsOpen, setConfirmIsOpen] = useState(false);
+  const [visible, setVisible] = useState(visitTest.visible);
 
   const getLastTest = async () => {
     setIsLoading(true);
@@ -37,6 +39,21 @@ function TestTemplateCardUpdate({
       parsedLastTest.template = JSON.parse(parsedLastTest.template);
       setLastTest(parsedLastTest);
     }
+  };
+
+  const updateVisibility = async (visible) => {
+    setIsLoading(true);
+    const result = await api.put(
+      `/visit-tests/${visitTest.id}/update-visibility`,
+      { visible: visible }
+    );
+    setIsLoading(false);
+    if (!result.data.success) {
+      toast.error("Check The Console!");
+      console.error(`something went wrong while fetching last visit-test`);
+      return;
+    }
+    toast(`تم ${visible ? "إظهار" : "إخفاء"} التحليل`);
   };
 
   const deleteVisitTest = async () => {
@@ -111,6 +128,26 @@ function TestTemplateCardUpdate({
             التكلفة:{" "}
             {numberWithCommas(visitTest.price * Number(visitTest.units))} ل.س
           </span>
+          <button
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content={`${
+              !visible
+                ? "التحليل لا يظهر في الطباعة"
+                : "التحليل يظهر في الطباعة"
+            }`}
+            className={`${
+              !visible
+                ? "bg-secondary text-white"
+                : "bg-dark_text/10 hover:bg-dark_text/20"
+            } py-1 px-2 rounded`}
+            onClick={() => {
+              let visibleTemp = visible;
+              updateVisibility(!visibleTemp);
+              setVisible(!visibleTemp);
+            }}
+          >
+            <IoMdEyeOff />
+          </button>
         </div>
 
         {/* Actions */}
