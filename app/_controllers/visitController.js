@@ -48,6 +48,28 @@ export async function getVisitForPrinting(id) {
   return successReturn(result);
 }
 
+export async function getVisitForInvoice(id) {
+  const result = await prisma.visit.findUnique({
+    where: {
+      id: id,
+    },
+    include: {
+      doctor: true,
+      Patient: true,
+      tests: {
+        include: {
+          Test: {
+            include: {
+              category: true,
+            },
+          },
+        },
+      },
+    },
+  });
+  return successReturn(result);
+}
+
 export async function searchVisits(
   startDate,
   endDate,

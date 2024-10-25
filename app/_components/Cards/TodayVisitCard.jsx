@@ -45,7 +45,7 @@ function TodayVisitCard({ visit }) {
           className="text-text hover:text-green-400"
           data-tooltip-id="my-tooltip"
           data-tooltip-content="طباعة الفاتورة"
-          onClick={() => router.push(`/print/${visit.id}`, "_blank")}
+          onClick={() => router.push(`/print/${visit.id}/invoice`)}
         >
           <FaFileInvoiceDollar className="w-[1.3rem] h-fit" />
         </button>

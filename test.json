@@ -1,0 +1,21 @@
+{
+  "PH": ["1232", "333", "1", " 1"],
+  "Viscosity": ["1"],
+  "Volume": ["1"],
+  "Color": ["1"],
+  "Abnormal Forms": ["1"],
+  "Normal Forms": ["1"],
+  "Sperm Count": ["1"],
+  "Spermatogenic Cells": ["1"],
+  "Erythrocytes": ["1"],
+  "Leucocytes": ["1"],
+  "Directl Motility Very Active": ["1"],
+  "Directl Motility Active": ["1"],
+  "Directl Motility Inactive": ["1"],
+  "Motility After 1 hr Inactive": ["1", "11"],
+  "Motility After 1 hr Very Active": ["1"],
+  "Motility After 1 hr Active": ["1", "11"],
+  "Motility After 2 hr Very Active": ["1"],
+  "Motility After 2 hr Active": ["1", "11"],
+  "Motility After 2 hr Inactive": ["1"]
+}
