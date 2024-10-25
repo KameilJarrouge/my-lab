@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import DateTimePicker from "react-datetime-picker";
 import { MdClear, MdPrint } from "react-icons/md";
 import { toast } from "react-toastify";
+import { FaFileInvoiceDollar } from "react-icons/fa6";
 
 function UpdateVisit({ params }) {
   const [patient, setPatient] = useState({});
@@ -231,12 +232,20 @@ function UpdateVisit({ params }) {
             onClick={() => setConfirmIsOpen(true)}
           />
         </div>
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-2 items-center">
           <button
             className="text-text hover:text-green-400"
             data-tooltip-id="my-tooltip"
-            data-tooltip-content="طباعة"
-            onClick={() => window.open(`/print/${params.id}`, "_blank")}
+            data-tooltip-content="طباعة الفاتورة"
+            onClick={() => router.push(`/print/${params.id}`, "_blank")}
+          >
+            <FaFileInvoiceDollar className="w-[1.3rem] h-fit" />
+          </button>
+          <button
+            className="text-text hover:text-green-400"
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content="طباعة النتائج"
+            onClick={() => router.push(`/print/${params.id}`)}
           >
             <MdPrint className="w-[1.3rem] h-fit" />
           </button>

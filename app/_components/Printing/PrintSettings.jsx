@@ -12,6 +12,7 @@ function PrintSettings({
   setCategoryIndicator,
   reorderGroups,
   setBreaksPage,
+  exit,
 }) {
   return (
     <div className="w-full h-full bg-dark_primary flex flex-col gap-8 items-center shadow shadow-black border border-light_primary rounded p-4">
@@ -131,7 +132,10 @@ function PrintSettings({
             })}
         </div>
       </div>
-      <AuthButton onClick={() => window.print()} title="طباعة" />
+      <div className="flex gap-4">
+        <AuthButton onClick={() => window.print()} title="طباعة" />
+        <AuthButton onClick={() => exit()} title="إغلاق" />
+      </div>
     </div>
   );
 }

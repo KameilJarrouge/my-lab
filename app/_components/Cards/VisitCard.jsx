@@ -6,6 +6,7 @@ import Link from "next/link";
 import numberWithCommas from "@/app/_lib/numberWithCommas";
 import TestRow from "../Rows/TestRow";
 import { useRouter } from "next/navigation";
+import { FaFileInvoiceDollar } from "react-icons/fa6";
 
 function VisitCard({ visit, alterBg = false }) {
   const router = useRouter();
@@ -56,8 +57,18 @@ function VisitCard({ visit, alterBg = false }) {
             <AuthButton title="تعديل الزيارة" />
           </Link>
           <button
-            onClick={() => window.open(`/print/${visit.id}`, "_blank")}
             className="text-text hover:text-green-400"
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content="طباعة الفاتورة"
+            onClick={() => router.push(`/print/${visit.id}`, "_blank")}
+          >
+            <FaFileInvoiceDollar className="w-[1.3rem] h-fit" />
+          </button>
+          <button
+            className="text-text hover:text-green-400"
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content="طباعة النتائج"
+            onClick={() => router.push(`/print/${visit.id}`)}
           >
             <MdPrint className="w-[1.3rem] h-fit" />
           </button>

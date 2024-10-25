@@ -9,6 +9,7 @@ import StaticTemplatePrint from "@/app/_components/Printing/StaticTemplatePrint"
 import StaticTestHeader from "@/app/_components/Printing/StaticTestHeader";
 import api from "@/app/_lib/api";
 import moment from "moment";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -20,6 +21,7 @@ function PrintPage({ params }) {
   const [isDoctorShown, setIsDoctorShown] = useState("إظهار الدكتور");
   const [location, setLocation] = useState("");
   const [categoryIndicator, setCategoryIndicator] = useState(undefined);
+  const router = useRouter();
   const getSettings = async () => {
     setIsLoading(true);
     const result = await api.get("/settings");
@@ -508,6 +510,7 @@ function PrintPage({ params }) {
             setCategoryIndicator={setCategoryIndicator}
             reorderGroups={reorderGroups}
             setBreaksPage={setBreaksPage}
+            exit={() => router.back()}
           />
         </div>
       </div>
