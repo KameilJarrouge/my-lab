@@ -419,7 +419,7 @@ function NewVisit({ params }) {
       <div className="w-full min-h-[50vh] h-fit flex flex-col items-center gap-3 px-3 pb-2  overflow-y-auto overflow-x-hidden">
         {tests.map((test, index) => (
           <TestTemplateCard
-            key={index}
+            key={test.id}
             index={index}
             test={test}
             unitPrice={unitPrice}
