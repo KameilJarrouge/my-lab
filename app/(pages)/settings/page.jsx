@@ -5,6 +5,7 @@ import TextInput from "@/app/_components/Inputs/TextInput";
 import LoadingComponent from "@/app/_components/LoadingComponent";
 import AAManipulateModal from "@/app/_components/Modals/AAManipulateModal";
 import ArbitraryUpdateModal from "@/app/_components/Modals/ArbitraryUpdateModal";
+import ErrorsAndFixesModal from "@/app/_components/Modals/ErrorsAndFixesModal";
 import Title from "@/app/_components/Title";
 import api from "@/app/_lib/api";
 import React, { useEffect, useState } from "react";
@@ -20,6 +21,7 @@ function SettingsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isAAModalOpen, setIsAAModalOpen] = useState(false);
   const [isArbitraryUpdateOpen, setIsArbitraryUpdateOpen] = useState(false);
+  const [isErrorAndFixesOpen, setIsErrorAndFixesOpen] = useState(false);
 
   const refocusAddUnitField = () => {
     const element = document.getElementById("rich-text-units");
@@ -132,6 +134,13 @@ function SettingsPage() {
           uniqueName={"settings-page"}
         />
       )}
+      {isErrorAndFixesOpen && (
+        <ErrorsAndFixesModal
+          isOpen={isErrorAndFixesOpen}
+          setIsOpen={setIsErrorAndFixesOpen}
+          uniqueName={"settings-page"}
+        />
+      )}
       <div className="w-1/3 flex gap-2">
         <div className="w-full p-2 bg-dark_primary h-[30rem] shadow shadow-black rounded flex flex-col gap-8 items-center">
           <Title> وحدات القياس</Title>
@@ -222,6 +231,10 @@ function SettingsPage() {
           <AuthButton
             onClick={() => setIsArbitraryUpdateOpen(true)}
             title="قائمة قيم الإكمال التلقائي"
+          />
+          <AuthButton
+            onClick={() => setIsErrorAndFixesOpen(true)}
+            title="تصحيح الأخطاء"
           />
         </div>
       </div>
