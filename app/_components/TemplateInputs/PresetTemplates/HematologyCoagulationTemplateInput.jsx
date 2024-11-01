@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextInput from "../../Inputs/TextInput";
-import { MdChevronRight } from "react-icons/md";
+import { MdCalculate, MdChevronRight } from "react-icons/md";
 import AuthButton from "../../Buttons/AuthButton";
 import moment from "moment";
 
@@ -289,8 +289,20 @@ function RowB({
           <span key={index}>{singleRange}</span>
         ))}
       </div>
-      <div className="flex gap-8 items-center">
+      <div className="flex gap-4 items-center">
         {/* Input + Units */}
+        <button
+          className="text-dark_text hover:text-light_text"
+          onClick={() => {
+            setState(
+              row + 1,
+              ((state[0] * state[row]) / 100).toFixed(2),
+              false
+            );
+          }}
+        >
+          <MdCalculate className="w-[1.5rem] h-fit" />
+        </button>
         <TextInput
           title={"Result"}
           state={state[row + 1]}
