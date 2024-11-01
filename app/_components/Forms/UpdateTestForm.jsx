@@ -11,6 +11,16 @@ import UrinalysisTemplate from "../Templates/PresetTemplates/UrinalysisTemplate"
 import HematologyCoagulationTemplate from "../Templates/PresetTemplates/HematologyCoagulationTemplate";
 import CultureAndSensitivityTemplate from "../Templates/PresetTemplates/CultureAndSensitivityTemplate";
 import SemenAnalysisTemplate from "../Templates/PresetTemplates/SemenAnalysisTemplate";
+import SerologyTemplate from "../Templates/PresetTemplates/SerologyTemplate";
+import BloodTypeTemplate from "../Templates/PresetTemplates/BloodTypeTemplate";
+import PTTemplate from "../Templates/PresetTemplates/PTTemplate";
+import PTTTemplate from "../Templates/PresetTemplates/PTTTemplate";
+import PregnancyTestTemplate from "../Templates/PresetTemplates/PregnancyTestTemplate";
+import ESRTemplate from "../Templates/PresetTemplates/ESRTemplate";
+import BilirubinTemplate from "../Templates/PresetTemplates/BilirubinTemplate";
+import ProteinTemplate from "../Templates/PresetTemplates/ProteinTemplate";
+import StoolExaminationTemplate from "../Templates/PresetTemplates/StoolExaminationTemplate";
+import HemoglobinTemplate from "../Templates/PresetTemplates/HemoglobinTemplate";
 
 function UpdateTestForm({ submit, categories = [], test }) {
   const [name, setName] = useState("");
@@ -105,6 +115,17 @@ function UpdateTestForm({ submit, categories = [], test }) {
                 "تحليل البول Urinalysis",
                 "Hematology - Coagulation",
                 "Culture And Sensitivity",
+                "Serology",
+                "Semen Analysis",
+                "Blood Type",
+                "Prothrombin Time (PT)",
+                "Partial Thromboplastin Time (PTT)",
+                "Pregnancy Test",
+                "ESR",
+                "Bilirubin",
+                "Protein",
+                "Stool Examination",
+                "Hemoglobin",
               ]}
             />
           )}
@@ -122,7 +143,17 @@ function UpdateTestForm({ submit, categories = [], test }) {
               "تحليل البول Urinalysis": <UrinalysisTemplate />,
               "Hematology - Coagulation": <HematologyCoagulationTemplate />,
               "Culture And Sensitivity": <CultureAndSensitivityTemplate />,
+              Serology: <SerologyTemplate />,
               "Semen Analysis": <SemenAnalysisTemplate />,
+              "Blood Type": <BloodTypeTemplate />,
+              "Prothrombin Time (PT)": <PTTemplate />,
+              "Partial Thromboplastin Time (PTT)": <PTTTemplate />,
+              "Pregnancy Test": <PregnancyTestTemplate />,
+              ESR: <ESRTemplate />,
+              Bilirubin: <BilirubinTemplate />,
+              Protein: <ProteinTemplate />,
+              "Stool Examination": <StoolExaminationTemplate />,
+              Hemoglobin: <HemoglobinTemplate />,
             }[staticTemplate]
           )}
         </div>
