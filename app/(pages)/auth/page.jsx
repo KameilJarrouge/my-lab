@@ -57,7 +57,9 @@ export default function Auth() {
     useStore.setState({
       isLoggedIn: true,
     });
-    router.push("/");
+    setTimeout(() => {
+      router.push("/");
+    }, 500);
   };
   return (
     <div onKeyDown={handleKeyDown} className="w-full h-full">
