@@ -24,6 +24,7 @@ import BilirubinTemplateInput from "./PresetTemplates/BilirubinTemplateInput";
 import ProteinTemplateInput from "./PresetTemplates/ProteinTemplateInput";
 import normalValidation from "./Validation/normalValidation";
 import StoolExaminationTemplateInput from "./PresetTemplates/StoolExaminationTemplateInput";
+import HemoglobinTemplateInput from "./PresetTemplates/HemoglobinTemplateInput";
 
 function StaticTemplateInput({
   test,
@@ -303,6 +304,15 @@ function StaticTemplateInput({
           ),
           "Stool Examination": (
             <StoolExaminationTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+            />
+          ),
+          Hemoglobin: (
+            <HemoglobinTemplateInput
               handleSave={handleSave}
               handleRestore={handleRestore}
               isDirty={isDirty}

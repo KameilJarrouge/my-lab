@@ -13,6 +13,7 @@ import ESRTemplateResult from "./PresetTemplates/ESRTemplateResult";
 import BilirubinTemplateResult from "./PresetTemplates/BilirubinTemplateResult";
 import ProteinTemplateResult from "./PresetTemplates/ProteinTemplateResult";
 import StoolExaminationTemplateResult from "./PresetTemplates/StoolExaminationTemplateResult";
+import HemoglobinTemplateResult from "./PresetTemplates/HemoglobinTemplateResult";
 
 function StaticTemplateResult({ template }) {
   return (
@@ -42,6 +43,7 @@ function StaticTemplateResult({ template }) {
           "Stool Examination": (
             <StoolExaminationTemplateResult template={template} />
           ),
+          Hemoglobin: <HemoglobinTemplateResult template={template} />,
         }[template.staticTemplate]
       }
     </div>

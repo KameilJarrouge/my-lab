@@ -143,6 +143,11 @@ const StoolExamination = {
   "Meat fibers": "-",
 };
 
+const Hemoglobin = {
+  Hemoglobin: "",
+  Hematocrit: "",
+};
+
 export default function getDefaultResult(staticTemplate) {
   switch (staticTemplate) {
     case "تحليل البول Urinalysis":
@@ -171,5 +176,7 @@ export default function getDefaultResult(staticTemplate) {
       return Protein;
     case "Stool Examination":
       return StoolExamination;
+    case "Hemoglobin":
+      return Hemoglobin;
   }
 }

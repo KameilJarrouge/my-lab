@@ -12,6 +12,7 @@ import ESRTemplatePrint from "./PresetTemplates/ESRTemplatePrint";
 import BilirubinTemplatePrint from "./PresetTemplates/BilirubinTemplatePrint";
 import ProteinTemplatePrint from "./PresetTemplates/ProteinTemplatePrint";
 import StoolExaminationTemplatePrint from "./PresetTemplates/StoolExaminationTemplatePrint";
+import HemoglobinTemplatePrint from "./PresetTemplates/HemoglobinTemplatePrint";
 
 function StaticTemplatePrint({ id, template, lastTestResult, lastTestDate }) {
   return (
@@ -51,6 +52,7 @@ function StaticTemplatePrint({ id, template, lastTestResult, lastTestDate }) {
           "Stool Examination": (
             <StoolExaminationTemplatePrint template={template} />
           ),
+          Hemoglobin: <HemoglobinTemplatePrint template={template} />,
         }[template.staticTemplate]
       }
     </div>

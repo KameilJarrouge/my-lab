@@ -23,6 +23,7 @@ import ESRTemplateInput from "./PresetTemplates/ESRTemplateInput";
 import BilirubinTemplateInput from "./PresetTemplates/BilirubinTemplateInput";
 import ProteinTemplateInput from "./PresetTemplates/ProteinTemplateInput";
 import StoolExaminationTemplateInput from "./PresetTemplates/StoolExaminationTemplateInput";
+import HemoglobinTemplateInput from "./PresetTemplates/HemoglobinTemplateInput";
 
 function StaticTemplateInputUpdate({
   visitTest,
@@ -299,6 +300,16 @@ function StaticTemplateInputUpdate({
           ),
           "Stool Examination": (
             <StoolExaminationTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+              saveButtonTitle="تعديل"
+            />
+          ),
+          Hemoglobin: (
+            <HemoglobinTemplateInput
               handleSave={handleSave}
               handleRestore={handleRestore}
               isDirty={isDirty}
