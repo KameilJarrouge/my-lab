@@ -25,6 +25,9 @@ call npm install
 :: Run Prisma migrations
 call npx prisma migrate deploy
 
+:: Generate Prisma Client 
+call npx prisma generate
+
 :: Build the project
 call npm run build
 
