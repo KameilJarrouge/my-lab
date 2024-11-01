@@ -572,7 +572,9 @@ function PrintPage({ params }) {
                                   testName={visitTest.Test.name}
                                   resultValue={visitTest.template.result.value}
                                   min={visitTest.template.data.min}
+                                  minTitle={visitTest.template.data.minTitle}
                                   max={visitTest.template.data.max}
+                                  maxTitle={visitTest.template.data.maxTitle}
                                   referenceRange={
                                     visitTest.template.data.referenceRange
                                   }
@@ -666,7 +668,9 @@ function PrintPage({ params }) {
                             testName={visitTest.Test.name}
                             resultValue={visitTest.template.result.value}
                             min={visitTest.template.data.min}
+                            minTitle={visitTest.template.data.minTitle}
                             max={visitTest.template.data.max}
+                            maxTitle={visitTest.template.data.maxTitle}
                             referenceRange={
                               visitTest.template.data.referenceRange
                             }

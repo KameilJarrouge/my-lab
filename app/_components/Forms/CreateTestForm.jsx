@@ -38,7 +38,14 @@ function CreateTestForm({ submit, categories = [] }) {
 
   useEffect(() => {
     if (templateType === "قالب يدوي")
-      setTemplate({ min: "", max: "", referenceRange: "", unit: "" });
+      setTemplate({
+        min: "",
+        minTitle: "L",
+        max: "",
+        maxTitle: "H",
+        referenceRange: "",
+        unit: "",
+      });
     else setTemplate({});
   }, [templateType]);
 

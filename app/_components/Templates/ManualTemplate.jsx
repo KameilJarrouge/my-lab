@@ -9,12 +9,19 @@ import { toast } from "react-toastify";
 import ManualTemplatePreview from "./ManualTemplatePreview";
 
 function ManualTemplate({
-  state = { min: "", max: "", referenceRange: "", unit: "" },
+  state = {
+    min: "",
+    minTitle: "L",
+    max: "",
+    maxTitle: "H",
+    referenceRange: "",
+    unit: "",
+  },
   setState,
   testName,
 }) {
   const [measureUnits, setMeasureUnits] = useState([]);
-
+  const [testResult, setTestResult] = useState();
   const getMeasureUnits = async () => {
     const result = await api.get("/settings");
     if (!result.data.success) {
@@ -61,6 +68,19 @@ function ManualTemplate({
             />
           </div>
           <div className="flex gap-2 items-center">
+            <span className="w-[15ch]">دلالة الأدنى : </span>
+            <TextInput
+              withHoveringTitle={false}
+              state={state.minTitle}
+              setState={(minTitle) =>
+                setState((state) => {
+                  return { ...state, minTitle: minTitle };
+                })
+              }
+              dir="ltr"
+            />
+          </div>
+          <div className="flex gap-2 items-center">
             <span className="w-[15ch]">القيمة الأعلى : </span>
             <TextInput
               withHoveringTitle={false}
@@ -68,6 +88,19 @@ function ManualTemplate({
               setState={(max) =>
                 setState((state) => {
                   return { ...state, max: max };
+                })
+              }
+              dir="ltr"
+            />
+          </div>
+          <div className="flex gap-2 items-center">
+            <span className="w-[15ch]">دلالة الأعلى : </span>
+            <TextInput
+              withHoveringTitle={false}
+              state={state.maxTitle}
+              setState={(maxTitle) =>
+                setState((state) => {
+                  return { ...state, maxTitle: maxTitle };
                 })
               }
               dir="ltr"
@@ -90,11 +123,24 @@ function ManualTemplate({
             }
             rows={5}
           />
+          <div className="flex gap-2 items-center">
+            <span className="w-[15ch]">نتيجة وهمية : </span>
+            <TextInput
+              withHoveringTitle={false}
+              state={testResult}
+              setState={(testResult) => setTestResult(testResult)}
+              dir="ltr"
+            />
+          </div>
         </div>
       </div>
       <Separator className={"bg-dark_text"} />
 
-      <ManualTemplatePreview template={state} testName={testName} />
+      <ManualTemplatePreview
+        template={state}
+        testName={testName}
+        testResult={testResult}
+      />
     </div>
   );
 }

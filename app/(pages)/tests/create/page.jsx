@@ -86,15 +86,15 @@ function CreateTestPage() {
       return;
     }
     if (templateType === "قالب يدوي") {
-      if (
-        template.min.trim() === "" ||
-        isNaN(Number(template.min)) ||
-        template.max.trim() === "" ||
-        isNaN(Number(template.max))
-      ) {
-        toast.error("يرجى ادخال أرقام في خانتي القيمة الأدنى والقيمة الأعلى");
-        return;
-      }
+      // if (
+      //   template.min.trim() === "" ||
+      //   isNaN(Number(template.min)) ||
+      //   template.max.trim() === "" ||
+      //   isNaN(Number(template.max))
+      // ) {
+      //   toast.error("يرجى ادخال أرقام في خانتي القيمة الأدنى والقيمة الأعلى");
+      //   return;
+      // }
 
       if (template.unit === "") {
         toast.error("يرجى إدخال وحدة القياس");

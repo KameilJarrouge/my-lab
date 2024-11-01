@@ -7,7 +7,9 @@ function ManualTemplatePrint({
   testName,
   resultValue,
   min,
+  minTitle,
   max,
+  maxTitle,
   referenceRange,
   unit,
   lastTestResult,
@@ -23,12 +25,28 @@ function ManualTemplatePrint({
         {testName}
       </span>
       <span className="text-center col-span-2 shadow-sm shadow-black self-start">
-        {Number(resultValue) +
+        {/* {Number(resultValue) +
           (Number(resultValue) >= Number(min)
             ? Number(resultValue) <= Number(max)
               ? ""
               : " H"
-            : " L")}
+            : " L")} */}
+        {`${resultValue} ${
+          isNaN(Number(min)) ||
+          min === "" ||
+          isNaN(Number(max)) ||
+          max === "" ||
+          isNaN(Number(resultValue)) ||
+          resultValue === ""
+            ? ``
+            : `${
+                Number(min) <= Number(resultValue)
+                  ? Number(max) >= Number(resultValue)
+                    ? ""
+                    : maxTitle || ""
+                  : minTitle || ""
+              }`
+        }`}
       </span>
       <div className="flex flex-col gap-1 items-center col-span-3">
         {referenceRange

@@ -53,16 +53,32 @@ function ManualTemplateInput({ test, updateTemplate, lastTest }) {
               withHoveringTitle={false}
               className={"p-1 bg-transparent border-b-dark_primary "}
               setState={(value) => {
-                if (!isNaN(value)) setResult(value);
+                setResult(value);
               }}
             />
           </div>
           <span>
-            {Number(test.test.template.data.min) <= Number(result)
+            {/* {Number(test.test.template.data.min) <= Number(result)
               ? Number(test.test.template.data.max) >= Number(result)
                 ? ""
                 : "H"
-              : "L"}
+              : "L"} */}
+            {`${
+              isNaN(Number(test.test.template.data.min)) ||
+              test.test.template.data.min === "" ||
+              isNaN(Number(test.test.template.data.max)) ||
+              test.test.template.data.max === "" ||
+              isNaN(Number(result)) ||
+              result === ""
+                ? ``
+                : `${
+                    Number(test.test.template.data.min) <= Number(result)
+                      ? Number(test.test.template.data.max) >= Number(result)
+                        ? ""
+                        : test.test.template.data.maxTitle || ""
+                      : test.test.template.data.minTitle || ""
+                  }`
+            }`}
           </span>
         </div>
         <span className="w-full text-center flex flex-col gap-2" dir="ltr">

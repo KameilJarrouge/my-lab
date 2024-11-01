@@ -20,11 +20,28 @@ function ManualTemplateResult({ template, lastTest }) {
             <span>{template.result.value}</span>
           </div>
           <span>
-            {Number(template.data.min) <= Number(template.result.value)
+            {/* {Number(template.data.min) <= Number(template.result.value)
               ? Number(template.data.max) >= Number(template.result.value)
                 ? ""
                 : "H"
-              : "L"}
+              : "L"} */}
+            {`${
+              isNaN(Number(template.data.min)) ||
+              template.data.min === "" ||
+              isNaN(Number(template.data.max)) ||
+              template.data.max === "" ||
+              isNaN(Number(template.result.value)) ||
+              template.result.value === ""
+                ? ``
+                : `${
+                    Number(template.data.min) <= Number(template.result.value)
+                      ? Number(template.data.max) >=
+                        Number(template.result.value)
+                        ? ""
+                        : template.data.maxTitle || ""
+                      : template.data.minTitle || ""
+                  }`
+            }`}
           </span>
         </div>
         <span className="w-full text-center flex flex-col gap-2" dir="ltr">

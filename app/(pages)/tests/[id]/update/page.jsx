@@ -98,10 +98,10 @@ function UpdateTestPage({ params }) {
     }
 
     if (templateType === "قالب يدوي") {
-      if (isNaN(Number(template.min)) || isNaN(Number(template.max))) {
-        toast.error("يرجى ادخال أرقام في خانتي القيمة الأدنى والقيمة الأعلى");
-        return;
-      }
+      // if (isNaN(Number(template.min)) || isNaN(Number(template.max))) {
+      //   toast.error("يرجى ادخال أرقام في خانتي القيمة الأدنى والقيمة الأعلى");
+      //   return;
+      // }
 
       if (template.unit === "") {
         toast.error("يرجى إدخال وحدة القياس");

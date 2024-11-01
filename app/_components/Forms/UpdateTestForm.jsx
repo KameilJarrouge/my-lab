@@ -34,6 +34,10 @@ function UpdateTestForm({ submit, categories = [], test }) {
     setUnits(test.units);
     setCategory(test.category.name);
     if (parsedTemplate.type === "manual") {
+      if (!parsedTemplate.data.hasOwnProperty("minTitle")) {
+        parsedTemplate.data.minTitle = "L";
+        parsedTemplate.data.maxTitle = "H";
+      }
       setTemplate(parsedTemplate.data);
       setTemplateType("قالب يدوي");
     } else {
@@ -45,7 +49,14 @@ function UpdateTestForm({ submit, categories = [], test }) {
 
   useEffect(() => {
     if (templateType === "قالب يدوي")
-      setTemplate({ min: "", max: "", referenceRange: "", unit: "" });
+      setTemplate({
+        min: "",
+        minTitle: "L",
+        max: "",
+        maxTitle: "H",
+        referenceRange: "",
+        unit: "",
+      });
     else setTemplate({});
   }, [templateType]);
 

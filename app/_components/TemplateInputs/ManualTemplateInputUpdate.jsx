@@ -77,11 +77,27 @@ function ManualTemplateInputUpdate({
             />
           </div>
           <span>
-            {Number(visitTest.template.data.min) <= Number(result)
+            {/* {Number(visitTest.template.data.min) <= Number(result)
               ? Number(visitTest.template.data.max) >= Number(result)
                 ? ""
                 : "H"
-              : "L"}
+              : "L"} */}
+            {`${
+              isNaN(Number(visitTest.template.data.min)) ||
+              visitTest.template.data.min === "" ||
+              isNaN(Number(visitTest.template.data.max)) ||
+              visitTest.template.data.max === "" ||
+              isNaN(Number(result)) ||
+              result === ""
+                ? ``
+                : `${
+                    Number(visitTest.template.data.min) <= Number(result)
+                      ? Number(visitTest.template.data.max) >= Number(result)
+                        ? ""
+                        : visitTest.template.data.maxTitle || ""
+                      : visitTest.template.data.minTitle || ""
+                  }`
+            }`}
           </span>
         </div>
         <span className="w-full text-center flex flex-col gap-2" dir="ltr">
