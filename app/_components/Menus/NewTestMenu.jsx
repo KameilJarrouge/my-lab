@@ -93,15 +93,18 @@ function NewTestMenu({
         />
       )}
 
-      <div className="w-fit p-4 flex  gap-4 rounded shadow shadow-black bg-dark_primary">
-        <AutoCompleteSelect
-          options={tests}
-          state={test}
-          setState={setTest}
-          optionsNameKey={"name"}
-          title={"التحليل"}
-          id="test"
-        />
+      <div className="w-fit p-2 flex  gap-4 rounded shadow shadow-black bg-dark_primary">
+        <div className="flex gap-4 items-center">
+          <span>التحليل</span>
+          <AutoCompleteSelect
+            options={tests}
+            state={test}
+            setState={setTest}
+            optionsNameKey={"name"}
+            id="test"
+            withHoveringTitle={false}
+          />
+        </div>
 
         <div className="w-fit min-h-fit  flex items-center justify-center gap-4">
           <AuthButton title="إضافة التحليل" onClick={addNewTest} />

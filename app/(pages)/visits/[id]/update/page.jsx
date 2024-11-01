@@ -186,69 +186,78 @@ function UpdateVisit({ params }) {
       )}
       {/* Visit Information */}
       <div
-        className="w-full px-4 py-4 rounded shadow shadow-black h-fit bg-dark_primary
-        flex  items-center justify-between"
+        className="w-full px-4 py-3 gap-2 rounded shadow shadow-black h-fit bg-dark_primary
+        flex flex-col  items-center justify-between"
       >
-        <div className="w-fit flex items-center gap-4">
-          <span className="">{"تعديل زيارة :"}</span>
-          <span
-            className="font-semibold"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content="العودة إلى صفحة المريض"
-          >
-            <Link href={`/patients/${patient.id}`}>{patient.name}</Link>
-          </span>
-          <span className="text-dark_text/60">•</span>
-          <span className="">{"تاريخ الزيارة :"}</span>
-          <div dir="ltr" className="min-w-[15ch] h-fit">
-            <DateTimePicker
-              value={createdAt}
-              onChange={setCreatedAt}
-              disableClock
-              className={
-                "text-dark_text p-0 focus-within:text-light_text border-b-[1px] h-[1.5rem] w-full border-b-light_primary focus-within:border-b-light_text"
-              }
-              calendarIcon={null}
-              clearIcon={() => (
-                <MdClear className="translate-x-1 text-dark_text hover:text-light_text" />
-              )}
-              format="yyyy-MM-dd"
+        <div className="w-full flex items-center justify-between">
+          {/* Line 1 */}
+          <div className="w-fit flex items-center gap-4">
+            <span className="">{"تعديل زيارة :"}</span>
+            <span
+              className="font-semibold"
+              data-tooltip-id="my-tooltip"
+              data-tooltip-content="العودة إلى صفحة المريض"
+            >
+              <Link href={`/patients/${patient.id}`}>{patient.name}</Link>
+            </span>
+            <span className="text-dark_text/60">•</span>
+            <span className="">{"تاريخ الزيارة :"}</span>
+            <div dir="ltr" className="min-w-[15ch] h-fit">
+              <DateTimePicker
+                value={createdAt}
+                onChange={setCreatedAt}
+                disableClock
+                className={
+                  "text-dark_text p-0 focus-within:text-light_text border-b-[1px] h-[1.5rem] w-full border-b-light_primary focus-within:border-b-light_text"
+                }
+                calendarIcon={null}
+                clearIcon={() => (
+                  <MdClear className="translate-x-1 text-dark_text hover:text-light_text" />
+                )}
+                format="yyyy-MM-dd"
+              />
+            </div>
+            <span className="text-dark_text/60">•</span>
+            <span className="">{"الطبيب :"}</span>
+            <AutoCompleteInput
+              withHoveringTitle={false}
+              state={doctor}
+              setState={setDoctor}
+              options={doctors.map((doctor) => doctor.name)}
             />
+            <span className="text-text ">
+              التكلفة: {numberWithCommas(totalPrice)} ل.س
+            </span>
+            <AuthButton title="تعديل" onClick={updateVisit} />
           </div>
-          <span className="text-dark_text/60">•</span>
-          <span className="">{"الطبيب :"}</span>
-          <AutoCompleteInput
-            withHoveringTitle={false}
-            state={doctor}
-            setState={setDoctor}
-            options={doctors.map((doctor) => doctor.name)}
-          />
-          <span className="text-text ">
-            التكلفة: {numberWithCommas(totalPrice)} ل.س
-          </span>
-          <AuthButton title="تعديل" onClick={updateVisit} />
+          <div className="flex gap-2 items-center">
+            <button
+              className="text-text hover:text-green-400"
+              data-tooltip-id="my-tooltip"
+              data-tooltip-content="طباعة الفاتورة"
+              onClick={() => router.push(`/print/${params.id}/invoice`)}
+            >
+              <FaFileInvoiceDollar className="w-[1.3rem] h-fit" />
+            </button>
+            <button
+              className="text-text hover:text-green-400"
+              data-tooltip-id="my-tooltip"
+              data-tooltip-content="طباعة النتائج"
+              onClick={() => router.push(`/print/${params.id}`)}
+            >
+              <MdPrint className="w-[1.3rem] h-fit" />
+            </button>
+          </div>{" "}
+        </div>
+        <div className="w-full flex items-center gap-4">
           <AuthButton
             title="حذف الزيارة"
             onClick={() => setConfirmIsOpen(true)}
           />
-        </div>
-        <div className="flex gap-2 items-center">
-          <button
-            className="text-text hover:text-green-400"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content="طباعة الفاتورة"
-            onClick={() => router.push(`/print/${params.id}/invoice`)}
-          >
-            <FaFileInvoiceDollar className="w-[1.3rem] h-fit" />
-          </button>
-          <button
-            className="text-text hover:text-green-400"
-            data-tooltip-id="my-tooltip"
-            data-tooltip-content="طباعة النتائج"
-            onClick={() => router.push(`/print/${params.id}`)}
-          >
-            <MdPrint className="w-[1.3rem] h-fit" />
-          </button>
+          <AuthButton
+            title="إضافة تحاليل"
+            onClick={() => router.push(`/visits/${params.id}/add-tests`)}
+          />
         </div>
       </div>
       {/* Tests */}
