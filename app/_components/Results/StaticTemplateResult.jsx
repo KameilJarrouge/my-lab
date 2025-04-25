@@ -14,6 +14,7 @@ import BilirubinTemplateResult from "./PresetTemplates/BilirubinTemplateResult";
 import ProteinTemplateResult from "./PresetTemplates/ProteinTemplateResult";
 import StoolExaminationTemplateResult from "./PresetTemplates/StoolExaminationTemplateResult";
 import HemoglobinTemplateResult from "./PresetTemplates/HemoglobinTemplateResult";
+import BloodFilmTemplateResult from "./PresetTemplates/BloodFilmTemplateResult";
 
 function StaticTemplateResult({ template }) {
   return (
@@ -44,6 +45,7 @@ function StaticTemplateResult({ template }) {
             <StoolExaminationTemplateResult template={template} />
           ),
           Hemoglobin: <HemoglobinTemplateResult template={template} />,
+          "Blood Film": <BloodFilmTemplateResult template={template} />,
         }[template.staticTemplate]
       }
     </div>

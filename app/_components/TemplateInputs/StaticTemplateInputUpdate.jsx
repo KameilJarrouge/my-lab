@@ -24,6 +24,7 @@ import BilirubinTemplateInput from "./PresetTemplates/BilirubinTemplateInput";
 import ProteinTemplateInput from "./PresetTemplates/ProteinTemplateInput";
 import StoolExaminationTemplateInput from "./PresetTemplates/StoolExaminationTemplateInput";
 import HemoglobinTemplateInput from "./PresetTemplates/HemoglobinTemplateInput";
+import BloodFilmTemplateInput from "./PresetTemplates/BloodFilmTemplateInput";
 
 function StaticTemplateInputUpdate({
   visitTest,
@@ -310,6 +311,16 @@ function StaticTemplateInputUpdate({
           ),
           Hemoglobin: (
             <HemoglobinTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+              saveButtonTitle="تعديل"
+            />
+          ),
+          "Blood Film": (
+            <BloodFilmTemplateInput
               handleSave={handleSave}
               handleRestore={handleRestore}
               isDirty={isDirty}

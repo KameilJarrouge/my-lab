@@ -21,6 +21,7 @@ import BilirubinTemplate from "../Templates/PresetTemplates/BilirubinTemplate";
 import ProteinTemplate from "../Templates/PresetTemplates/ProteinTemplate";
 import StoolExaminationTemplate from "../Templates/PresetTemplates/StoolExaminationTemplate";
 import HemoglobinTemplate from "../Templates/PresetTemplates/HemoglobinTemplate";
+import BloodFilmTemplate from "../Templates/PresetTemplates/BloodFilmTemplate";
 
 function CreateTestForm({ submit, categories = [] }) {
   const [name, setName] = useState("");
@@ -106,6 +107,7 @@ function CreateTestForm({ submit, categories = [] }) {
                   "Protein",
                   "Stool Examination",
                   "Hemoglobin",
+                  "Blood Film",
                 ]}
               />
             )}
@@ -134,6 +136,7 @@ function CreateTestForm({ submit, categories = [] }) {
                 Protein: <ProteinTemplate />,
                 "Stool Examination": <StoolExaminationTemplate />,
                 Hemoglobin: <HemoglobinTemplate />,
+                "Blood Film": <BloodFilmTemplate />,
               }[staticTemplate]
             )}
           </div>

@@ -148,6 +148,12 @@ const Hemoglobin = {
   Hematocrit: "",
 };
 
+const BloodFilm = {
+  WBC: "طبيعية العدد والشكل والتفصص ولا يوجد أشكال شاذة.",
+  RBC: "طبيعية الشكل والصباغ والحجم.",
+  Platelet: "طبيعية الشكل والعدد والحجم.",
+};
+
 export default function getDefaultResult(staticTemplate) {
   switch (staticTemplate) {
     case "تحليل البول Urinalysis":
@@ -178,5 +184,7 @@ export default function getDefaultResult(staticTemplate) {
       return StoolExamination;
     case "Hemoglobin":
       return Hemoglobin;
+    case "Blood Film":
+      return BloodFilm;
   }
 }

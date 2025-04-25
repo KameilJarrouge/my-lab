@@ -25,6 +25,7 @@ import ProteinTemplateInput from "./PresetTemplates/ProteinTemplateInput";
 import normalValidation from "./Validation/normalValidation";
 import StoolExaminationTemplateInput from "./PresetTemplates/StoolExaminationTemplateInput";
 import HemoglobinTemplateInput from "./PresetTemplates/HemoglobinTemplateInput";
+import BloodFilmTemplateInput from "./PresetTemplates/BloodFilmTemplateInput";
 
 function StaticTemplateInput({
   test,
@@ -313,6 +314,15 @@ function StaticTemplateInput({
           ),
           Hemoglobin: (
             <HemoglobinTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+            />
+          ),
+          "Blood Film": (
+            <BloodFilmTemplateInput
               handleSave={handleSave}
               handleRestore={handleRestore}
               isDirty={isDirty}
