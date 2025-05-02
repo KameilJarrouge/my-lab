@@ -14,6 +14,8 @@ import ProteinTemplatePrint from "./PresetTemplates/ProteinTemplatePrint";
 import StoolExaminationTemplatePrint from "./PresetTemplates/StoolExaminationTemplatePrint";
 import HemoglobinTemplatePrint from "./PresetTemplates/HemoglobinTemplatePrint";
 import BloodFilmTemplatePrint from "./PresetTemplates/BloodFilmTemplatePrint";
+import HematologyCoagulationLeucocytesTemplatePrint from "./PresetTemplates/HematologyCoagulationLeucocytesTemplatePrint";
+import HematologyCoagulationErythrocytesTemplatePrint from "./PresetTemplates/HematologyCoagulationErythrocytesTemplatePrint";
 
 function StaticTemplatePrint({ id, template, lastTestResult, lastTestDate }) {
   return (
@@ -28,6 +30,20 @@ function StaticTemplatePrint({ id, template, lastTestResult, lastTestDate }) {
           ),
           "Hematology - Coagulation": (
             <HematologyCoagulationTemplatePrint
+              template={template}
+              lastTestDate={lastTestDate}
+              lastTestResult={lastTestResult}
+            />
+          ),
+          "Hematology - Coagulation - Leucocytes": (
+            <HematologyCoagulationLeucocytesTemplatePrint
+              template={template}
+              lastTestDate={lastTestDate}
+              lastTestResult={lastTestResult}
+            />
+          ),
+          "Hematology - Coagulation - Erythrocytes": (
+            <HematologyCoagulationErythrocytesTemplatePrint
               template={template}
               lastTestDate={lastTestDate}
               lastTestResult={lastTestResult}

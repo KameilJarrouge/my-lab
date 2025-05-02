@@ -63,6 +63,27 @@ const HematologyCoagulation = {
   16: "",
   17: "",
 };
+const HematologyCoagulationErythrocytes = {
+  11: "",
+  12: "",
+  13: "",
+  14: "",
+  15: "",
+  16: "",
+};
+const HematologyCoagulationLeucocytes = {
+  0: "",
+  1: "",
+  2: "",
+  3: "",
+  4: "",
+  5: "",
+  6: "",
+  7: "",
+  8: "",
+  9: "",
+  10: "",
+};
 
 const CultureAndSensitivity = {
   selectedAA: [],
@@ -160,6 +181,10 @@ export default function getDefaultResult(staticTemplate) {
       return Urinalysis;
     case "Hematology - Coagulation":
       return HematologyCoagulation;
+    case "Hematology - Coagulation - Leucocytes":
+      return HematologyCoagulationLeucocytes;
+    case "Hematology - Coagulation - Erythrocytes":
+      return HematologyCoagulationErythrocytes;
     case "Culture And Sensitivity":
       return CultureAndSensitivity;
     case "Serology":

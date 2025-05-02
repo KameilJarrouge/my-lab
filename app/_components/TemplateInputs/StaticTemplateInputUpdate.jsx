@@ -25,6 +25,8 @@ import ProteinTemplateInput from "./PresetTemplates/ProteinTemplateInput";
 import StoolExaminationTemplateInput from "./PresetTemplates/StoolExaminationTemplateInput";
 import HemoglobinTemplateInput from "./PresetTemplates/HemoglobinTemplateInput";
 import BloodFilmTemplateInput from "./PresetTemplates/BloodFilmTemplateInput";
+import HematologyCoagulationLeucocytesTemplateInput from "./PresetTemplates/HematologyCoagulationLeucocytesTemplateInput";
+import HematologyCoagulationErythrocytesTemplateInput from "./PresetTemplates/HematologyCoagulationErythrocytesTemplateInput";
 
 function StaticTemplateInputUpdate({
   visitTest,
@@ -190,6 +192,28 @@ function StaticTemplateInputUpdate({
           ),
           "Hematology - Coagulation": (
             <HematologyCoagulationTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+              lastTest={lastTest}
+              saveButtonTitle="تعديل"
+            />
+          ),
+          "Hematology - Coagulation - Leucocytes": (
+            <HematologyCoagulationLeucocytesTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+              lastTest={lastTest}
+              saveButtonTitle="تعديل"
+            />
+          ),
+          "Hematology - Coagulation - Erythrocytes": (
+            <HematologyCoagulationErythrocytesTemplateInput
               handleSave={handleSave}
               handleRestore={handleRestore}
               isDirty={isDirty}

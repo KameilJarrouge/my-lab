@@ -15,6 +15,8 @@ import ProteinTemplateResult from "./PresetTemplates/ProteinTemplateResult";
 import StoolExaminationTemplateResult from "./PresetTemplates/StoolExaminationTemplateResult";
 import HemoglobinTemplateResult from "./PresetTemplates/HemoglobinTemplateResult";
 import BloodFilmTemplateResult from "./PresetTemplates/BloodFilmTemplateResult";
+import HematologyCoagulationLeucocytesTemplateResult from "./PresetTemplates/HematologyCoagulationLeucocytesTemplateResult";
+import HematologyCoagulationErythrocytesTemplateResult from "./PresetTemplates/HematologyCoagulationErythrocytesTemplateResult";
 
 function StaticTemplateResult({ template }) {
   return (
@@ -26,6 +28,16 @@ function StaticTemplateResult({ template }) {
           ),
           "Hematology - Coagulation": (
             <HematologyCoagulationTemplateResult template={template} />
+          ),
+          "Hematology - Coagulation - Leucocytes": (
+            <HematologyCoagulationLeucocytesTemplateResult
+              template={template}
+            />
+          ),
+          "Hematology - Coagulation - Erythrocytes": (
+            <HematologyCoagulationErythrocytesTemplateResult
+              template={template}
+            />
           ),
           "Culture And Sensitivity": (
             <CultureAndSensitivityTemplateResult template={template} />

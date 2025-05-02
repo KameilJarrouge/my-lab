@@ -26,6 +26,8 @@ import normalValidation from "./Validation/normalValidation";
 import StoolExaminationTemplateInput from "./PresetTemplates/StoolExaminationTemplateInput";
 import HemoglobinTemplateInput from "./PresetTemplates/HemoglobinTemplateInput";
 import BloodFilmTemplateInput from "./PresetTemplates/BloodFilmTemplateInput";
+import HematologyCoagulationLeucocytesTemplateInput from "./PresetTemplates/HematologyCoagulationLeucocytesTemplateInput";
+import HematologyCoagulationErythrocytesTemplateInput from "./PresetTemplates/HematologyCoagulationErythrocytesTemplateInput";
 
 function StaticTemplateInput({
   test,
@@ -205,6 +207,26 @@ function StaticTemplateInput({
           ),
           "Hematology - Coagulation": (
             <HematologyCoagulationTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+              lastTest={lastTest}
+            />
+          ),
+          "Hematology - Coagulation - Leucocytes": (
+            <HematologyCoagulationLeucocytesTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+              lastTest={lastTest}
+            />
+          ),
+          "Hematology - Coagulation - Erythrocytes": (
+            <HematologyCoagulationErythrocytesTemplateInput
               handleSave={handleSave}
               handleRestore={handleRestore}
               isDirty={isDirty}

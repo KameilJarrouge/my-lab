@@ -22,6 +22,8 @@ import ProteinTemplate from "../Templates/PresetTemplates/ProteinTemplate";
 import StoolExaminationTemplate from "../Templates/PresetTemplates/StoolExaminationTemplate";
 import HemoglobinTemplate from "../Templates/PresetTemplates/HemoglobinTemplate";
 import BloodFilmTemplate from "../Templates/PresetTemplates/BloodFilmTemplate";
+import HematologyCoagulationLeucocytesTemplate from "../Templates/PresetTemplates/HematologyCoagulationLeucocytesTemplate";
+import HematologyCoagulationErythrocytesTemplate from "../Templates/PresetTemplates/HematologyCoagulationErythrocytesTemplate";
 
 function CreateTestForm({ submit, categories = [] }) {
   const [name, setName] = useState("");
@@ -95,6 +97,8 @@ function CreateTestForm({ submit, categories = [] }) {
                 options={[
                   "تحليل البول Urinalysis",
                   "Hematology - Coagulation",
+                  "Hematology - Coagulation - Leucocytes",
+                  "Hematology - Coagulation - Erythrocytes",
                   "Culture And Sensitivity",
                   "Serology",
                   "Semen Analysis",
@@ -124,6 +128,12 @@ function CreateTestForm({ submit, categories = [] }) {
               {
                 "تحليل البول Urinalysis": <UrinalysisTemplate />,
                 "Hematology - Coagulation": <HematologyCoagulationTemplate />,
+                "Hematology - Coagulation - Leucocytes": (
+                  <HematologyCoagulationLeucocytesTemplate />
+                ),
+                "Hematology - Coagulation - Erythrocytes": (
+                  <HematologyCoagulationErythrocytesTemplate />
+                ),
                 "Culture And Sensitivity": <CultureAndSensitivityTemplate />,
                 Serology: <SerologyTemplate />,
                 "Semen Analysis": <SemenAnalysisTemplate />,
