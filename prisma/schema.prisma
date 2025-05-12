@@ -54,13 +54,15 @@ model Doctor {
 }
 
 model Visit {
-  id        Int         @id @default(autoincrement())
-  date      DateTime    @default(now())
-  tests     VisitTest[]
-  Patient   Patient?    @relation(fields: [patientId], references: [id], onDelete: Cascade)
-  patientId Int?
-  doctor    Doctor      @relation(fields: [doctorId], references: [id], onDelete: Cascade)
-  doctorId  Int
+  id          Int         @id @default(autoincrement())
+  date        DateTime    @default(now())
+  tests       VisitTest[]
+  Patient     Patient?    @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  patientId   Int?
+  doctor      Doctor      @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  doctorId    Int
+  testPrinted Boolean     @default(false)
+  billPrinted Boolean     @default(false)
 }
 
 model VisitTest {

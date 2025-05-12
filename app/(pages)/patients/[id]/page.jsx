@@ -29,6 +29,11 @@ function PatientPage({ params }) {
   };
 
   useEffect(() => {
+    if (patient.hasOwnProperty("name"))
+      document.title = patient.name + " (صفحة مريض)";
+  }, [patient]);
+
+  useEffect(() => {
     getPatient();
   }, []);
 

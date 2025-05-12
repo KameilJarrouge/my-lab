@@ -34,6 +34,8 @@ function NewVisit({ params }) {
   const [totalPrice, setTotalPrice] = useState(0);
   const [uniqueNumbering, setUniqueNumbering] = useState(0);
   const [overrideSerologyUnits, setOverrideSerologyUnits] = useState(true);
+  const [isAllCollapsed, setIsAllCollapsed] = useState(false);
+
   const router = useRouter();
 
   const getUnitPrice = async () => {
@@ -322,6 +324,11 @@ function NewVisit({ params }) {
   };
 
   useEffect(() => {
+    if (patient.hasOwnProperty("name"))
+      document.title = patient.name + " (زيارة جديدة)";
+  }, [patient]);
+
+  useEffect(() => {
     getDoctors();
     getPatient();
     getUnitPrice();
@@ -398,6 +405,7 @@ function NewVisit({ params }) {
             التكلفة: {numberWithCommas(totalPrice)} ل.س
           </span>
         </div>
+
         <div className="flex gap-2 items-center">
           {/* <AuthButton
             title="إعدادات الطباعة"
@@ -407,14 +415,25 @@ function NewVisit({ params }) {
         </div>
       </div>
       {/* New Test */}
-      <NewTestMenu
-        setIsLoading={setIsLoading}
-        setNewTest={addTest}
-        setUniqueNumbering={setUniqueNumbering}
-        uniqueNumbering={uniqueNumbering}
-        addMultipleTests={addMultipleTests}
-      />
-
+      <div className="flex w-full relative">
+        <NewTestMenu
+          setIsLoading={setIsLoading}
+          setNewTest={addTest}
+          setUniqueNumbering={setUniqueNumbering}
+          uniqueNumbering={uniqueNumbering}
+          addMultipleTests={addMultipleTests}
+        />
+        <div className="absolute top-0 right-0 flex gap-2 items-center ">
+          <AuthButton
+            title="طي التحاليل"
+            onClick={() => setIsAllCollapsed(true)}
+          />
+          <AuthButton
+            title="فرد تحاليل"
+            onClick={() => setIsAllCollapsed(false)}
+          />
+        </div>
+      </div>
       {/* Tests */}
       <div className="w-full min-h-[50vh] h-fit flex flex-col items-center gap-3 px-3 pb-2  overflow-y-auto overflow-x-hidden">
         {tests.map((test, index) => (
@@ -423,6 +442,7 @@ function NewVisit({ params }) {
             index={index}
             test={test}
             unitPrice={unitPrice}
+            isAllCollapsed={isAllCollapsed}
             removeTest={() => removeTest(index)}
             patientId={params.id}
             dateInQuestion={createdAt}

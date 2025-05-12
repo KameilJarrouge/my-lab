@@ -12,6 +12,8 @@ function TestTemplateCard({
   removeTest,
   unitPrice,
   templateInput,
+  isAllCollapsed,
+
   patientId,
   dateInQuestion,
   toggleTestVisibility,
@@ -21,6 +23,11 @@ function TestTemplateCard({
   const [lastTest, setLastTest] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    setAreChildrenVisible(!isAllCollapsed);
+  }, [isAllCollapsed]);
+
   const getLastTest = async () => {
     setIsLoading(true);
     const result = await api.get(

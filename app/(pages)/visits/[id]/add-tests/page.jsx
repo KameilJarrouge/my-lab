@@ -34,6 +34,7 @@ function AppendVisitTests({ params }) {
   const [totalPrice, setTotalPrice] = useState(0);
   const [uniqueNumbering, setUniqueNumbering] = useState(0);
   const [overrideSerologyUnits, setOverrideSerologyUnits] = useState(true);
+  const [isAllCollapsed, setIsAllCollapsed] = useState(false);
   const router = useRouter();
 
   const getUnitPrice = async () => {
@@ -50,6 +51,11 @@ function AppendVisitTests({ params }) {
     }
     setUnitPrice(result.data.result.unitPrice);
   };
+
+  useEffect(() => {
+    if (patient.hasOwnProperty("name"))
+      document.title = patient.name + " (إضافة تحاليل لزيارة)";
+  }, [patient]);
 
   const submitVisit = async () => {
     // Handle errors
@@ -333,13 +339,25 @@ function AppendVisitTests({ params }) {
         </div>
       </div>
       {/* New Test */}
-      <NewTestMenu
-        setIsLoading={setIsLoading}
-        setNewTest={addTest}
-        setUniqueNumbering={setUniqueNumbering}
-        uniqueNumbering={uniqueNumbering}
-        addMultipleTests={addMultipleTests}
-      />
+      <div className="flex w-full relative">
+        <NewTestMenu
+          setIsLoading={setIsLoading}
+          setNewTest={addTest}
+          setUniqueNumbering={setUniqueNumbering}
+          uniqueNumbering={uniqueNumbering}
+          addMultipleTests={addMultipleTests}
+        />
+        <div className="absolute top-0 right-0 flex gap-2 items-center ">
+          <AuthButton
+            title="طي التحاليل"
+            onClick={() => setIsAllCollapsed(true)}
+          />
+          <AuthButton
+            title="فرد تحاليل"
+            onClick={() => setIsAllCollapsed(false)}
+          />
+        </div>
+      </div>
 
       {/* Tests */}
       <div className="w-full min-h-[50vh] h-fit flex flex-col items-center gap-3 px-3 pb-2  overflow-y-auto overflow-x-hidden">
@@ -348,6 +366,7 @@ function AppendVisitTests({ params }) {
             key={test.id}
             index={index}
             test={test}
+            isAllCollapsed={isAllCollapsed}
             unitPrice={unitPrice}
             removeTest={() => removeTest(index)}
             patientId={params.id}

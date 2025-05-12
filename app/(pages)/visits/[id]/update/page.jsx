@@ -26,8 +26,13 @@ function UpdateVisit({ params }) {
   const [unitPrice, setUnitPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [confirmIsOpen, setConfirmIsOpen] = useState(false);
-
+  const [isAllCollapsed, setIsAllCollapsed] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    if (patient.hasOwnProperty("name"))
+      document.title = patient.name + " (تعديل زيارة)";
+  }, [patient]);
 
   const getUnitPrice = async () => {
     setIsLoading(true);
@@ -258,6 +263,14 @@ function UpdateVisit({ params }) {
             title="إضافة تحاليل"
             onClick={() => router.push(`/visits/${params.id}/add-tests`)}
           />
+          <AuthButton
+            title="طي التحاليل"
+            onClick={() => setIsAllCollapsed(true)}
+          />
+          <AuthButton
+            title="فرد تحاليل"
+            onClick={() => setIsAllCollapsed(false)}
+          />
         </div>
       </div>
       {/* Tests */}
@@ -266,6 +279,7 @@ function UpdateVisit({ params }) {
           <TestTemplateCardUpdate
             key={index}
             index={index}
+            isAllCollapsed={isAllCollapsed}
             visitTest={test}
             triggerRefresh={getVisit}
             unitPrice={unitPrice}
