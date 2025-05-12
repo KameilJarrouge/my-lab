@@ -27,6 +27,7 @@ function UpdateVisit({ params }) {
   const [totalPrice, setTotalPrice] = useState(0);
   const [confirmIsOpen, setConfirmIsOpen] = useState(false);
   const [isAllCollapsed, setIsAllCollapsed] = useState(false);
+  const [printStatus, setPrintStatus] = useState({ test: false, bill: false });
   const router = useRouter();
 
   useEffect(() => {
@@ -130,6 +131,10 @@ function UpdateVisit({ params }) {
       );
       return;
     }
+    setPrintStatus({
+      test: result.data.result.testPrinted,
+      bill: result.data.result.billPrinted,
+    });
     setPatient(result.data.result.Patient);
     setDoctor(result.data.result.doctor.name);
     setCreatedAt(result.data.result.date);
@@ -237,18 +242,32 @@ function UpdateVisit({ params }) {
           </div>
           <div className="flex gap-2 items-center">
             <button
-              className="text-text hover:text-green-400"
+              className={` ${
+                printStatus.bill ? "text-green-400" : "text-text"
+              } hover:text-green-400`}
               data-tooltip-id="my-tooltip"
               data-tooltip-content="طباعة الفاتورة"
-              onClick={() => router.push(`/print/${params.id}/invoice`)}
+              onClick={() => {
+                if (printStatus.bill)
+                  if (!confirm("الفاتورة مطبوعة من قبل! هل تريد المتابعة؟"))
+                    return;
+                router.push(`/print/${params.id}/invoice`);
+              }}
             >
               <FaFileInvoiceDollar className="w-[1.3rem] h-fit" />
             </button>
             <button
-              className="text-text hover:text-green-400"
+              className={` ${
+                printStatus.test ? "text-green-400" : "text-text"
+              } hover:text-green-400`}
               data-tooltip-id="my-tooltip"
               data-tooltip-content="طباعة النتائج"
-              onClick={() => router.push(`/print/${params.id}`)}
+              onClick={() => {
+                if (printStatus.test)
+                  if (!confirm("الزيارة مطبوعة من قبل! هل تريد المتابعة؟"))
+                    return;
+                router.push(`/print/${params.id}`);
+              }}
             >
               <MdPrint className="w-[1.3rem] h-fit" />
             </button>

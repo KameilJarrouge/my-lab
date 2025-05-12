@@ -57,18 +57,32 @@ function VisitCard({ visit, alterBg = false }) {
             <AuthButton title="تعديل الزيارة" />
           </Link>
           <button
-            className="text-text hover:text-green-400"
+            className={` ${
+              visit.billPrinted ? "text-green-400" : "text-text"
+            } hover:text-green-400`}
             data-tooltip-id="my-tooltip"
             data-tooltip-content="طباعة الفاتورة"
-            onClick={() => router.push(`/print/${visit.id}/invoice`)}
+            onClick={() => {
+              if (visit.billPrinted)
+                if (!confirm("الفاتورة مطبوعة من قبل! هل تريد المتابعة؟"))
+                  return;
+              router.push(`/print/${visit.id}/invoice`);
+            }}
           >
             <FaFileInvoiceDollar className="w-[1.3rem] h-fit" />
           </button>
           <button
-            className="text-text hover:text-green-400"
+            className={` ${
+              visit.testPrinted ? "text-green-400" : "text-text"
+            } hover:text-green-400`}
             data-tooltip-id="my-tooltip"
             data-tooltip-content="طباعة النتائج"
-            onClick={() => router.push(`/print/${visit.id}`)}
+            onClick={() => {
+              if (visit.testPrinted)
+                if (!confirm("الزيارة مطبوعة من قبل! هل تريد المتابعة؟"))
+                  return;
+              router.push(`/print/${visit.id}`);
+            }}
           >
             <MdPrint className="w-[1.3rem] h-fit" />
           </button>

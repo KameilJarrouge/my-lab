@@ -24,6 +24,14 @@ export async function getVisit(id) {
   return successReturn(result);
 }
 export async function getVisitForPrinting(id) {
+  // mark the visit as test printed
+  await prisma.visit.update({
+    where: { id: id },
+    data: {
+      testPrinted: true,
+    },
+  });
+
   const result = await prisma.visit.findUnique({
     where: {
       id: id,
@@ -49,6 +57,13 @@ export async function getVisitForPrinting(id) {
 }
 
 export async function getVisitForInvoice(id) {
+  // mark the visit as test printed
+  await prisma.visit.update({
+    where: { id: id },
+    data: {
+      billPrinted: true,
+    },
+  });
   const result = await prisma.visit.findUnique({
     where: {
       id: id,
