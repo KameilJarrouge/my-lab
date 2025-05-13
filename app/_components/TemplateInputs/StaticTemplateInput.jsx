@@ -28,6 +28,8 @@ import HemoglobinTemplateInput from "./PresetTemplates/HemoglobinTemplateInput";
 import BloodFilmTemplateInput from "./PresetTemplates/BloodFilmTemplateInput";
 import HematologyCoagulationLeucocytesTemplateInput from "./PresetTemplates/HematologyCoagulationLeucocytesTemplateInput";
 import HematologyCoagulationErythrocytesTemplateInput from "./PresetTemplates/HematologyCoagulationErythrocytesTemplateInput";
+import AuthButton from "../Buttons/AuthButton";
+import getEmptyResult from "./Empty/emptyResult";
 
 function StaticTemplateInput({
   test,
@@ -46,6 +48,27 @@ function StaticTemplateInput({
       setResult(getDefaultResult(test.test.template.staticTemplate));
     }
     setIsDirty(false);
+  };
+
+  const handleSetDefault = () => {
+    if (
+      !confirm(
+        "هل تريد إدخال النتائج الافتراضية في هذا التحليل؟ في حال لم يتم حفظ نتائج سابقة لا يمكن استعادة النتائج."
+      )
+    )
+      return;
+    setResult(getDefaultResult(test.test.template.staticTemplate));
+    setIsDirty(true);
+  };
+  const handleSetEmpty = () => {
+    if (
+      !confirm(
+        "هل تريد إدخال نتائج فارغة في هذا التحليل؟ في حال لم يتم حفظ نتائج سابقة لا يمكن استعادة النتائج."
+      )
+    )
+      return;
+    setResult(getEmptyResult(test.test.template.staticTemplate));
+    setIsDirty(true);
   };
 
   const handleSave = async () => {
@@ -194,6 +217,10 @@ function StaticTemplateInput({
 
   return (
     <div className="w-full flex flex-col gap-4 relative">
+      <div className="w-fit h-fit absolute bottom-0 right-0 flex gap-2">
+        <AuthButton title="نتائج فارغة" onClick={handleSetEmpty} />
+        <AuthButton title="نتائج افتراضية" onClick={handleSetDefault} />
+      </div>
       {
         {
           "تحليل البول Urinalysis": (
