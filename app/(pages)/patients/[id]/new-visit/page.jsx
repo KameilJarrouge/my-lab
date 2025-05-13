@@ -34,7 +34,7 @@ function NewVisit({ params }) {
   const [totalPrice, setTotalPrice] = useState(0);
   const [uniqueNumbering, setUniqueNumbering] = useState(0);
   const [overrideSerologyUnits, setOverrideSerologyUnits] = useState(true);
-  const [isAllCollapsed, setIsAllCollapsed] = useState(false);
+  const [isAllCollapsed, setIsAllCollapsed] = useState(null);
 
   const router = useRouter();
 
@@ -443,6 +443,7 @@ function NewVisit({ params }) {
             test={test}
             unitPrice={unitPrice}
             isAllCollapsed={isAllCollapsed}
+            setIsAllCollapsed={setIsAllCollapsed}
             removeTest={() => removeTest(index)}
             patientId={params.id}
             dateInQuestion={createdAt}

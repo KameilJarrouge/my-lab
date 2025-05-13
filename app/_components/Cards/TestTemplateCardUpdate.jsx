@@ -13,6 +13,7 @@ function TestTemplateCardUpdate({
   removeTest,
   unitPrice,
   isAllCollapsed,
+  setIsAllCollapsed,
   templateInput,
   patientId,
   triggerRefresh,
@@ -25,7 +26,10 @@ function TestTemplateCardUpdate({
   const [visible, setVisible] = useState(visitTest.visible);
 
   useEffect(() => {
+    if (isAllCollapsed === null) return;
+
     setAreChildrenVisible(!isAllCollapsed);
+    setIsAllCollapsed(null);
   }, [isAllCollapsed]);
 
   const getLastTest = async () => {

@@ -26,7 +26,7 @@ function UpdateVisit({ params }) {
   const [unitPrice, setUnitPrice] = useState(0);
   const [totalPrice, setTotalPrice] = useState(0);
   const [confirmIsOpen, setConfirmIsOpen] = useState(false);
-  const [isAllCollapsed, setIsAllCollapsed] = useState(false);
+  const [isAllCollapsed, setIsAllCollapsed] = useState(null);
   const [printStatus, setPrintStatus] = useState({ test: false, bill: false });
   const router = useRouter();
 
@@ -299,6 +299,7 @@ function UpdateVisit({ params }) {
             key={index}
             index={index}
             isAllCollapsed={isAllCollapsed}
+            setIsAllCollapsed={setIsAllCollapsed}
             visitTest={test}
             triggerRefresh={getVisit}
             unitPrice={unitPrice}

@@ -34,7 +34,7 @@ function AppendVisitTests({ params }) {
   const [totalPrice, setTotalPrice] = useState(0);
   const [uniqueNumbering, setUniqueNumbering] = useState(0);
   const [overrideSerologyUnits, setOverrideSerologyUnits] = useState(true);
-  const [isAllCollapsed, setIsAllCollapsed] = useState(false);
+  const [isAllCollapsed, setIsAllCollapsed] = useState(null);
   const router = useRouter();
 
   const getUnitPrice = async () => {
@@ -369,6 +369,7 @@ function AppendVisitTests({ params }) {
             isAllCollapsed={isAllCollapsed}
             unitPrice={unitPrice}
             removeTest={() => removeTest(index)}
+            setIsAllCollapsed={setIsAllCollapsed}
             patientId={params.id}
             dateInQuestion={createdAt}
             overrideSerologyUnits={overrideSerologyUnits}
