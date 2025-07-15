@@ -29,7 +29,7 @@ const micros2 = [
 function SemenAnalysisTemplatePrint({ template }) {
   return (
     <div
-      className="flex flex-col  gap-5 border-b border-dashed border-gray-400 pb-1 w-full h-fit text-sm px-2 overflow-hidden"
+      className="flex flex-col  gap-5 pb-1 w-full h-fit text-sm px-2 overflow-hidden"
       dir="ltr"
     >
       <span className="border-b border-text font-semibold w-fit">

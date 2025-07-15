@@ -6,6 +6,8 @@ import moment from "moment";
 import { MdChevronRight } from "react-icons/md";
 import { toast } from "react-toastify";
 import api from "@/app/_lib/api";
+import { MdCheck } from "react-icons/md";
+import NoteUpdateModal from "../Modals/NoteUpdateModal";
 
 function ManualTemplateInputUpdate({
   visitTest,
@@ -15,6 +17,20 @@ function ManualTemplateInputUpdate({
 }) {
   const [result, setResult] = useState(visitTest.template.result?.value || "");
   const [isDirty, setIsDirty] = useState(false);
+  const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
+  const [note, setNote] = useState(visitTest.note);
+  const handleNoteRestore = () => {
+    setNote(visitTest.note);
+  };
+
+  const handleUpdateNote = async () => {
+    setIsLoading(true);
+    const result = await api.put(`/visit-tests/${visitTest.id}/update-note`, {
+      note: note,
+    });
+    triggerRefresh();
+    setIsLoading(false);
+  };
 
   useEffect(() => {
     if (result !== (visitTest.template.result?.value || "")) {
@@ -56,7 +72,20 @@ function ManualTemplateInputUpdate({
   };
 
   return (
-    <div className="w-full flex flex-col gap-4">
+    <div className="w-full flex flex-col gap-4 relative">
+      <NoteUpdateModal
+        isOpen={isNoteModalOpen}
+        setIsOpen={setIsNoteModalOpen}
+        uniqueName={visitTest.Test.name}
+        note={note}
+        setNote={setNote}
+        save={handleUpdateNote}
+        restore={handleNoteRestore}
+      />
+      <div className="w-fit h-fit absolute bottom-0 right-0 flex gap-2 items-center">
+        <AuthButton title="ملاحظات" onClick={() => setIsNoteModalOpen(true)} />
+        {note !== null && <MdCheck className="text-green-500" />}
+      </div>
       <div className="w-full grid grid-cols-4 items-center gap-5 " dir="ltr">
         <span className="w-full text-center">Result</span>
         <span className="w-full text-center">Reference Range</span>

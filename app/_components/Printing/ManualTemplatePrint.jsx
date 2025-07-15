@@ -1,5 +1,6 @@
 import moment from "moment";
 import React from "react";
+import NotePrintDisplay from "../Notes/NotePrintDisplay";
 
 function ManualTemplatePrint({
   id,
@@ -14,6 +15,7 @@ function ManualTemplatePrint({
   unit,
   lastTestResult,
   lastTestDate,
+  note,
 }) {
   return (
     <div
@@ -72,6 +74,7 @@ function ManualTemplatePrint({
           <span>{"-"}</span>
         )}
       </div>
+      <NotePrintDisplay note={note} />
     </div>
   );
 }

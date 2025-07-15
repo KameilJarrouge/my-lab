@@ -2,7 +2,7 @@ import React from "react";
 
 function HemoglobinTemplatePrint({ template }) {
   return (
-    <div className="flex flex-col gap-y-0.5 w-full border-b border-dashed border-gray-400 pb-1">
+    <div className="flex flex-col gap-y-0.5 w-full pb-1">
       <div className="flex items-center gap-8" dir="ltr">
         <div className="w-[25ch] flex justify-between">
           <span>Hemoglobin</span>

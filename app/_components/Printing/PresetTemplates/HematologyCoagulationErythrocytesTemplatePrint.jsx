@@ -8,10 +8,7 @@ function HematologyCoagulationErythrocytesTemplatePrint({
   lastTestDate,
 }) {
   return (
-    <div
-      className="flex flex-col w-full h-fit gap-2 relative  border-b border-dashed border-gray-400 pb-1 "
-      dir="ltr"
-    >
+    <div className="flex flex-col w-full h-fit gap-2 relative  pb-1 " dir="ltr">
       <RowC
         row={11}
         state={template.result}

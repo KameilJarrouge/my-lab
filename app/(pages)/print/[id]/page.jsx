@@ -551,7 +551,7 @@ function PrintPage({ params }) {
                           key={catIndex}
                           className={` ${
                             groupedVisitTest.indicatorIndex ===
-                              categoryIndicator && " bg-gray-200"
+                              categoryIndicator && " bg-gray-100"
                           }  print:bg-transparent`}
                         >
                           <ManualTestsHeader
@@ -587,6 +587,7 @@ function PrintPage({ params }) {
                                     visitTest.lastVisitTest?.template.result
                                       .value || undefined
                                   }
+                                  note={visitTest.note}
                                 />
                               );
                               // }
@@ -605,7 +606,7 @@ function PrintPage({ params }) {
                           key={catIndex}
                           className={` ${
                             groupedVisitTest.indicatorIndex ===
-                              categoryIndicator && " bg-gray-200"
+                              categoryIndicator && " bg-gray-100"
                           }   print:bg-transparent`}
                         >
                           <StaticTestHeader
@@ -627,6 +628,7 @@ function PrintPage({ params }) {
                               groupedVisitTest.visitTest.lastVisitTest?.template
                                 .result || undefined
                             }
+                            note={groupedVisitTest.visitTest.note}
                           />
                         </div>
                       );
@@ -682,6 +684,7 @@ function PrintPage({ params }) {
                               visitTest.lastVisitTest?.template.result.value ||
                               undefined
                             }
+                            note={visitTest.note}
                           />
                         );
                         // }
@@ -710,6 +713,7 @@ function PrintPage({ params }) {
                           groupedVisitTest.visitTest.lastVisitTest?.template
                             .result || undefined
                         }
+                        note={groupedVisitTest.visitTest.note}
                       />
                     </>
                   );

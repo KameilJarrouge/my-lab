@@ -1,9 +1,10 @@
 "use client";
 import React from "react";
+import NotePrintDisplay from "../../Notes/NotePrintDisplay";
 
 function UrinalysisTemplatePrint({ template }) {
   return (
-    <div className="flex flex-col items-end gap-0.5 w-full h-full  border-b border-dashed border-gray-400  ">
+    <div className="flex flex-col items-end gap-0.5 w-full h-full  ">
       <span className=" border-black border-b w-fit font-semibold">
         تحليل البول URINALYSIS
       </span>

@@ -30,6 +30,8 @@ import HematologyCoagulationLeucocytesTemplateInput from "./PresetTemplates/Hema
 import HematologyCoagulationErythrocytesTemplateInput from "./PresetTemplates/HematologyCoagulationErythrocytesTemplateInput";
 import AuthButton from "../Buttons/AuthButton";
 import getEmptyResult from "./Empty/emptyResult";
+import NoteModal from "../Modals/NoteModal";
+import { MdCheck } from "react-icons/md";
 
 function StaticTemplateInput({
   test,
@@ -39,6 +41,8 @@ function StaticTemplateInput({
 }) {
   const [result, setResult] = useState(test.test.template.result || {});
   const [isDirty, setIsDirty] = useState(false);
+  const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
+  const [note, setNote] = useState(null);
 
   const handleRestore = () => {
     if (test.test.template.hasOwnProperty("result")) {
@@ -175,6 +179,17 @@ function StaticTemplateInput({
     setIsDirty(false);
   };
 
+  useEffect(() => {
+    if (!isNoteModalOpen) handleSaveNote();
+  }, [isNoteModalOpen]);
+
+  const handleSaveNote = () => {
+    const readyTest = test;
+    readyTest.test.template.note = note;
+
+    updateTemplate(readyTest);
+  };
+
   const handleUpdateState = (row, value, shouldBeANumber = true) => {
     if (isNaN(value) && shouldBeANumber) return;
 
@@ -217,9 +232,18 @@ function StaticTemplateInput({
 
   return (
     <div className="w-full flex flex-col gap-4 relative">
-      <div className="w-fit h-fit absolute bottom-0 right-0 flex gap-2">
+      <NoteModal
+        isOpen={isNoteModalOpen}
+        setIsOpen={setIsNoteModalOpen}
+        uniqueName={test.test.name}
+        note={note}
+        setNote={setNote}
+      />
+      <div className="w-fit h-fit absolute bottom-0 right-0 flex gap-2 items-center">
         <AuthButton title="نتائج فارغة" onClick={handleSetEmpty} />
         <AuthButton title="نتائج افتراضية" onClick={handleSetDefault} />
+        <AuthButton title="ملاحظات" onClick={() => setIsNoteModalOpen(true)} />
+        {note !== null && <MdCheck className="text-green-500" />}
       </div>
       {
         {

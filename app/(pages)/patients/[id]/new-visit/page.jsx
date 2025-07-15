@@ -249,6 +249,7 @@ function NewVisit({ params }) {
         visitId: newVisitResult.data.result.id,
         testId: testItem.test.id,
         visible: testItem.visible,
+        note: testItem.test.template.note,
       };
     });
 

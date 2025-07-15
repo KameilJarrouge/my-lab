@@ -40,6 +40,18 @@ export async function updateVisitTestTemplate(id, data) {
   return successReturn();
 }
 
+export async function updateVisitTestNote(id, data) {
+  await prisma.visitTest.update({
+    where: {
+      id: id,
+    },
+    data: {
+      note: data.note,
+    },
+  });
+  return successReturn();
+}
+
 export async function deleteVisitTest(id) {
   await prisma.visitTest.delete({ where: { id: id } });
   return successReturn();

@@ -16,17 +16,24 @@ import HemoglobinTemplatePrint from "./PresetTemplates/HemoglobinTemplatePrint";
 import BloodFilmTemplatePrint from "./PresetTemplates/BloodFilmTemplatePrint";
 import HematologyCoagulationLeucocytesTemplatePrint from "./PresetTemplates/HematologyCoagulationLeucocytesTemplatePrint";
 import HematologyCoagulationErythrocytesTemplatePrint from "./PresetTemplates/HematologyCoagulationErythrocytesTemplatePrint";
+import NotePrintDisplay from "../Notes/NotePrintDisplay";
 
-function StaticTemplatePrint({ id, template, lastTestResult, lastTestDate }) {
+function StaticTemplatePrint({
+  id,
+  template,
+  lastTestResult,
+  lastTestDate,
+  note,
+}) {
   return (
     <div
-      className="flex flex-col gap-6 w-full items-center pt-[2mm]"
+      className="flex flex-col  w-full items-center pt-[2mm] border-b border-dashed border-gray-400"
       id={"static-template-print-" + id}
     >
       {
         {
           "تحليل البول Urinalysis": (
-            <UrinalysisTemplatePrint template={template} />
+            <UrinalysisTemplatePrint template={template} note={note} />
           ),
           "Hematology - Coagulation": (
             <HematologyCoagulationTemplatePrint
@@ -72,7 +79,8 @@ function StaticTemplatePrint({ id, template, lastTestResult, lastTestDate }) {
           Hemoglobin: <HemoglobinTemplatePrint template={template} />,
           "Blood Film": <BloodFilmTemplatePrint template={template} />,
         }[template.staticTemplate]
-      }
+      }{" "}
+      <NotePrintDisplay note={note} />
     </div>
   );
 }

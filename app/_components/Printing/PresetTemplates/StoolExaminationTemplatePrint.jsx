@@ -161,10 +161,7 @@ const templateArr = [
 
 function StoolExaminationTemplatePrint({ template }) {
   return (
-    <div
-      className="flex flex-col w-full gap-2 h-full text-sm border-b border-dashed border-gray-400 pb-1"
-      dir="ltr"
-    >
+    <div className="flex flex-col w-full gap-2 h-full text-sm pb-1" dir="ltr">
       <div className="border-b border-b-light_primary w-fit">
         STOOL EXAMINATION تحليل البراز
       </div>

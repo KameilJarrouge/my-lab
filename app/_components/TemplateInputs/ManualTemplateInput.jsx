@@ -5,10 +5,14 @@ import AuthButton from "../Buttons/AuthButton";
 import moment from "moment";
 import { MdChevronRight } from "react-icons/md";
 import { toast } from "react-toastify";
+import NoteModal from "../Modals/NoteModal";
+import { MdCheck } from "react-icons/md";
 
 function ManualTemplateInput({ test, updateTemplate, lastTest }) {
   const [result, setResult] = useState(test.test.template.result?.value || "");
   const [isDirty, setIsDirty] = useState(false);
+  const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
+  const [note, setNote] = useState(null);
 
   useEffect(() => {
     if (result !== (test.test.template.result?.value || "")) {
@@ -36,8 +40,30 @@ function ManualTemplateInput({ test, updateTemplate, lastTest }) {
     setIsDirty(false);
   };
 
+  useEffect(() => {
+    if (!isNoteModalOpen) handleSaveNote();
+  }, [isNoteModalOpen]);
+
+  const handleSaveNote = () => {
+    const readyTest = test;
+    readyTest.test.template.note = note;
+
+    updateTemplate(readyTest);
+  };
+
   return (
-    <div className="w-full flex flex-col gap-4">
+    <div className="w-full flex flex-col gap-4 relative">
+      <NoteModal
+        isOpen={isNoteModalOpen}
+        setIsOpen={setIsNoteModalOpen}
+        uniqueName={test.test.name}
+        note={note}
+        setNote={setNote}
+      />
+      <div className="w-fit h-fit absolute bottom-0 right-0 flex gap-2 items-center">
+        <AuthButton title="ملاحظات" onClick={() => setIsNoteModalOpen(true)} />
+        {note !== null && <MdCheck className="text-green-500" />}
+      </div>
       <div className="w-full grid grid-cols-4 items-center gap-5 " dir="ltr">
         <span className="w-full text-center">Result</span>
         <span className="w-full text-center">Reference Range</span>

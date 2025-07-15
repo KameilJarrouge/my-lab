@@ -3,7 +3,7 @@ import { GoDash, GoDotFill } from "react-icons/go";
 
 function BloodFilmTemplatePrint({ template }) {
   return (
-    <div className="flex flex-col gap-4 w-full border-b border-dashed border-gray-400 pb-1">
+    <div className="flex flex-col gap-4 w-full pb-1">
       <div className="flex justify-between">
         <span className="font-semibold border-b border-black">
           دراسة لطاخة محيطية

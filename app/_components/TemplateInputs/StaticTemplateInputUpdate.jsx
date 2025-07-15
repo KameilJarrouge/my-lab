@@ -30,6 +30,8 @@ import HematologyCoagulationErythrocytesTemplateInput from "./PresetTemplates/He
 import AuthButton from "../Buttons/AuthButton";
 import getEmptyResult from "./Empty/emptyResult";
 import getDefaultResult from "./Defaults/defaultResult";
+import { MdCheck } from "react-icons/md";
+import NoteUpdateModal from "../Modals/NoteUpdateModal";
 
 function StaticTemplateInputUpdate({
   visitTest,
@@ -39,6 +41,21 @@ function StaticTemplateInputUpdate({
 }) {
   const [result, setResult] = useState(visitTest.template.result || {});
   const [isDirty, setIsDirty] = useState(false);
+  const [isNoteModalOpen, setIsNoteModalOpen] = useState(false);
+  const [note, setNote] = useState(visitTest.note);
+
+  const handleNoteRestore = () => {
+    setNote(visitTest.note);
+  };
+
+  const handleUpdateNote = async () => {
+    setIsLoading(true);
+    const result = await api.put(`/visit-tests/${visitTest.id}/update-note`, {
+      note: note,
+    });
+    triggerRefresh();
+    setIsLoading(false);
+  };
 
   const handleRestore = () => {
     if (visitTest.template.hasOwnProperty("result")) {
@@ -202,9 +219,20 @@ function StaticTemplateInputUpdate({
 
   return (
     <div className="w-full flex flex-col gap-4 relative">
-      <div className="w-fit h-fit absolute bottom-0 right-0 flex gap-2">
+      <NoteUpdateModal
+        isOpen={isNoteModalOpen}
+        setIsOpen={setIsNoteModalOpen}
+        uniqueName={visitTest.Test.name}
+        note={note}
+        setNote={setNote}
+        save={handleUpdateNote}
+        restore={handleNoteRestore}
+      />
+      <div className="w-fit h-fit absolute bottom-0 right-0 flex gap-2 items-center">
         <AuthButton title="نتائج فارغة" onClick={handleSetEmpty} />
         <AuthButton title="نتائج افتراضية" onClick={handleSetDefault} />
+        <AuthButton title="ملاحظات" onClick={() => setIsNoteModalOpen(true)} />
+        {note !== null && <MdCheck className="text-green-500" />}
       </div>
       {
         {

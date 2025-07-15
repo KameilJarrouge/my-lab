@@ -3,9 +3,7 @@ import React from "react";
 function BloodTypeTemplatePrint({ template }) {
   return (
     <div
-      className={
-        "flex w-full gap-5 items-center px-4 border-b border-dashed border-gray-400 pb-1 text-sm"
-      }
+      className={"flex w-full gap-5 items-center px-4 pb-1 text-sm"}
       dir="ltr"
     >
       <span className="w-[10ch] text-center">Blood Group</span>

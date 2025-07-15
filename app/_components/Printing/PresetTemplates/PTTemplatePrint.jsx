@@ -6,7 +6,7 @@ function PTTemplatePrint({ template }) {
   return (
     <div
       className={
-        "grid grid-cols-7 w-full items-center gap-2 px-4 border-b border-dashed border-gray-400 pb-1 text-sm"
+        "grid grid-cols-7 w-full items-center gap-2 px-4  pb-1 text-sm"
       }
       dir="ltr"
     >

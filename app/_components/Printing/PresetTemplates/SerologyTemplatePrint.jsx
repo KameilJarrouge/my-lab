@@ -3,10 +3,7 @@ import React from "react";
 
 function SerologyTemplatePrint({ template }) {
   return (
-    <div
-      className="flex flex-col gap-6 text-sm w-full border-b border-dashed border-gray-400 pb-1 "
-      dir="ltr"
-    >
+    <div className="flex flex-col gap-6 text-sm w-full  pb-1 " dir="ltr">
       {(template.result.selectedTest === "Both" ||
         template.result.selectedTest === "Wright") && (
         <div className="flex items-center gap-4">

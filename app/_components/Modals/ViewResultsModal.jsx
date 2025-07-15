@@ -4,6 +4,7 @@ import Title from "../Title";
 import ManualTemplateResult from "../Results/ManualTemplateResult";
 import StaticTemplateResult from "../Results/StaticTemplateResult";
 import moment from "moment";
+import NoteDisplay from "../Notes/NoteDisplay";
 
 function ViewResultsModal({ test, isOpen, setIsOpen, date }) {
   const template = JSON.parse(test.template);
@@ -29,6 +30,7 @@ function ViewResultsModal({ test, isOpen, setIsOpen, date }) {
             <StaticTemplateResult template={template} />
           </div>
         )}
+        <NoteDisplay note={test.note} />
       </div>
     </Modal>
   );
