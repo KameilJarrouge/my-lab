@@ -24,8 +24,8 @@ function NotePrintDisplay({ note }) {
           : "اضغط لإخفاء الملاحظات عن الطباعة"}
       </div>
 
-      {note.split("\n").map((line) => (
-        <span>{line}</span>
+      {note.split("\n").map((line, index) => (
+        <span key={index}>{line}</span>
       ))}
     </div>
   );
