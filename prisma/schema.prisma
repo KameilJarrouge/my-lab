@@ -29,6 +29,7 @@ model Arbitrary {
   Serology                String?
   SemenAnalysis           String?
   StoolExamination        String?
+  CSF                     String?
 }
 
 model User {

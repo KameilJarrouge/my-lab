@@ -175,6 +175,15 @@ const BloodFilm = {
   Platelet: "طبيعية الشكل والعدد والحجم.",
 };
 
+const CSF = {
+  Color: "-",
+  Appearance: "-",
+  WBC: "-",
+  RBC: "-",
+  Glucose: "-",
+  Protein: "-",
+};
+
 export default function getEmptyResult(staticTemplate) {
   switch (staticTemplate) {
     case "تحليل البول Urinalysis":
@@ -211,5 +220,7 @@ export default function getEmptyResult(staticTemplate) {
       return Hemoglobin;
     case "Blood Film":
       return BloodFilm;
+    case "CSF":
+      return CSF;
   }
 }

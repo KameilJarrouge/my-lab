@@ -174,6 +174,14 @@ const BloodFilm = {
   RBC: "طبيعية الشكل والصباغ والحجم.",
   Platelet: "طبيعية الشكل والعدد والحجم.",
 };
+const CSF = {
+  Color: "",
+  Appearance: "",
+  WBC: "",
+  RBC: "",
+  Glucose: "",
+  Protein: "",
+};
 
 export default function getDefaultResult(staticTemplate) {
   switch (staticTemplate) {
@@ -211,5 +219,7 @@ export default function getDefaultResult(staticTemplate) {
       return Hemoglobin;
     case "Blood Film":
       return BloodFilm;
+    case "CSF":
+      return CSF;
   }
 }

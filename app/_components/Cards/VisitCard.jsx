@@ -51,7 +51,7 @@ function VisitCard({ visit, alterBg = false }) {
             {"التكلفة الإجمالية : " + numberWithCommas(totalPrice) + " ل.س"}
           </span>
         </div>
-        <div className="flex gap-6 items-center pl-2">
+        <div className="flex gap-3 items-center pl-2">
           {/* actions and links */}
           <Link href={`/visits/${visit.id}/update`}>
             <AuthButton title="تعديل الزيارة" />

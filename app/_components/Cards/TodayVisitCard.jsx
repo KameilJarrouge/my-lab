@@ -37,7 +37,7 @@ function TodayVisitCard({ visit }) {
         <span className="text-dark_text/60">•</span>
         <span>{"عدد التحاليل : " + visit._count.tests}</span>
       </div>
-      <div className="flex gap-4 items-center pl-2">
+      <div className="flex gap-3 items-center pl-2">
         {/* actions and links */}
         <Link href={`/patients/${visit.Patient.id}`}>
           <AuthButton title="صفحة المريض" />

@@ -245,7 +245,7 @@ function UpdateVisit({ params }) {
             </span>
             <AuthButton title="تعديل" onClick={updateVisit} />
           </div>
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-3 items-center">
             <button
               className={` ${
                 printStatus.bill ? "text-green-400" : "text-text"

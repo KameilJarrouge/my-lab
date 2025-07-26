@@ -17,6 +17,7 @@ import BloodFilmTemplatePrint from "./PresetTemplates/BloodFilmTemplatePrint";
 import HematologyCoagulationLeucocytesTemplatePrint from "./PresetTemplates/HematologyCoagulationLeucocytesTemplatePrint";
 import HematologyCoagulationErythrocytesTemplatePrint from "./PresetTemplates/HematologyCoagulationErythrocytesTemplatePrint";
 import NotePrintDisplay from "../Notes/NotePrintDisplay";
+import CSFTemplatePrint from "./PresetTemplates/CSFTemplatePrint";
 
 function StaticTemplatePrint({
   id,
@@ -78,6 +79,7 @@ function StaticTemplatePrint({
           ),
           Hemoglobin: <HemoglobinTemplatePrint template={template} />,
           "Blood Film": <BloodFilmTemplatePrint template={template} />,
+          CSF: <CSFTemplatePrint template={template} />,
         }[template.staticTemplate]
       }{" "}
       <NotePrintDisplay note={note} />

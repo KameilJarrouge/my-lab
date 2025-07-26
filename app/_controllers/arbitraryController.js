@@ -192,6 +192,11 @@ const StoolExamination = {
   "Meat fibers": [],
 };
 
+const CSF = {
+  Color: [],
+  Appearance: [],
+};
+
 function shouldBeSaved(text) {
   return text.trim() !== "";
 }
@@ -214,6 +219,7 @@ export async function updateArbitrary(data) {
       Serology: JSON.stringify(data.Serology),
       SemenAnalysis: JSON.stringify(data.SemenAnalysis),
       StoolExamination: JSON.stringify(data.StoolExamination),
+      CSF: JSON.stringify(data.CSF),
     },
     where: {
       id: data.id,
@@ -238,7 +244,8 @@ function getTemplate(key) {
       return JSON.stringify(SemenAnalysis);
     case "StoolExamination":
       return JSON.stringify(StoolExamination);
-
+    case "CSF":
+      return JSON.stringify(CSF);
     default:
       return "[]";
   }
@@ -254,6 +261,7 @@ async function createArbitrary() {
       Serology: getTemplate("Serology"),
       SemenAnalysis: getTemplate("SemenAnalysis"),
       StoolExamination: getTemplate("StoolExamination"),
+      CSF: getTemplate("CSF"),
       // Fill this with remaining fields once you add them
     },
   });
@@ -282,6 +290,7 @@ async function assertFieldsNotNull(object) {
 
   return result;
 }
+//------------------------------------------------------------------------------
 
 export async function getCSArbitrary() {
   let result = await prisma.arbitrary.findFirst({
@@ -354,6 +363,7 @@ export async function appendCSArbitrary(specimen, growthOf) {
     specimens
   );
 }
+//------------------------------------------------------------------------------
 
 export async function getUrinalysisArbitrary() {
   let result = await prisma.arbitrary.findFirst({
@@ -407,6 +417,7 @@ export async function appendUrinalysisArbitrary(urinalysis) {
 
   return await updateUrinalysisArbitrary(result.returned.id, urinalysisInDB);
 }
+//------------------------------------------------------------------------------
 
 export async function getStoolExamination() {
   let result = await prisma.arbitrary.findFirst({
@@ -450,6 +461,7 @@ export async function appendStoolExaminationArbitrary(stoolExamination) {
 
   return await updateStoolExaminationArbitrary(result.returned.id, stoolInDB);
 }
+//------------------------------------------------------------------------------
 
 export async function getSerologyArbitrary() {
   let result = await prisma.arbitrary.findFirst({
@@ -493,6 +505,7 @@ export async function appendSerologyArbitrary(serology) {
 
   return await updateSerologyArbitrary(result.returned.id, serologyInDB);
 }
+//------------------------------------------------------------------------------
 
 export async function getSemenAnalysisArbitrary() {
   let result = await prisma.arbitrary.findFirst({
@@ -539,4 +552,44 @@ export async function appendSemenAnalysisArbitrary(semenAnalysis) {
     result.returned.id,
     semenAnalysisInDB
   );
+}
+//------------------------------------------------------------------------------
+
+export async function getCSFArbitrary() {
+  let result = await prisma.arbitrary.findFirst({
+    select: {
+      id: true,
+      CSF: true,
+    },
+  });
+  if (!result) return successReturn(await createArbitrary());
+
+  return successReturn(await assertFieldsNotNull(result));
+}
+
+export async function updateCSFArbitrary(id, CSF) {
+  await prisma.arbitrary.update({
+    where: {
+      id: id,
+    },
+    data: {
+      CSF: JSON.stringify(CSF),
+    },
+  });
+  return successReturn();
+}
+
+export async function appendCSFArbitrary(CSF) {
+  let result = await getCSFArbitrary();
+  let CSFInDB = JSON.parse(result.returned.CSF);
+  let keys = Object.keys(CSF);
+  let field = undefined;
+  for (let i = 0; i < keys.length; i++) {
+    field = keys[i];
+    if (shouldBeSaved(CSF[field]) && !CSFInDB[field].includes(CSF[field])) {
+      CSFInDB[field].push(CSF[field]);
+    }
+  }
+
+  return await updateCSFArbitrary(result.returned.id, CSFInDB);
 }

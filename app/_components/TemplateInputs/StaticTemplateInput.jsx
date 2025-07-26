@@ -32,6 +32,7 @@ import AuthButton from "../Buttons/AuthButton";
 import getEmptyResult from "./Empty/emptyResult";
 import NoteModal from "../Modals/NoteModal";
 import { MdCheck } from "react-icons/md";
+import CSFTemplateInput from "./PresetTemplates/CSFTemplateInput";
 
 function StaticTemplateInput({
   test,
@@ -161,6 +162,19 @@ function StaticTemplateInput({
       case "Partial Thromboplastin Time (PTT)":
         if (!PTTValidation(resultMutable)) {
           shouldStop = true;
+        }
+        break;
+      case "CSF":
+        if (!normalValidation(resultMutable)) {
+          shouldStop = true;
+        } else {
+          // add arbitrary values to the db
+          await api.put(`/arbitrary/csf/append`, {
+            csf: {
+              Color: resultMutable.Color,
+              Appearance: resultMutable.Appearance,
+            },
+          });
         }
         break;
       default:
@@ -396,6 +410,15 @@ function StaticTemplateInput({
           ),
           "Blood Film": (
             <BloodFilmTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+            />
+          ),
+          CSF: (
+            <CSFTemplateInput
               handleSave={handleSave}
               handleRestore={handleRestore}
               isDirty={isDirty}
