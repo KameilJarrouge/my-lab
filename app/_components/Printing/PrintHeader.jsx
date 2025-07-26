@@ -1,11 +1,14 @@
 import React from "react";
 import Borders from "../Borders";
 import moment from "moment";
+import { getTitle } from "@/app/_lib/getTitle";
 function PrintHeader({
   location = "Location",
   patientName,
   patientSex,
+  patientAge,
   doctorsName,
+  overrideTitle,
   isDoctorShown,
   date,
 }) {
@@ -38,8 +41,9 @@ function PrintHeader({
             <div className="flex items-center gap-2 w-1/3 justify-start">
               <span className="font-semibold">الاسم :</span>
               <span>
-                {" "}
-                السيد{(patientSex !== "ذكر" ? "ة " : " ") + patientName}
+                {(overrideTitle || getTitle(patientSex, patientAge)) +
+                  " " +
+                  patientName}
               </span>
             </div>
             <div className="flex items-center gap-2 w-1/3 justify-center">

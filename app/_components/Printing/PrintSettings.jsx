@@ -3,10 +3,13 @@ import Title from "../Title";
 import ToggleInput from "../Inputs/ToggleInput";
 import { MdChevronLeft, MdInsertPageBreak } from "react-icons/md";
 import AuthButton from "../Buttons/AuthButton";
+import TextInput from "../Inputs/TextInput";
 
 function PrintSettings({
   isDoctorShown,
   setIsDoctorShown,
+  overrideTitle,
+  setOverrideTitle,
   testsGroupedByCategory,
   categoryIndicator,
   setCategoryIndicator,
@@ -20,12 +23,19 @@ function PrintSettings({
       {/* All of the categorized visitTest will be here */}
 
       <div className="flex flex-col w-full h-full items-center overflow-y-auto overflow-x-hidden gap-4 text-white px-4">
-        <div className="flex gap-4 w-[40ch]  " dir="rtl">
+        <div className="flex flex-col gap-2   " dir="rtl">
           <ToggleInput
             selectedValue={isDoctorShown}
             setSelectedValue={setIsDoctorShown}
             value1="إظهار الدكتور"
             value2="إخفاء الدكتور"
+          />
+          <TextInput
+            state={overrideTitle}
+            setState={setOverrideTitle}
+            title={"لقب المريض (اتركه فارغ لاستخدام الافتراضي)"}
+            withClear
+            onClear={() => setOverrideTitle("")}
           />
         </div>
         <div className="flex flex-col gap-1 w-full">

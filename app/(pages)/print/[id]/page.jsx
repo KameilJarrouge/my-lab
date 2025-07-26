@@ -19,6 +19,7 @@ function PrintPage({ params }) {
   const [testsGroupedByCategory, setTestsGroupedByCategory] = useState([]);
   const [pages, setPages] = useState([]);
   const [isDoctorShown, setIsDoctorShown] = useState("إظهار الدكتور");
+  const [overrideTitle, setOverrideTitle] = useState("");
   const [location, setLocation] = useState("");
   const [categoryIndicator, setCategoryIndicator] = useState(undefined);
   const router = useRouter();
@@ -505,6 +506,8 @@ function PrintPage({ params }) {
           <PrintSettings
             isDoctorShown={isDoctorShown}
             setIsDoctorShown={setIsDoctorShown}
+            overrideTitle={overrideTitle}
+            setOverrideTitle={setOverrideTitle}
             testsGroupedByCategory={testsGroupedByCategory}
             categoryIndicator={categoryIndicator}
             setCategoryIndicator={setCategoryIndicator}
@@ -535,6 +538,8 @@ function PrintPage({ params }) {
                 doctorsName={visit?.doctor.name}
                 patientName={visit?.Patient.name}
                 patientSex={visit?.Patient.sex}
+                patientAge={visit?.Patient.age}
+                overrideTitle={overrideTitle}
                 location={location}
               />
               <div className="mt-[60mm]">
@@ -643,7 +648,9 @@ function PrintPage({ params }) {
             date={visit?.date}
             doctorsName={visit?.doctor.name}
             patientName={visit?.Patient.name}
-            sex={visit?.Patient.sex}
+            patientSex={visit?.Patient.sex}
+            patientAge={visit?.Patient.age}
+            overrideTitle={overrideTitle}
             location={location}
           />
           <div className="mt-[60mm]">
