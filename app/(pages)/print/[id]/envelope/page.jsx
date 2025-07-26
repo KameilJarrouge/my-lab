@@ -114,6 +114,10 @@ function PrintEnvelope({ params }) {
             dir="rtl"
           >
             <div className="flex gap-2 items-center">
+              <span>الزميل الطبيب:</span>
+              <span>{visit?.doctor.name || ""}</span>
+            </div>
+            <div className="flex gap-2 items-center">
               <span>اسم المريض:</span>
               <span>
                 {/* {(overrideTitle ||
@@ -125,10 +129,6 @@ function PrintEnvelope({ params }) {
                   visit?.Patient.name || ""} */}
                 {visit?.Patient.name || ""}
               </span>
-            </div>
-            <div className="flex gap-2 items-center">
-              <span>الزميل الطبيب:</span>
-              <span>{visit?.doctor.name || ""}</span>
             </div>
           </div>
           {/* <div className="grid grid-cols-4 w-full">
