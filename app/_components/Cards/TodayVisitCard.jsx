@@ -2,7 +2,11 @@
 import React from "react";
 import AuthButton from "../Buttons/AuthButton";
 import Link from "next/link";
-import { FaFileInvoiceDollar } from "react-icons/fa6";
+import {
+  FaEnvelope,
+  FaFileInvoiceDollar,
+  FaRegEnvelope,
+} from "react-icons/fa6";
 import { MdPrint } from "react-icons/md";
 import { useRouter } from "next/navigation";
 
@@ -54,6 +58,20 @@ function TodayVisitCard({ visit }) {
           }}
         >
           <FaFileInvoiceDollar className="w-[1.3rem] h-fit" />
+        </button>
+        <button
+          className={` ${
+            visit.envelopePrinted ? "text-green-400" : "text-text"
+          } hover:text-green-400`}
+          data-tooltip-id="my-tooltip"
+          data-tooltip-content="طباعة الظرف"
+          onClick={() => {
+            if (visit.envelopePrinted)
+              if (!confirm("الظرف مطبوع من قبل! هل تريد المتابعة؟")) return;
+            router.push(`/print/${visit.id}/envelope`);
+          }}
+        >
+          <FaEnvelope className="w-[1.3rem] h-fit" />
         </button>
         <button
           className={` ${

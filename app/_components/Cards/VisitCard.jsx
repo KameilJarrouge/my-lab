@@ -6,7 +6,7 @@ import Link from "next/link";
 import numberWithCommas from "@/app/_lib/numberWithCommas";
 import TestRow from "../Rows/TestRow";
 import { useRouter } from "next/navigation";
-import { FaFileInvoiceDollar } from "react-icons/fa6";
+import { FaEnvelope, FaFileInvoiceDollar } from "react-icons/fa6";
 
 function VisitCard({ visit, alterBg = false }) {
   const router = useRouter();
@@ -70,6 +70,20 @@ function VisitCard({ visit, alterBg = false }) {
             }}
           >
             <FaFileInvoiceDollar className="w-[1.3rem] h-fit" />
+          </button>
+          <button
+            className={` ${
+              visit.envelopePrinted ? "text-green-400" : "text-text"
+            } hover:text-green-400`}
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content="طباعة الظرف"
+            onClick={() => {
+              if (visit.envelopePrinted)
+                if (!confirm("الظرف مطبوع من قبل! هل تريد المتابعة؟")) return;
+              router.push(`/print/${visit.id}/envelope`);
+            }}
+          >
+            <FaEnvelope className="w-[1.3rem] h-fit" />
           </button>
           <button
             className={` ${

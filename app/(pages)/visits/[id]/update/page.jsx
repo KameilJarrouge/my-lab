@@ -14,7 +14,7 @@ import React, { useEffect, useState } from "react";
 import DateTimePicker from "react-datetime-picker";
 import { MdClear, MdPrint } from "react-icons/md";
 import { toast } from "react-toastify";
-import { FaFileInvoiceDollar } from "react-icons/fa6";
+import { FaEnvelope, FaFileInvoiceDollar } from "react-icons/fa6";
 
 function UpdateVisit({ params }) {
   const [patient, setPatient] = useState({});
@@ -27,7 +27,11 @@ function UpdateVisit({ params }) {
   const [totalPrice, setTotalPrice] = useState(0);
   const [confirmIsOpen, setConfirmIsOpen] = useState(false);
   const [isAllCollapsed, setIsAllCollapsed] = useState(null);
-  const [printStatus, setPrintStatus] = useState({ test: false, bill: false });
+  const [printStatus, setPrintStatus] = useState({
+    test: false,
+    bill: false,
+    envelope: false,
+  });
   const router = useRouter();
 
   useEffect(() => {
@@ -134,6 +138,7 @@ function UpdateVisit({ params }) {
     setPrintStatus({
       test: result.data.result.testPrinted,
       bill: result.data.result.billPrinted,
+      envelope: result.data.result.envelopePrinted,
     });
     setPatient(result.data.result.Patient);
     setDoctor(result.data.result.doctor.name);
@@ -255,6 +260,20 @@ function UpdateVisit({ params }) {
               }}
             >
               <FaFileInvoiceDollar className="w-[1.3rem] h-fit" />
+            </button>
+            <button
+              className={` ${
+                printStatus.envelope ? "text-green-400" : "text-text"
+              } hover:text-green-400`}
+              data-tooltip-id="my-tooltip"
+              data-tooltip-content="طباعة الظرف"
+              onClick={() => {
+                if (printStatus.envelope)
+                  if (!confirm("الظرف مطبوع من قبل! هل تريد المتابعة؟")) return;
+                router.push(`/print/${params.id}/envelope`);
+              }}
+            >
+              <FaEnvelope className="w-[1.3rem] h-fit" />
             </button>
             <button
               className={` ${

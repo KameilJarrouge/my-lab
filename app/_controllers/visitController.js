@@ -85,6 +85,35 @@ export async function getVisitForInvoice(id) {
   return successReturn(result);
 }
 
+export async function getVisitForEnvelope(id) {
+  // mark the visit as envelope printed
+  await prisma.visit.update({
+    where: { id: id },
+    data: {
+      envelopePrinted: true,
+    },
+  });
+  const result = await prisma.visit.findUnique({
+    where: {
+      id: id,
+    },
+    include: {
+      doctor: true,
+      Patient: true,
+      tests: {
+        include: {
+          Test: {
+            include: {
+              category: true,
+            },
+          },
+        },
+      },
+    },
+  });
+  return successReturn(result);
+}
+
 export async function searchVisits(
   startDate,
   endDate,

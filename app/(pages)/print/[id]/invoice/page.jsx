@@ -1,9 +1,11 @@
 "use client";
 import AuthButton from "@/app/_components/Buttons/AuthButton";
+import TextInput from "@/app/_components/Inputs/TextInput";
 import LoadingComponent from "@/app/_components/LoadingComponent";
 import Page from "@/app/_components/Printing/Page";
 import PrintHeader from "@/app/_components/Printing/PrintHeader";
 import api from "@/app/_lib/api";
+import { getTitle } from "@/app/_lib/getTitle";
 import numberWithCommas from "@/app/_lib/numberWithCommas";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -12,6 +14,7 @@ function PrintInvoice({ params }) {
   const [isLoading, setIsLoading] = useState(true);
   const [location, setLocation] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
+  const [overrideTitle, setOverrideTitle] = useState("");
   const router = useRouter();
 
   const [visit, setVisit] = useState();
@@ -60,10 +63,19 @@ function PrintInvoice({ params }) {
           <LoadingComponent loading={isLoading} />
         </div>
       )}
-      <div className="fixed w-[40mm] top-[0rem] left-[calc((100%-220mm)/2-40mm)]   flex items-center justify-between bg-dark_primary p-2 rounded print:hidden">
-        <AuthButton title="إغلاق" onClick={() => router.back()} />
+      <div className="fixed w-[70mm] top-[0rem] left-0 aleft-[calc((100%-220mm)/2-40mm)] text-white  flex flex-col gap-2 items-center justify-between bg-dark_primary p-2 rounded print:hidden">
+        <div className="flex gap-4">
+          <AuthButton title="إغلاق" onClick={() => router.back()} />
 
-        <AuthButton title="طباعة" onClick={() => window.print()} />
+          <AuthButton title="طباعة" onClick={() => window.print()} />
+        </div>
+        <TextInput
+          state={overrideTitle}
+          setState={setOverrideTitle}
+          title={"لقب المريض (اتركه فارغ لاستخدام الافتراضي)"}
+          withClear
+          onClear={() => setOverrideTitle("")}
+        />
       </div>
       <Page pageNumber={1}>
         <PrintHeader
@@ -71,12 +83,16 @@ function PrintInvoice({ params }) {
           doctorsName={visit?.doctor.name || ""}
           patientName={visit?.Patient.name || ""}
           patientSex={visit?.Patient.sex || "ذكر"}
+          patientAge={visit?.Patient.age || 25}
+          overrideTitle={overrideTitle}
           location={location}
         />
         <p className="text-black mt-[60mm]">{`تم استلام مبلغ قدره ${numberWithCommas(
           totalPrice
         )} ل.س من  ${
-          ((visit?.Patient.sex || "ذكر") !== "ذكر" ? "السيدة " : "السيد ") +
+          (overrideTitle ||
+            getTitle(visit?.Patient.sex || "ذكر", visit?.Patient.age || 25)) +
+            " " +
             visit?.Patient.name || ""
         } مقابل التحاليل التالية: `}</p>
         <div className="w-full grid grid-cols-2 gap-x-4 gap-y-2 mt-2">
