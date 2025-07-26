@@ -109,7 +109,10 @@ function PrintEnvelope({ params }) {
       >
         <div className="w-[159mm] h-[126mm] bg-gray-200 print:bg-white flex flex-col gap-4 items-center relative">
           <EnvelopeHeader location={location} />
-          <div className="flex flex-col gap-2 w-fit " dir="rtl">
+          <div
+            className="flex flex-col gap-2 w-fit  translate-x-[25mm]"
+            dir="rtl"
+          >
             <div className="flex gap-2 items-center">
               <span>اسم المريض:</span>
               <span>
@@ -128,6 +131,12 @@ function PrintEnvelope({ params }) {
               <span>{visit?.doctor.name || ""}</span>
             </div>
           </div>
+          {/* <div className="grid grid-cols-4 w-full">
+            <div className="w-full bg-yellow-400 h-[2px]"></div>
+            <div className="w-full bg-red-400 h-[2px]"></div>
+            <div className="w-full bg-blue-400 h-[2px]"></div>
+            <div className="w-full bg-green-400 h-[2px]"></div>
+          </div> */}
         </div>
       </div>
     </div>
