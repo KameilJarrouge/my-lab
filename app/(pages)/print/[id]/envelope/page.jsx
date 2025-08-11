@@ -2,6 +2,7 @@
 import Borders from "@/app/_components/Borders";
 import AuthButton from "@/app/_components/Buttons/AuthButton";
 import TextInput from "@/app/_components/Inputs/TextInput";
+import ToggleInput from "@/app/_components/Inputs/ToggleInput";
 import LoadingComponent from "@/app/_components/LoadingComponent";
 import api from "@/app/_lib/api";
 import { getTitle } from "@/app/_lib/getTitle";
@@ -18,6 +19,7 @@ function PrintEnvelope({ params }) {
   // const [overrideTitle, setOverrideTitle] = useState("");
   const [position, setPosition] = useState("middle");
   const router = useRouter();
+  const [isDoctorShown, setIsDoctorShown] = useState("إظهار الدكتور");
 
   const [visit, setVisit] = useState();
 
@@ -103,6 +105,14 @@ function PrintEnvelope({ params }) {
             يسار
           </button>
         </div>
+        <div className="w-full">
+          <ToggleInput
+            selectedValue={isDoctorShown}
+            setSelectedValue={setIsDoctorShown}
+            value1="إظهار الدكتور"
+            value2="إخفاء الدكتور"
+          />
+        </div>
       </div>
       <div
         className={`w-[210mm] h-[297mm]  bg-white  flex ${positions[position]}`}
@@ -113,10 +123,15 @@ function PrintEnvelope({ params }) {
             className="flex flex-col gap-2 w-fit  translate-x-[25mm]"
             dir="rtl"
           >
-            <div className="flex gap-2 items-center">
+            <div
+              className={`flex gap-2 items-center ${
+                isDoctorShown === "إظهار الدكتور" ? "" : "invisible"
+              }`}
+            >
               <span>الزميل الطبيب:</span>
-              <span>{visit?.doctor.name || ""}</span>
+              <span>{(visit?.doctor.name || "") + " المحترم"}</span>
             </div>
+
             <div className="flex gap-2 items-center">
               <span>اسم المريض:</span>
               <span>
@@ -127,7 +142,8 @@ function PrintEnvelope({ params }) {
                   )) +
                   " " +
                   visit?.Patient.name || ""} */}
-                {visit?.Patient.name || ""}
+                {(visit?.Patient.name || "") +
+                  (visit?.Patient.sex === "ذكر" ? " المحترم" : " المحترمة")}
               </span>
             </div>
           </div>
