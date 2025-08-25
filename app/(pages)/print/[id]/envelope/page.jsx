@@ -9,7 +9,7 @@ import { getTitle } from "@/app/_lib/getTitle";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 const positions = {
-  right: "justify-start",
+  right: "",
   middle: "justify-center",
   left: "justify-end",
 };
@@ -20,7 +20,7 @@ function PrintEnvelope({ params }) {
   const [position, setPosition] = useState("middle");
   const router = useRouter();
   const [isDoctorShown, setIsDoctorShown] = useState("إظهار الدكتور");
-
+  const [useOldStyle, setUseOldStyle] = useState(false);
   const [visit, setVisit] = useState();
 
   const getVisit = async () => {
@@ -57,7 +57,7 @@ function PrintEnvelope({ params }) {
   }, []);
 
   return (
-    <div className="text-black">
+    <div className="text-black bg-white">
       {isLoading && (
         <div className="w-full h-[100vh] absolute top-0 left-0 z-50">
           <LoadingComponent loading={isLoading} />
@@ -76,7 +76,7 @@ function PrintEnvelope({ params }) {
           withClear
           onClear={() => setOverrideTitle("")}
         /> */}
-        <span>اختيار موقع الظرف</span>
+        {/* <span>اختيار موقع الظرف</span>
         <div className="flex gap-1 font-normal text-dark_text">
           <button
             className={`bg-input_background shadow-sm shadow-black p-1  ${
@@ -104,7 +104,7 @@ function PrintEnvelope({ params }) {
           >
             يسار
           </button>
-        </div>
+        </div> */}
         <div className="w-full">
           <ToggleInput
             selectedValue={isDoctorShown}
@@ -113,12 +113,20 @@ function PrintEnvelope({ params }) {
             value2="إخفاء الدكتور"
           />
         </div>
+        <div className="w-full">
+          <ToggleInput
+            selectedValue={useOldStyle ? "التنسيق القديم" : "التنسيق الجديد"}
+            setSelectedValue={(value) =>
+              setUseOldStyle(value === "التنسيق القديم")
+            }
+            value2="التنسيق القديم"
+            value1="التنسيق الجديد"
+          />
+        </div>
       </div>
-      <div
-        className={`w-[210mm] h-[297mm]  bg-white  flex ${positions[position]}`}
-      >
+      <div className={`w-[210mm] h-[250mm]  bg-white  flex justify-center`}>
         <div className="w-[159mm] h-[126mm] bg-gray-200 print:bg-white flex flex-col gap-4 items-center relative">
-          <EnvelopeHeader location={location} />
+          <EnvelopeHeader location={location} useOldStyle={useOldStyle} />
           <div
             className="flex flex-col gap-2 w-fit  translate-x-[25mm]"
             dir="rtl"
@@ -159,9 +167,15 @@ function PrintEnvelope({ params }) {
   );
 }
 
-function EnvelopeHeader({ location }) {
+function EnvelopeHeader({ location, useOldStyle }) {
   return (
-    <div className="h-[60mm]  w-[200mm] scale-[0.75] relative   -translate-y-[2.5mm]">
+    <div
+      className={`h-[60mm]  w-[200mm]  relative   ${
+        useOldStyle
+          ? "-translate-y-[2.5mm] scale-[0.75]"
+          : "-translate-y-[10mm] scale-[0.65]"
+      }`}
+    >
       <img
         src="/SCLA_BASHAR.png"
         className="absolute left-[5mm] top-0 w-[50mm] h-fit z-10 rounded-full bg-white"
