@@ -128,7 +128,9 @@ function PrintEnvelope({ params }) {
         <div className="w-[159mm] h-[126mm] bg-gray-200 print:bg-white flex flex-col gap-4 items-center relative">
           <EnvelopeHeader location={location} useOldStyle={useOldStyle} />
           <div
-            className="flex flex-col gap-2 w-fit  translate-x-[25mm]"
+            className={`flex flex-col gap-2 w-fit  translate-x-[25mm] ${
+              useOldStyle ? "" : "-translate-y-[7.5mm] "
+            }`}
             dir="rtl"
           >
             <div
