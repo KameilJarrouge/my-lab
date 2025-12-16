@@ -26,14 +26,22 @@ function ManualTemplatePrint({
       <span className="text-wrap text-start col-span-3 font-semibold">
         {testName}
       </span>
-      <span className="text-center col-span-2 shadow-sm shadow-black self-start">
+      <div className="text-center col-span-2 flex justify-center  gap-0.5 shadow-sm shadow-black self-start">
         {/* {Number(resultValue) +
           (Number(resultValue) >= Number(min)
             ? Number(resultValue) <= Number(max)
               ? ""
               : " H"
             : " L")} */}
-        {`${resultValue} ${
+        <div className="flex flex-col gap-0.5">
+          {resultValue
+            .split("\n")
+            .filter((line) => line !== "")
+            .map((line, index) => (
+              <span key={"result-" + index}>{line}</span>
+            ))}
+        </div>
+        {` ${
           isNaN(Number(min)) ||
           min === "" ||
           isNaN(Number(max)) ||
@@ -49,7 +57,7 @@ function ManualTemplatePrint({
                   : minTitle || ""
               }`
         }`}
-      </span>
+      </div>
       <div className="flex flex-col gap-1 items-center col-span-3">
         {referenceRange
           .split("\n")

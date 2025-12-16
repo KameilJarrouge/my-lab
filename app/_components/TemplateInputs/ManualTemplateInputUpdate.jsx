@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import api from "@/app/_lib/api";
 import { MdCheck } from "react-icons/md";
 import NoteUpdateModal from "../Modals/NoteUpdateModal";
+import TextAreaInput from "../Inputs/TextAreaInput";
 
 function ManualTemplateInputUpdate({
   visitTest,
@@ -55,7 +56,7 @@ function ManualTemplateInputUpdate({
 
     setIsLoading(true);
     const newTemplate = structuredClone(visitTest.template);
-    newTemplate.result = { value: Number(result) };
+    newTemplate.result = { value: result };
     const updateResult = await api.put(
       `/visit-tests/${visitTest.id}/update-template`,
       { template: JSON.stringify(newTemplate) }
@@ -94,14 +95,15 @@ function ManualTemplateInputUpdate({
       </div>
       <div className="w-full grid grid-cols-4 items-center gap-5 " dir="ltr">
         <div className="flex gap-2 items-center justify-center">
-          <div className="max-w-[10ch]">
-            <TextInput
+          <div className="max-w-[20ch]">
+            <TextAreaInput
+              rows={5}
               state={result}
               title={"Result"}
               withHoveringTitle={false}
               className={"p-1 bg-transparent border-b-dark_primary "}
               setState={(value) => {
-                if (!isNaN(value)) setResult(value);
+                setResult(value);
               }}
             />
           </div>

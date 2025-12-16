@@ -13,11 +13,16 @@ function ManualTemplateResult({ template, lastTest }) {
       <div className="w-full grid grid-cols-3 items-center gap-5 " dir="ltr">
         <div className="flex gap-2 items-center justify-center rounded bg-light_primary text-white">
           <div
-            className="max-w-[10ch] truncate"
+            className="max-w-[10ch] truncate flex flex-col gap-0.5"
             data-tooltip-id="my-tooltip"
             data-tooltip-content={template.result.value}
           >
-            <span>{template.result.value}</span>
+            {template.result.value
+              .split("\n")
+              .filter((line) => line !== "")
+              .map((line, index) => (
+                <span key={index}>{line}</span>
+              ))}
           </div>
           <span>
             {/* {Number(template.data.min) <= Number(template.result.value)

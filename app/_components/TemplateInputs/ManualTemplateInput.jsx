@@ -7,6 +7,7 @@ import { MdChevronRight } from "react-icons/md";
 import { toast } from "react-toastify";
 import NoteModal from "../Modals/NoteModal";
 import { MdCheck } from "react-icons/md";
+import TextAreaInput from "../Inputs/TextAreaInput";
 
 function ManualTemplateInput({ test, updateTemplate, lastTest }) {
   const [result, setResult] = useState(test.test.template.result?.value || "");
@@ -72,11 +73,12 @@ function ManualTemplateInput({ test, updateTemplate, lastTest }) {
       </div>
       <div className="w-full grid grid-cols-4 items-center gap-5 " dir="ltr">
         <div className="flex gap-2 items-center justify-center">
-          <div className="max-w-[10ch]">
-            <TextInput
+          <div className="max-w-[20ch]">
+            <TextAreaInput
               state={result}
               title={"Result"}
               withHoveringTitle={false}
+              rows={5}
               className={"p-1 bg-transparent border-b-dark_primary "}
               setState={(value) => {
                 setResult(value);
