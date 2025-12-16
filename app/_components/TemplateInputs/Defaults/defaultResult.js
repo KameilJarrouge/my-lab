@@ -183,6 +183,12 @@ const CSF = {
   Protein: "",
 };
 
+const HbElectrophoresis = {
+  HbA1: "",
+  HbA2: "",
+  HbF: "",
+};
+
 export default function getDefaultResult(staticTemplate) {
   switch (staticTemplate) {
     case "تحليل البول Urinalysis":
@@ -221,5 +227,7 @@ export default function getDefaultResult(staticTemplate) {
       return BloodFilm;
     case "CSF":
       return CSF;
+    case "Hb Electrophoresis":
+      return HbElectrophoresis;
   }
 }

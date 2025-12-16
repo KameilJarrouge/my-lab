@@ -25,6 +25,7 @@ import BloodFilmTemplate from "../Templates/PresetTemplates/BloodFilmTemplate";
 import HematologyCoagulationLeucocytesTemplate from "../Templates/PresetTemplates/HematologyCoagulationLeucocytesTemplate";
 import HematologyCoagulationErythrocytesTemplate from "../Templates/PresetTemplates/HematologyCoagulationErythrocytesTemplate";
 import CSFTemplate from "../Templates/PresetTemplates/CSFTemplate";
+import HbElectrophoresisTemplate from "../Templates/PresetTemplates/HbElectrophoresisTemplate";
 
 function CreateTestForm({ submit, categories = [] }) {
   const [name, setName] = useState("");
@@ -114,6 +115,7 @@ function CreateTestForm({ submit, categories = [] }) {
                   "Hemoglobin",
                   "Blood Film",
                   "CSF",
+                  "Hb Electrophoresis",
                 ]}
               />
             )}
@@ -150,6 +152,7 @@ function CreateTestForm({ submit, categories = [] }) {
                 Hemoglobin: <HemoglobinTemplate />,
                 "Blood Film": <BloodFilmTemplate />,
                 CSF: <CSFTemplate />,
+                "Hb Electrophoresis": <HbElectrophoresisTemplate />,
               }[staticTemplate]
             )}
           </div>

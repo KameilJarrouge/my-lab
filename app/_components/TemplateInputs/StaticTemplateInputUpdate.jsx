@@ -33,6 +33,7 @@ import getDefaultResult from "./Defaults/defaultResult";
 import { MdCheck } from "react-icons/md";
 import NoteUpdateModal from "../Modals/NoteUpdateModal";
 import CSFTemplateInput from "./PresetTemplates/CSFTemplateInput";
+import HbElectrophoresisInput from "./PresetTemplates/HbElectrophoresisInput";
 
 function StaticTemplateInputUpdate({
   visitTest,
@@ -425,6 +426,16 @@ function StaticTemplateInputUpdate({
           ),
           CSF: (
             <CSFTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+              saveButtonTitle="تعديل"
+            />
+          ),
+          "Hb Electrophoresis": (
+            <HbElectrophoresisInput
               handleSave={handleSave}
               handleRestore={handleRestore}
               isDirty={isDirty}

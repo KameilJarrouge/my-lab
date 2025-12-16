@@ -33,6 +33,7 @@ import getEmptyResult from "./Empty/emptyResult";
 import NoteModal from "../Modals/NoteModal";
 import { MdCheck } from "react-icons/md";
 import CSFTemplateInput from "./PresetTemplates/CSFTemplateInput";
+import HbElectrophoresisInput from "./PresetTemplates/HbElectrophoresisInput";
 
 function StaticTemplateInput({
   test,
@@ -419,6 +420,15 @@ function StaticTemplateInput({
           ),
           CSF: (
             <CSFTemplateInput
+              handleSave={handleSave}
+              handleRestore={handleRestore}
+              isDirty={isDirty}
+              result={result}
+              setResult={handleUpdateState}
+            />
+          ),
+          "Hb Electrophoresis": (
+            <HbElectrophoresisInput
               handleSave={handleSave}
               handleRestore={handleRestore}
               isDirty={isDirty}

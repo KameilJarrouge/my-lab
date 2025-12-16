@@ -18,6 +18,7 @@ import BloodFilmTemplateResult from "./PresetTemplates/BloodFilmTemplateResult";
 import HematologyCoagulationLeucocytesTemplateResult from "./PresetTemplates/HematologyCoagulationLeucocytesTemplateResult";
 import HematologyCoagulationErythrocytesTemplateResult from "./PresetTemplates/HematologyCoagulationErythrocytesTemplateResult";
 import CSFTemplateResult from "./PresetTemplates/CSFTemplateResult";
+import HbElectrophoresisResult from "./PresetTemplates/HbElectrophoresisResult";
 
 function StaticTemplateResult({ template }) {
   return (
@@ -60,6 +61,7 @@ function StaticTemplateResult({ template }) {
           Hemoglobin: <HemoglobinTemplateResult template={template} />,
           "Blood Film": <BloodFilmTemplateResult template={template} />,
           CSF: <CSFTemplateResult template={template} />,
+          "Hb Electrophoresis": <HbElectrophoresisResult template={template} />,
         }[template.staticTemplate]
       }
     </div>
