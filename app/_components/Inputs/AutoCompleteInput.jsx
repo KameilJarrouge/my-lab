@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TextInput from "./TextInput";
+import TextAreaInput from "./TextAreaInput";
 
 function AutoCompleteInput({
   title,
@@ -8,6 +9,7 @@ function AutoCompleteInput({
   options,
   withHoveringTitle = true,
   id = "unique",
+  useTextArea = false,
   ...props
 }) {
   const [isAutoCompleteShowing, setIsAutoCompleteShowing] = useState(false);
@@ -27,25 +29,50 @@ function AutoCompleteInput({
   }, []);
   return (
     <div className="relative" id={id}>
-      <TextInput
-        id={id + "-input"}
-        withHoveringTitle={withHoveringTitle}
-        setState={setState}
-        state={state}
-        title={title}
-        onFocus={() => setIsAutoCompleteShowing(true)}
-        // onBlur={() => {
-        //   setTimeout(() => {
-        //     setIsAutoCompleteShowing(false);
-        //   }, 100);
-        // }}
-        onKeyDown={(e) => {
-          if (e.key === "Tab") setIsAutoCompleteShowing(false);
-        }}
-        {...props}
-      />
+      {useTextArea ? (
+        <TextAreaInput
+          id={id + "-input"}
+          withHoveringTitle={withHoveringTitle}
+          setState={setState}
+          state={state}
+          title={title}
+          rows={3}
+          onFocus={() => setIsAutoCompleteShowing(true)}
+          // onBlur={() => {
+          //   setTimeout(() => {
+          //     setIsAutoCompleteShowing(false);
+          //   }, 100);
+          // }}
+          onKeyDown={(e) => {
+            if (e.key === "Tab") setIsAutoCompleteShowing(false);
+          }}
+          {...props}
+        />
+      ) : (
+        <TextInput
+          id={id + "-input"}
+          withHoveringTitle={withHoveringTitle}
+          setState={setState}
+          state={state}
+          title={title}
+          onFocus={() => setIsAutoCompleteShowing(true)}
+          // onBlur={() => {
+          //   setTimeout(() => {
+          //     setIsAutoCompleteShowing(false);
+          //   }, 100);
+          // }}
+          onKeyDown={(e) => {
+            if (e.key === "Tab") setIsAutoCompleteShowing(false);
+          }}
+          {...props}
+        />
+      )}
       {isAutoCompleteShowing && (
-        <div className="absolute top-[calc(25px+1rem)] z-40 left-0 w-full bg-primary rounded shadow shadow-black  flex flex-col gap-2 max-h-[15rem] h-fit p-2 overflow-y-auto overflow-x-hidden">
+        <div
+          className={`absolute ${
+            useTextArea ? "top-[calc(25px+3rem)]" : "top-[calc(25px+1rem)]"
+          } z-40 left-0 w-full bg-primary rounded shadow shadow-black  flex flex-col gap-2 max-h-[13rem] h-fit p-2 overflow-y-auto overflow-x-hidden`}
+        >
           {options
             .filter((option) => {
               return option.toLowerCase().includes(state.toLowerCase());

@@ -7,9 +7,14 @@ function StaticTestHeader({ id, categoryName = "Test" }) {
       id={"static-test-header-" + id}
     >
       {/* Category Title */}
-      <span className="w-fit min-w-[50%] border-b text-center font-bold text-lg shadow shadow-black mb-[0.5rem] px-1">
-        {categoryName}
-      </span>
+      <div className="w-fit min-w-[50%] flex flex-col gap-0.5 border-b text-center font-bold text-lg shadow shadow-black mb-[0.5rem] px-1">
+        {categoryName
+          .split("\n")
+          .filter((line) => line !== "")
+          .map((line, index) => (
+            <span key={index}>{line}</span>
+          ))}
+      </div>
     </div>
   );
 }

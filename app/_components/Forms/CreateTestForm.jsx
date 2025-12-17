@@ -60,7 +60,7 @@ function CreateTestForm({ submit, categories = [] }) {
       <div className="flex flex-col items-center gap-8 w-fit min-w-[20rem] py-2 px-4 h-full bg-dark_primary rounded">
         <Title>تحليل جديد</Title>
         <div className="flex flex-col gap-6 h-full justify-between ">
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-4">
             <TextAreaInput
               state={name}
               setState={setName}
@@ -79,6 +79,7 @@ function CreateTestForm({ submit, categories = [] }) {
               setState={setCategory}
               title={"التصنيف"}
               options={categories.map((category) => category.name)}
+              useTextArea
             />
           </div>
           <AuthButton title="إضافة" onClick={handleSubmit} />
