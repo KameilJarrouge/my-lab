@@ -23,9 +23,14 @@ function ManualTemplatePrint({
       className="text-black grid grid-cols-12 w-full text-sm h-fit border-b border-dashed border-gray-400 pb-1 pt-[5px]"
       dir="ltr"
     >
-      <span className="text-wrap text-start col-span-3 font-semibold">
-        {testName}
-      </span>
+      <div className="text-wrap text-start col-span-3 font-semibold flex flex-col gap-0.5">
+        {testName
+          .split("\n")
+          .filter((line) => line !== "")
+          .map((line, index) => (
+            <span key={index}>{line}</span>
+          ))}
+      </div>
       <div className="text-center col-span-2 flex justify-center  gap-0.5 shadow-sm shadow-black self-start">
         {/* {Number(resultValue) +
           (Number(resultValue) >= Number(min)

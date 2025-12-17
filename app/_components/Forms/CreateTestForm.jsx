@@ -26,6 +26,7 @@ import HematologyCoagulationLeucocytesTemplate from "../Templates/PresetTemplate
 import HematologyCoagulationErythrocytesTemplate from "../Templates/PresetTemplates/HematologyCoagulationErythrocytesTemplate";
 import CSFTemplate from "../Templates/PresetTemplates/CSFTemplate";
 import HbElectrophoresisTemplate from "../Templates/PresetTemplates/HbElectrophoresisTemplate";
+import TextAreaInput from "../Inputs/TextAreaInput";
 
 function CreateTestForm({ submit, categories = [] }) {
   const [name, setName] = useState("");
@@ -60,7 +61,12 @@ function CreateTestForm({ submit, categories = [] }) {
         <Title>تحليل جديد</Title>
         <div className="flex flex-col gap-6 h-full justify-between ">
           <div className="flex flex-col gap-6">
-            <TextInput state={name} setState={setName} title={"اسم التحليل"} />
+            <TextAreaInput
+              state={name}
+              setState={setName}
+              title={"اسم التحليل"}
+              rows={3}
+            />
             <div className="w-full flex gap-2 items-center">
               <TextInput
                 title={"عدد الوحدات"}
