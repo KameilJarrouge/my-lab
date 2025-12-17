@@ -120,7 +120,26 @@ function CultureAndSensitivityTemplateInput({
           )}
         </div>
         {!result.isPositive ? (
-          <div className="w-[80%] place-self-center ">
+          <div className="w-[80%] place-self-center flex flex-col gap-2">
+            <div className="flex gap-4 w-full">
+              <span className="w-[13ch] ">Specimen:</span>
+              <div
+                className={`w-[40ch] shadow shadow-black bg-dark_primary  border ${
+                  shouldWarn && !result.specimen
+                    ? "border-warning"
+                    : " border-transparent"
+                }  text-center rounded`}
+              >
+                <AutoCompleteInput
+                  state={result.specimen}
+                  setState={(value) => setResult("specimen", value, false)}
+                  options={specimenOptions}
+                  withHoveringTitle={false}
+                  id="specimen"
+                  className="px-1"
+                />
+              </div>
+            </div>
             NO GROWTH OF BACTERIA AFTER 48 hrs OF INCUBATION
           </div>
         ) : (

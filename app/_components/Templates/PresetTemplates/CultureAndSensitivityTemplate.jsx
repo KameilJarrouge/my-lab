@@ -52,7 +52,13 @@ function CultureAndSensitivityTemplate() {
           </div>
         </div>
         {!isPositive ? (
-          <div className="w-[80%] place-self-center ">
+          <div className="w-[80%] place-self-center flex flex-col gap-2  ">
+            <div className="flex gap-4 w-full">
+              <span className="w-[13ch] text-start">Specimen:</span>
+              <span className="w-[calc(100%-13ch)] shadow shadow-black bg-light_primary text-center rounded">
+                ?
+              </span>
+            </div>
             NO GROWTH OF BACTERIA AFTER 48 hrs OF INCUBATION
           </div>
         ) : (

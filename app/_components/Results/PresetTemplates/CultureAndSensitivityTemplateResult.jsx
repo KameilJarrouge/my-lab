@@ -12,7 +12,15 @@ function CultureAndSensitivityTemplateResult({ template }) {
         </div>
       </div>
       {!template.result.isPositive ? (
-        <div className="w-[80%] place-self-center ">
+        <div className="w-[80%] place-self-center flex flex-col gap-2">
+          <div className="flex gap-4 w-full">
+            <span className="w-[13ch] ">Specimen:</span>
+            <div
+              className={`w-[40ch] shadow shadow-black bg-dark_primary  text-center rounded`}
+            >
+              {template.result.specimen}
+            </div>
+          </div>
           NO GROWTH OF BACTERIA AFTER 48 hrs OF INCUBATION
         </div>
       ) : (
