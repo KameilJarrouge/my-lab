@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# My Lab
 
-## Getting Started
+Laboratory management system for patient record-keeping and automated report/invoice generation.
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Laboratory management system built for a medical facility to streamline patient report generation and data management. Processes 450+ patient reports monthly, reducing report generation time from 10 minutes to under 2 minutes per patient (80% time reduction).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Features standardized templates for common medical tests with customizable printing options and automated invoice generation.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Frontend:** Next.js, React, JavaScript, Tailwind CSS
+- **Backend:** Node.js, Prisma ORM
+- **Database:** SQLite
+- **Deployment:** Custom deployment scripts with Git-based updates
 
-## Learn More
+## Key Features
 
-To learn more about Next.js, take a look at the following resources:
+- **Automated report generation** with customizable templates for common lab tests
+- **Invoice and envelope generation** with standardized formatting
+- **Git-based deployment system** with custom scripts enabling non-technical users to pull updates, run migrations, and rebuild the application independently
+- **Real-time data validation** for patient records and test results
+- **Search and filtering** for quick patient lookup
+- **Print-optimized layouts** for professional report output
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Screenshots
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+**Landing Page**
 
-## Deploy on Vercel
+<img src="images/landingPage.png" alt="My Lab landing page showing daily visits and patient search" width="100%">
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**New Visit Page**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<img src="images/newVisit.png" alt="My Lab new visit page with test selection and data entry" width="100%">
+
+## Status
+
+In active production use since November 2024. Currently processing 450+ patient reports monthly.
+
+## Deployment
+
+This application runs on local infrastructure. A custom deployment pipeline was built using shell scripts that:
+
+1. Fetch latest changes from GitHub
+2. Install dependencies
+3. Run database migrations
+4. Build the Next.js application
+
+This allows non-technical staff to update the system independently without developer intervention.
+
+## License
+
+MIT License
